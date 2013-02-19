@@ -1,0 +1,39 @@
+<html>
+<head>
+
+	<title></title>
+
+	<style type="text/css">
+
+		#holder {
+			width:500px;
+			height:400px;
+			background:#abcdef;
+		}
+
+		.component {
+			margin-left:20px;
+			margin-top:20px;
+			width:460px;
+			height:180px;
+			background:#ccc;
+		}
+
+	</style>
+	
+</head>
+<body>
+
+	<div id="holder"></div>
+
+	<script data-main="main.js" src="../../libs/require.js"></script>
+	
+	<script type="text/template" id="component1-template">
+		<form>
+			<input type="radio" name="color" value="blue">Blue<br>
+			<input type="radio" name="color" value="red">Red
+		</form>
+	</script>
+
+</body>
+</html>

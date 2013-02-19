@@ -1,0 +1,41 @@
+{
+    "bitwise"       : true,
+    "curly"         : true,
+    "eqeqeq"        : true,
+    "forin"         : true,
+    "immed"         : true,
+    "latedef"       : true,
+    "newcap"        : true,
+    "noarg"         : true,
+    "noempty"       : true,
+    "nonew"         : true,
+    "regexp"        : true,
+    "undef"         : true,
+    "strict"        : true,
+    "trailing"      : true,
+
+    "worker"        : true,
+    "browser"       : true,     
+    "devel"         : false,
+    "node"          : true,
+    "yui"           : true,
+    
+    "predef"        : [
+        "console",
+        "require",
+        "define",
+        "$",
+        "alert",
+        "Backbone",
+        "_",
+        "extend",
+        "Rebar",
+        "Controller",
+        "View",
+        "PersistenceModel",
+        "Model",
+        "CompositeView",
+        "DependencyRouter",
+        "localStorage"
+    ]
+}
