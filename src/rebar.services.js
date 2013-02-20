@@ -1,42 +1,17 @@
+/**
+ * Static class with boilerplate functionality for jquery ajax requests
+ * @class Services
+ * @static
+ */
 var Services = Rebar.Services = {
-
-    /**
-     * We're storing these here because for some reason json files are cached
-     * on the phonegap device implementations
-     * @method getServices
-     */
-    getServices: function() {
-        return [{
-            id: "bootstrap",
-            endpoint: "assets/data/bootstrap_data.json"
-        }];
-    },
-
-    /**
-     * Returns the url for the passed service id
-     * @method getServiceEndpointById
-     */
-    getServiceEndpointById: function(id) {
-
-        var endpoint;
-
-        // find the service endpoint
-        _.each(this.getServices(), function(service) {
-            if(service.id === id) {
-                endpoint = "/" + service.endpoint;
-            }
-        });
-
-        // if nothing gets caught
-        return endpoint;
-
-    },
 
     /**
      * jQuery wrapper for ajax() calls
      * @method request
      * @param {Object} options
      * @param {Object} context
+     * @private
+     * @for Services
      */
     request: function(type, options, context) {
 
@@ -88,6 +63,8 @@ var Services = Rebar.Services = {
      * a useable options object for the request
      * @method parseOptions
      * @param {Object} options
+     * @private
+     * @for Services
      */
     parseOptions: function(options) {
         return {
@@ -103,6 +80,8 @@ var Services = Rebar.Services = {
      * Processes the error object returned by the http request
      * @method parseError
      * @param {Object} error
+     * @private
+     * @for Services
      */
     parseError: function(error) {
         var temp = {};
@@ -123,6 +102,8 @@ var Services = Rebar.Services = {
      * @param {Object} context
      * @param {Function} callback
      * @param {Object} response
+     * @private
+     * @for Services
      */
     handleSuccess: function(context, callback, response) {
         callback.call(context, response);
@@ -134,6 +115,8 @@ var Services = Rebar.Services = {
      * @param {Object} context
      * @param {Function} callback
      * @param {Object} response
+     * @private
+     * @for Services
      */
     handleError: function(context, callback, response) {
         callback.call(context, this.parseError(response));
@@ -144,6 +127,7 @@ var Services = Rebar.Services = {
      * @method get
      * @param {Object} options
      * @param {Object} context
+     * @for Services
      */
     get: function(options, context) {
         this.request("GET", options, context);
@@ -154,6 +138,7 @@ var Services = Rebar.Services = {
      * @method post
      * @param {Object} options
      * @param {Object} context
+     * @for Services
      */
     post: function(options, context) {
         this.request("POST", options, context);
@@ -164,6 +149,7 @@ var Services = Rebar.Services = {
      * @method put
      * @param {Object} options
      * @param {Object} context
+     * @for Services
      */
     put: function(options, context) {
         this.request("PUT", options, context);
@@ -174,6 +160,7 @@ var Services = Rebar.Services = {
      * @method delete
      * @param {Object} options
      * @param {Object} context
+     * @for Services
      */
     delete: function(options, context) {
         this.request("DELETE", options, context);

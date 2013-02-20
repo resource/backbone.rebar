@@ -1,136 +1,199 @@
 /**
+ * The application shell provides a simple default architecture consisting of a model,
+ * view and controller. The application is a singleton class in that there can only be one.
+ * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events) 
+ * for more detailed information.
  * @class Application
+ * @constructor
+ * @extends Backbone.Events
+ * @example
+ *	var appConfig = {
+ *		...	
+ *	};
+ *	var app = new Backbone.Rebar.Application(appConfig);
+ *	app.on("applicationStateChange",function(state){
+ *		...
+ *	});
+ *	app.startup();
  */
 var Application = Rebar.Application = function(options) {
-
 	// singleton functionality
-	if(Application.instance) {
+	if(Application.instance && !options._bypassSingleton) {
 		return Application.instance;
 	}
-	Application.instance = this;
-
-	// apply
-	this.options = options;
-
-	// create out application controller
-	this.controller = new Controller();
-
-	var dr = this.options.dependencyRouting;
-	if(_.isUndefined(dr) || (_.isBoolean(dr) && dr)) {
-		// create our global dependecy router
-		this.router = new DependencyRouter({
-			landing: options.landing ? options.landing : "",
-			controller: this.controller
-		});
+	if(options && options.logLevel) {
+		Application.logLevel = options.logLevel;	
+	} else {
+		Application.logLevel = Application.LogLevel.None;	
 	}
-
-	// create out application model as a persistence model
-	this.model = new PersistenceModel();
-
-	// create our view that all other views within the application will live
-	this.view = new CompositeView({
-		el: $("#application")
-	});
+	Application.instance = this;
+	this.options = options;
+	this.state = Application.States.Initialized;
 };
 
-Application.prototype = Object.create({}, {
+/**
+ * Available loglevels used in various logging tasks throughout the applicaiton.
+ * @property LogLevel
+ * @type Object
+ * @for Application
+ * @final
+ */
+Application.LogLevel = {
+	None:0,
+	Error:10,
+	Info:20,
+	Verbose:30
+};
+
+/**
+ * Available states for the application used to describe the current state of the applicaiton.
+ * @property States
+ * @type Object
+ * @for Application
+ * @final
+ */
+Application.States = {
+	Default:0,
+	Initialized:1,
+	Started:3,
+	Faulted:2
+};
+
+Application.prototype = Object.create(Backbone.Events, {
 
 	/**
-	 *
-	 * @property controller
-	 * @type Rebar.Controller
+	 * The current state value.
+	 * @property _state
+	 * @type Integer
 	 * @for Application
+	 * @private
 	 */
-	controller: {
-		value: undefined,
+	_state: {
+		value: Application.States.Default,
 		writable: true
 	},
 
 	/**
-	 *
-	 * @property model
-	 * @type Backbone.Model
+	 * Getters and setters for the current state value.
+	 * @property state
+	 * @type Integer
 	 * @for Application
 	 */
-	model: {
-		value: undefined,
-		writable: true
+	state: {
+		get: function(){
+			return this._state;
+		},
+		set:function(state){
+			if(this._state === state) { return; }
+			this._state = state;
+			if(this._state === Application.States.Initialized) {
+				this.createModel();
+				this.createView();
+				this.createRouter();
+				this.initialize(this.options);
+			}
+			this.trigger("applicationStateDidChange",this.state);
+		}
 	},
 
 	/**
-	 *
-	 * @property view
-	 * @type Rebar.CompositeView
+	 * Reference to the services object.
+	 * @property services
+	 * @type Services
 	 * @for Application
 	 */
-	view: {
-		value: undefined,
-		writable: true
-	},
-
-	/**
-	 *
-	 * @property router
-	 * @type Backbone.Router
-	 * @for Application
-	 */
-	router: {
-		value: undefined,
-		writable: true
-	},
-
 	services: {
-		value: _.clone(Services),
+		value: Services,
 		writable: false
 	},
 
 	/**
-	 *
-	 * @method start
-	 * @type Rebar.Controller
+	 * Initialization functionality for extended Applicaiton instances.
+	 * @method initialize
 	 * @for Application
 	 */
-	start: {
-		value: function(callback, context) {
+	initialize:{
+		value:function(options){},
+		writable:true
+	},
+
+	/**
+	 * Create a model instance for the Applicaiton instance.
+	 * @method createModel
+	 * @for Application
+	 */
+	createModel: {
+		value: function() {
+			if(!this.model) {
+				this.model = new Backbone.Model();
+			}
+		},
+		writable: true
+	},
+
+	/**
+	 * Create a view instance for the Applicaiton instance.
+	 * @method createView
+	 * @for Application
+	 */
+	createView: {
+		value: function() {
+			if(!this.view) {
+				this.view = new CompositeView({ 
+					el: $("#application") 
+				});
+			}
+		},
+		writable: true
+	},
+
+	/**
+	 * Create a dependency router instance for the Applicaiton instance.
+	 * @method createRouter
+	 * @for Application
+	 */
+	createRouter: {
+		value: function() {
+			if(!this.router) {
+				this.router = new DependencyRouter({
+					landing: this.options.landing ? this.options.landing : "",
+					dispatcher:this
+				});
+				this.router.on("routeDidChange",function(route){
+					this.trigger("routeDidChange",route);
+				},this);
+			}
+		},
+		writable: true
+	},
+
+	/**
+	 * This method kicks off Backbone's history managment as well as loads the bootstrap data
+	 * if a reference was passed through the contructors options argument.
+	 * @method startup
+	 * @for Application
+	 */
+	startup: {
+		value: function() {
 			if(this.options.bootstrap) {
 				this.services.get({
 					url: this.options.bootstrap,
 					success: function(response) {
 						this.model.set("bootstrap", response);
-						this.build(callback, context);
+						Backbone.history.start({ pushState: false });
+						this.state = Application.States.Started;
 					},
 					error: function(error) {
-						console.log(error);
+						this.error = error;
+						this.state = Application.States.Faulted;
 					}
 				}, this);
 			} else {
-				this.build(callback, context);
-			}
-		}
-	},
-
-	/**
-	 *
-	 * @method build
-	 * @type Rebar.Controller
-	 * @for Application
-	 */
-	build: {
-		value: function(callback, context) {
-
-			// start Backbone.history
-			Backbone.history.start({
-				pushState: false
-			});
-
-			// throw callback
-			if(_.isFunction(callback)) {
-				if(context) {
-					callback.call(context);
-				} else {
-					callback();
-				}
+				Backbone.history.start({ pushState: false });
+				this.state = Application.States.Started;
 			}
 		}
 	}
 });
+
+Application.extend = extend;

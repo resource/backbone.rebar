@@ -1,6 +1,20 @@
 /**
+ * Most of the time Backbone views need to be able to contain other views. When you do this you run
+ * into situations where you need to add the view then render and when you go to destroy the parent 
+ * view, you want to make sure you properly dispose of its children. 
+ * The composite view makes managing child parent relationships a bit easier by adding recursive destroy
+ * functionality as well as making it possible to quickly add and remove child views.
  * @class CompositeView
  * @extends View
+ * @constructor
+ * @example
+ *	var composite = new Backbone.Rebar.CompositeView({
+ *		...
+ *	});
+ *	var view = new Backbone.Rebar.View({
+ *		...
+ *	});
+ *	composite.addSubView(view);
  */
 var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 
@@ -17,23 +31,33 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	/**
 	 * Adds a sub view to a container BaseView
 	 * @method addSubView
-	 * @param {BaseView} view
+	 * @param {View} view
 	 */
 	addSubView: function(view) {
-		// only add views that extend Backbone.BaseView (our extention of the framework)
+		// add event listeners for view
+		view.on("viewDidDestroy",function(view){
+			this.removeSubView(view);
+		},this);
+		// add sub view 
 		this.subViews.push(view);
-		view.parent = this;
+		// render subview
 		var delegate = this;
-		// @TODO: not sure if I should be calling the render functionality here or not
 		view.render(function(el) {
-			delegate.$el.append(el);
+			var markup = el ? el : view.el;
+			delegate.$el.append(markup);
 		});
+		// @TODO - possibly trigger view has been added
 	},
 
-	addSubViews:function(views) {
-		_.each(views,function(view){
+	/**
+	 * Adds an array of sub views to a container BaseView
+	 * @method addSubViews
+	 * @param {Array} views Array of subviews
+	 */
+	addSubViews: function(views) {
+		_.each(views, function(view) {
 			this.addSubView(view);
-		},this);
+		}, this);
 	},
 
 	/**
@@ -58,10 +82,10 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	 * Removes all sub views from view
 	 * @method removeAllSubViews
 	 */
-	removeAllSubViews:function(){
-		_.each(this.subViews,function(view){
+	removeAllSubViews: function() {
+		_.each(this.subViews, function(view) {
 			this.removeSubView(view);
-		},this);
+		}, this);
 	},
 
 	/**
@@ -70,18 +94,13 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	 * removing any event listeners that may have been added to the subViews array.
 	 * @method destroy
 	 */
-	destroy: function(force) {
-
-		if(!_.isUndefined(this.parent) && !_.isBoolean(force)) {
-			this.parent.removeSubView(this);
-			return false;
-		}
+	destroy: function() {
 
 		// recursively destroy sub views
 		if(this.subViews.length > 0) {
 			_.each(this.subViews, function(view) {
 				this.destroySubView(view);
-			},this);
+			}, this);
 		}
 
 		this.subViews = [];
@@ -95,12 +114,11 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	 * @method destroySubView
 	 * @param {View} view
 	 */
-	destroySubView:function(view){
+	destroySubView: function(view) {
 		if(_.isFunction(view.destroy)) {
 			view.destroy(true);
 		} else {
-			if(!_.isUndefined(view.cid)){
-				console.warn("Warning: No 'destroy' method found on 'view' " + view.cid + ". Falling back to Rebar.View.prototype.");
+			if(!_.isUndefined(view.cid)) {
 				View.prototype.destroy.call(view);
 			}
 		}

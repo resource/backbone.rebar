@@ -1,9 +1,25 @@
 /**
- * Handles all pre and post routing functionality
+ * Handles all pre and post routing functionality. This is the default router when you initialize
+ * an `Application` instance. Once initialized any time the browser's anchor location changes this
+ * class notifies the rest of the application of the new directory, file, view and anchor to use.
+ * To use simply listen to the application's `routeDidChange` or the router's `routeDidChange` event firing
+ * and then implement the AMD loader that makes the most sense (for your project) to use.
  * @class DependencyRouter
- * @constructor
  * @extends Backbone.Router
- * @main
+ * @constructor
+ * @example
+ *	// requirejs example
+ *	router.on("routeDidChange", function(route){
+ *		var mReq = require([resource], function(a) {
+ *			var Constructor = a[view];
+ *			var v = new Constructor({
+ *				routeData: data
+ *			});
+ *			delegate.addSubView(v);
+ *		}, function(e) {
+ *			console.log("Error: " + e);
+ *		});
+ *	});
  */
 var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 
@@ -12,7 +28,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * on the root url of the applicaiton.
 	 * @property landing
 	 * @type {String}
-	 * @default
+	 * @default ""
 	 */
 	landing: "",
 
@@ -22,6 +38,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @property routes
 	 * @type {Object} route key value pairs
 	 * @default { "": "handleNoHash", "*splat": "handleAll" }
+	 * @private
 	 */
 	routes: {
 		"": "handleNoHash",
@@ -34,6 +51,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * the handleAll and handleNoHash methods referenced in the routes object.
 	 * @property staticRoutes
 	 * @type {Object} static route key value pairs
+	 * @private
 	 */
 	staticRoutes: {},
 
@@ -41,14 +59,12 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * Router init functionality
 	 * @method initialize
 	 * @param {Object} options
+	 * @private
 	 */
 	initialize: function(options) {
 		if(!_.isUndefined(options)) {
 			if(!_.isUndefined(options.landing)) {
 				this.landing = options.landing;
-			}
-			if(!_.isUndefined(options.controller)) {
-				this.controller = options.controller;
 			}
 		}
 	},
@@ -56,6 +72,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	/**
 	 * Reroute the page to the page referenced as landing
 	 * @method handleNoHash
+	 * @private
 	 */
 	handleNoHash: function() {
 		this.handleAll(this.landing + Backbone.history.location.search);
@@ -64,6 +81,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	/**
 	 * Handles every route that doesnt match any of the previous matches
 	 * @method handleAll
+	 * @private
 	 */
 	handleAll: function(route) {
 
@@ -84,7 +102,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 
 		// now that we're sure that the current route is not one of the static routes set
 		// then we'll move forward with the dependency routing functionality
-		this.controller.trigger("routeDidChange",pRoute);
+		this.trigger("routeDidChange", pRoute);
 		this.pRoute = pRoute;
 
 	},
@@ -93,6 +111,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * Parses a passed route string and determains directory, file, view and data
 	 * @method parseRoute
 	 * @param {String} route The current Backbone.history fragment
+	 * @private
 	 */
 	parseRoute: function(route) {
 
@@ -146,6 +165,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * Parse the query string provides and returns key value pair object
 	 * @method parseRouteData
 	 * @param {String} query
+	 * @private
 	 */
 	parseRouteData: function(query) {
 		if(_.isUndefined(query)) {
@@ -164,6 +184,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * Takes a passed route object and determains a file location
 	 * @method getFileLocation
 	 * @param {Object} route Object formed in parseRoute method
+	 * @private
 	 */
 	getFileLocation: function(route) {
 		if(_.isUndefined(route.directory) || route.directory === "") {
@@ -195,16 +216,5 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 		for(var route in routes) {
 			this.staticRoutes[route] = routes[route];
 		}
-	},
-
-	/**
-	 * Functionality used when a reqirejs module causes an error. This essentially
-	 * just navigates the user to the 404 module and does not add the navigation to the
-	 * browsers history stack.
-	 * @method handleModuleLoadError
-	 */
-	handleModuleLoadError: function() {
-		console.log("error");
 	}
-
 });

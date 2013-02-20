@@ -33,7 +33,7 @@ require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, 
 
 	var application;
 	var appConfig = {
-		landing: "",
+		landing: "View1",
 		bootstrap: "bootstrap.json",
 		dependencyRouting:true
 	};

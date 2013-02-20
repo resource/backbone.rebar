@@ -2,20 +2,55 @@ module.exports = function(grunt) {
 
     "use strict";
 
-    var NAME = "JavaScript Web Application Starterkit";
-    var DESCRIPTION = "A light JavaScript application structure that keeps extendibility and best practices in mind.";
-    var URL = "https://github.com/mcgaryes/javascript-webapp-starterkit";
+    var NAME = "Backbone.Rebar";
+    var DESCRIPTION = "Adding a little bit more reinforcement to an already spectacular framework.";
+    var URL = "https://github.com/mcgaryes/rebar";
     var VERSION = "0.4.0";
+    var BANNER = "/**\n * " + NAME + " v" + VERSION + "\n * " + DESCRIPTION + "\n * " + URL + "\n */";
 
     // config
     grunt.initConfig({
         lint: {
             files: ['grunt.js', '../backbone.rebar.js']
         },
+        meta: {
+            banner: BANNER
+        },
         min: {
             all: {
-                src: ['../backbone.rebar.js'],
+                src: ['<banner>', '../backbone.rebar.js'],
                 dest: '../backbone.rebar.min.js'
+            }
+        },
+        jasmine: {
+            all: {
+                src: ['../tests/index.html'],
+                errorReporting: true
+            }
+        },
+        jsbeautifier: {
+            files: ["../backbone.rebar.js"],
+            options: {
+                "indent_size": 4
+            }
+        },
+        copy: {
+            docs: {
+                files: {
+                    "../temp/backbone.rebar.js": "../backbone.rebar.js"
+                }
+            }
+        },
+        yuidoc: {
+            compile: {
+                "name": NAME,
+                "description": DESCRIPTION,
+                "version": VERSION,
+                "url": URL,
+                options: {
+                    paths: "../temp/",
+                    outdir: "../docs/"
+                }
             }
         },
         combine: {
@@ -23,42 +58,30 @@ module.exports = function(grunt) {
                 input: "../src/rebar.core.js",
                 output: "../backbone.rebar.js",
                 tokens: [{
-                    token:"//pre//",
-                    string:"(function(Backbone,_,$){"
-                },{
-                    token:"//post//",
-                    string:"}).call(this,Backbone,_,$);"
-                },{
+                    token: "//pre//",
+                    string: BANNER + "\n" + "(function (Backbone, _, $) {"
+                }, {
+                    token: "//post//",
+                    string: "}).call(this,Backbone,_,$);"
+                }, {
                     token: "//rebar.services//",
                     file: "../src/rebar.services.js"
-                },{
+                }, {
                     token: "//rebar.application//",
                     file: "../src/rebar.application.js"
-                },{
+                }, {
                     token: "//rebar.persistence-model//",
                     file: "../src/rebar.persistence-model.js"
-                },{
-                    token: "//rebar.mediator//",
-                    file: "../src/rebar.mediator.js"
                 }, {
                     token: "//rebar.view//",
                     file: "../src/rebar.view.js"
-                },{
+                }, {
                     token: "//rebar.composite-view//",
                     file: "../src/rebar.composite-view.js"
-                },{
+                }, {
                     token: "//rebar.dependency-router//",
                     file: "../src/rebar.dependency-router.js"
-                },{
-                    token: "//rebar.controller//",
-                    file: "../src/rebar.controller.js"
                 }]
-            }
-        },
-        jsbeautifier: {
-            files: ["../backbone.rebar.js"],
-            options: {
-                "indent_size": 4
             }
         },
         jshint: {
@@ -83,10 +106,10 @@ module.exports = function(grunt) {
                 Worker: false,
                 Blob: false,
                 postMessage: false,
-                _:false,
-                Backbone:false,
-                $:false,
-                localStorage:false
+                _: false,
+                Backbone: false,
+                $: false,
+                localStorage: false
             }
         }
     });
@@ -99,6 +122,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsbeautifier');
 
     // tasks
-    grunt.registerTask('default', ['combine', 'lint', 'min', 'jsbeautifier']);
+    grunt.registerTask('docs', ['copy:docs', 'yuidoc']);
+    grunt.registerTask('default', ['jasmine', 'combine', 'lint', 'min', 'jsbeautifier', 'docs']);
 
 };

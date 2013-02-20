@@ -1,13 +1,27 @@
 /**
+ * Base class that extends [Backbone.View](http://backbonejs.org/#View) and
+ * provides boilerplate plate functionality for transitioning in and out, destroying
+ * and rendering views.
  * @class View
+ * @constructor
  * @extends Backbone.View
+ * @example
+ *	var view = new Backbone.Rebar.View({
+ *		...
+ *	});
+ *	view.transitionIn({
+ *		...
+ *	});
+ *	view.transitionOut({
+ *		this.destroy();
+ *	},this);
  */
 var View = Rebar.View = Backbone.View.extend({
 
 	/**
 	 * @method initialize
 	 */
-	initialize:function(){
+	initialize: function() {
 		_.extend(this, _.pick(this.options, ["render", "destroy", "transitionIn", "transitionOut"]));
 	},
 
@@ -18,9 +32,13 @@ var View = Rebar.View = Backbone.View.extend({
 	 * @method destroy
 	 */
 	destroy: function() {
-		this.off();
-		this.$el.off();
-		this.remove();
+		if(!this._isDestroyed) {
+			this._isDestroyed = true;
+			this.trigger("viewDidDestroy",this);
+			this.off();
+			this.$el.off();
+			this.remove();
+		}
 	},
 
 	/**

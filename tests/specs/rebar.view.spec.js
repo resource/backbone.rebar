@@ -31,7 +31,6 @@ describe("view",function(){
 	});
 
 	it("can be destroyed",function(){
-		
 		var index = 0;
 		view.on("foo",function(){ index++; });
 		

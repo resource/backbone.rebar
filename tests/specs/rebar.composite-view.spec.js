@@ -5,7 +5,9 @@ describe("composite-view",function(){
 
 	beforeEach(function(){
 		Composite = Backbone.Rebar.CompositeView.extend();
-		c = new Composite();
+		c = new Composite({
+			name:"composite"
+		});
 	});
 
 	afterEach(function(){
@@ -68,18 +70,50 @@ describe("composite-view",function(){
 	});
 
 	it("can remove all subviews",function(){
-		var v1 = new Backbone.Rebar.View();
-		var v2 = new Backbone.Rebar.View();
-		var v3 = new Backbone.View();
+		var v1 = new Backbone.Rebar.View({
+			name:"v1"
+		});
+		var v2 = new Backbone.Rebar.View({
+			name:"v2"
+		});
+		var v3 = new Backbone.View({
+			name:"v3"
+		});
 		c.addSubViews([v1,v2,v3]);
 		c.removeAllSubViews();
 		expect(c.subViews.length).toEqual(0);
 	});
 
 	it("destroys subviews when destroyed",function(){
-		var v1 = new Backbone.Rebar.View();
-		var v2 = new Backbone.Rebar.View();
-		var v3 = new Backbone.View();
+		var v1 = new Backbone.Rebar.View({
+			name:"v1"
+		});
+		var v2 = new Backbone.Rebar.View({
+			name:"v2"
+		});
+		var v3 = new Backbone.View({
+			name:"v3"
+		});
+		c.addSubViews([v1,v2,v3]);
+		c.destroy();
+		expect(c.subViews.length).toEqual(0);
+	});
+
+	it("destroys nested subviews when destroyed",function(){
+		var v1 = new Backbone.Rebar.View({
+			name:"v1"
+		});
+		var v2 = new Backbone.Rebar.CompositeView({ name:"v2" });
+		var v2a = new Backbone.Rebar.View({
+			name:"v2a"
+		});
+		var v2b = new Backbone.Rebar.View({
+			name:"v2b"
+		});
+		v2.addSubViews([v2a,v2b])
+		var v3 = new Backbone.View({
+			name:"v3"
+		});
 		c.addSubViews([v1,v2,v3]);
 		c.destroy();
 		expect(c.subViews.length).toEqual(0);
