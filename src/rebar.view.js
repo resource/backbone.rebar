@@ -17,7 +17,7 @@ var View = Rebar.View = Backbone.View.extend({
 	 * removing any event listeners that may have been added to the subViews array.
 	 * @method destroy
 	 */
-	destroy: function(force) {
+	destroy: function() {
 		this.off();
 		this.$el.off();
 		this.remove();

@@ -362,74 +362,51 @@
      */
     var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 
-        /** 
-         * @method initialize
-         * @param {Object} options
+        /**
+         * Determains and returns a storage id based on the passed id in initialization
+         * @return {String} storage id for this persistence model
          */
-        initialize: function(options) {
-            if (localStorage && options && options.pid) {
-                this.pid = options.pid;
-                var data = localStorage.getItem("pm_" + options.pid);
-                if (data !== null) {
-                    var parseData = JSON.parse(data);
-                    for (var prop in parseData) {
-                        Backbone.Model.prototype.set.call(this, prop, parseData[prop], {
-                            silent: true
-                        });
-                    }
-                }
+        getStoargeId: function() {
+            var id = "pm";
+            if (this.url) {
+                id = id + "_" + this.url;
             }
+            return id;
         },
 
         /**
-         * This method has been overridden in case any custom functionality is required. The Backbone
-         * Model prototype for this function is called here as well. By default this method works as
-         * Backbone has entended.
-         * @method set
-         * @param {String} key
-         * @param {Object} value
-         * @param {Object} options
-         */
-        set: function(key, value, options) {
-
-            // check to make sure we have a pid
-            if (this.pid) {
-                // set to local storage
-                var temp = {};
-                var data = localStorage.getItem("pm_" + this.pid);
-                if (data !== null) {
-                    temp = JSON.parse(data);
-                }
-                temp[key] = value;
-                localStorage.setItem("pm_" + this.pid, JSON.stringify(temp));
-            }
-
-            // run the default functionality
-            return Backbone.Model.prototype.set.call(this, key, value, options);
-        },
-
-        /**
-         * This method has been overridden in case any custom functionality is required. The Backbone
-         * Model prototype for this function is called here as well. By default this method works as
-         * Backbone has entended.
-         * @method get
-         * @param {String} attr
-         */
-        get: function(attr) {
-            return Backbone.Model.prototype.get.call(this, attr);
-        },
-
-        /**
+         * @method fetch
+         * @param
          *
          */
-        unset: function(attr, options) {
-            // remove from localstorage
-            return Backbone.Model.prototype.unset.call(this, attr, options);
-        },
-
-        clear: function(options) {
-            // clear data from localStorage as well
-            return Backbone.Model.prototype.clear.call(this, options);
+        sync: function(method, model, options) {
+            if (method === "read") {
+                if (localStorage) {
+                    var data = localStorage.getItem(model.getStoargeId());
+                    if (data !== null) {
+                        var parsedData = JSON.parse(data);
+                        model.set(parsedData);
+                        if (options.success) {
+                            options.success(model, parsedData, options);
+                        }
+                        model.trigger('sync', model, parsedData, options);
+                    }
+                } else {
+                    var error = "Error: 'localStorage' is not supported";
+                    if (options.error) {
+                        options.error(model, error, options);
+                    }
+                    model.trigger('sync', model, error, options);
+                }
+            } else if (method === "create") {
+                localStorage.setItem(model.getStoargeId(), JSON.stringify(model.attributes));
+            } else if (method === "update") {
+                throw "'update' not implemented yet";
+            } else if (method === "patch") {
+                throw "'patch' not implemented yet";
+            } else if (method === "delete") {
+                throw "'delete' not implemented yet";
+            }
         }
 
 

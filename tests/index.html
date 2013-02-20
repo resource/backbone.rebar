@@ -1,25 +1,64 @@
-<html>
-<head>
+<!doctype html>
+<html lang="en">
 
-	<title></title>
+	<head>
 
-	<!-- libs -->
-	<script type="text/javascript" src="../libs/jquery.js"></script>
-	<script type="text/javascript" src="../libs/underscore.js"></script>
-	<script type="text/javascript" src="../libs/backbone.js"></script>
+		<!-- Jasmine -->
+		<link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
+		<script type="text/javascript" src="lib/jasmine-1.3.1/jasmine.js"></script>
+		<script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
 
-	<!-- rebar -->
-	<script type="text/javascript" src="../src/rebar.core.js"></script>
-	<script type="text/javascript" src="../src/rebar.view.js"></script>
-	<script type="text/javascript" src="../src/rebar.composite-view.js"></script>
-	<script type="text/javascript" src="../src/rebar.mediator.js"></script>
-	<script type="text/javascript" src="../src/rebar.controller.js"></script>
-	<script type="text/javascript" src="../src/rebar.dependency-router.js"></script>
+		<!-- Libraries -->
+		<script type="text/javascript" src="../libs/jquery.js"></script>
+		<script type="text/javascript" src="../libs/underscore.js"></script>
+		<script type="text/javascript" src="../libs/backbone.js"></script>
 
-</head>
-<body>
+		<!-- Backbone.Rebar -->
+		<script type="text/javascript" src="../src/rebar.core.js"></script>
+		<script type="text/javascript" src="../src/rebar.view.js"></script>
+		<script type="text/javascript" src="../src/rebar.composite-view.js"></script>
+		<script type="text/javascript" src="../src/rebar.services.js"></script>
+		<script type="text/javascript" src="../src/rebar.dependency-router.js"></script>
+		<script type="text/javascript" src="../src/rebar.persistence-model.js"></script>
+		<script type="text/javascript" src="../src/rebar.application.js"></script>
 
+		<!-- Specs -->
+		<script type="text/javascript" src="specs/rebar.core.spec.js"></script>
+		<script type="text/javascript" src="specs/rebar.view.spec.js"></script>
+		<script type="text/javascript" src="specs/rebar.composite-view.spec.js"></script>
+		<script type="text/javascript" src="specs/rebar.services.spec.js"></script>
+		<script type="text/javascript" src="specs/rebar.dependency-router.spec.js"></script>
+		<script type="text/javascript" src="specs/rebar.persistence-model.spec.js"></script>
+		<script type="text/javascript" src="specs/rebar.application.spec.js"></script>
+
+		<!-- Jasmine Startup -->
+		<script type="text/javascript">
+
+			var jasmineEnv = jasmine.getEnv();
+			jasmineEnv.updateInterval = 250;
+
+			var htmlReporter = new jasmine.HtmlReporter();
+			jasmineEnv.addReporter(htmlReporter);
+
+			jasmineEnv.specFilter = function(spec) {
+				return htmlReporter.specFilter(spec);
+			};
+
+			var currentWindowOnload = window.onload;
+			
+			window.onload = function() {
+				if (currentWindowOnload) currentWindowOnload();
+				execJasmine();
+			};
+
+			function execJasmine() {
+				jasmineEnv.execute();
+			}
+
+		</script>
+
+	</head>
+
+	<body></body>
 	
-	
-</body>
 </html>

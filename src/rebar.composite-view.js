@@ -10,7 +10,7 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	 */
 	initialize: function() {
 		this.subViews = [];
-		_.extend(this, _.pick(this.options, ["addSubView", "removeSubView", "destroy"]));
+		_.extend(this, _.pick(this.options, ["addSubView", "removeSubView", "removeAllSubViews", "destroy"]));
 		View.prototype.initialize.call(this);
 	},
 
@@ -20,14 +20,11 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	 * @param {BaseView} view
 	 */
 	addSubView: function(view) {
-		if(!_.isFunction(view.destroy)){
-			console.log("could not add view because it does not extend Rebar.View");
-			return;
-		}
 		// only add views that extend Backbone.BaseView (our extention of the framework)
 		this.subViews.push(view);
 		view.parent = this;
 		var delegate = this;
+		// @TODO: not sure if I should be calling the render functionality here or not
 		view.render(function(el) {
 			delegate.$el.append(el);
 		});
@@ -49,9 +46,9 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 		if(!view.cid) {
 			view = _.where(this.subViews, {
 				cid: view
-			});
+			})[0];
 		}
-		view.destroy(true);
+		this.destroySubView(view);
 		this.subViews = _.reject(this.subViews, function(subView) {
 			return subView.cid === view.cid;
 		});
@@ -83,12 +80,29 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 		// recursively destroy sub views
 		if(this.subViews.length > 0) {
 			_.each(this.subViews, function(view) {
-				view.destroy();
-			});
+				this.destroySubView(view);
+			},this);
 		}
 
 		this.subViews = [];
 
 		View.prototype.destroy.call(this);
+	},
+
+	/**
+	 * Checks to see if the passed view has destroy functionality and then if it does not
+	 * calls the prototype destroy functionality and passes the reference
+	 * @method destroySubView
+	 * @param {View} view
+	 */
+	destroySubView:function(view){
+		if(_.isFunction(view.destroy)) {
+			view.destroy(true);
+		} else {
+			if(!_.isUndefined(view.cid)){
+				console.warn("Warning: No 'destroy' method found on 'view' " + view.cid + ". Falling back to Rebar.View.prototype.");
+				View.prototype.destroy.call(view);
+			}
+		}
 	}
 });
