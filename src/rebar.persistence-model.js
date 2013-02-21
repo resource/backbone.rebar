@@ -42,7 +42,6 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @param {Object} options
 	 */
 	set: function(key, val, options) {
-		console.log(key);
 		if(key === "url") {
 			this.urlRoot = val;
 		} else if(_.isObject(key) && _.has(key, "url") && !_.isUndefined(key.url)) {
@@ -83,7 +82,6 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 		if(localStorage) {
 			var data = localStorage.getItem(model.getStoargeId());
 			if(data !== null) {
-				console.log(data);
 				var parsedData = JSON.parse(data);
 				model.set(parsedData);
 				if(options.success) {

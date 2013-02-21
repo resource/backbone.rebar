@@ -79,6 +79,9 @@ module.exports = function(grunt) {
                     token: "//rebar.composite-view//",
                     file: "../src/rebar.composite-view.js"
                 }, {
+                    token: "//rebar.mediator//",
+                    file: "../src/rebar.mediator.js"
+                }, {
                     token: "//rebar.dependency-router//",
                     file: "../src/rebar.dependency-router.js"
                 }]

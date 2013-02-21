@@ -15,11 +15,13 @@
                 "Backbone.Rebar.PersistenceModel": 1,
                 "Backbone.Rebar.View": 1,
                 "Backbone.Rebar.CompositeView": 1,
+                "Backbone.Rebar.Mediator": 1,
                 "Backbone.Rebar.DependencyRouter": 1
             },
             "fors": {
                 "Backbone.Rebar.Services": 1,
-                "Backbone.Rebar.Application": 1
+                "Backbone.Rebar.Application": 1,
+                "Backbone.Rebar.Mediator": 1
             },
             "namespaces": {
                 "Backbone.Rebar": 1
@@ -88,7 +90,7 @@
             "extension_for": [],
             "namespace": "Backbone.Rebar",
             "file": "../temp/backbone.rebar.js",
-            "line": 528,
+            "line": 526,
             "description": "Base class that extends [Backbone.View](http://backbonejs.org/#View) and\nprovides boilerplate plate functionality for transitioning in and out, destroying\nand rendering views.",
             "is_constructor": 1,
             "extends": "Backbone.View",
@@ -106,12 +108,32 @@
             "extension_for": [],
             "namespace": "Backbone.Rebar",
             "file": "../temp/backbone.rebar.js",
-            "line": 606,
+            "line": 604,
             "description": "Most of the time Backbone views need to be able to contain other views. When you do this you run\ninto situations where you need to add the view then render and when you go to destroy the parent \nview, you want to make sure you properly dispose of its children. \nThe composite view makes managing child parent relationships a bit easier by adding recursive destroy\nfunctionality as well as making it possible to quickly add and remove child views.",
             "extends": "View",
             "is_constructor": 1,
             "example": [
                 "\n\tvar composite = new Backbone.Rebar.CompositeView({\n\t\t...\n\t});\n\tvar view = new Backbone.Rebar.View({\n\t\t...\n\t});\n\tcomposite.addSubView(view);"
+            ]
+        },
+        "Backbone.Rebar.Mediator": {
+            "name": "Backbone.Rebar.Mediator",
+            "shortname": "Mediator",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "Backbone.Rebar",
+            "file": "../temp/backbone.rebar.js",
+            "line": 735,
+            "description": "Simple implementation of the mediator pattern for use with Backbone.Views.\nevent architecture",
+            "is_constructor": 1,
+            "uses": [
+                "extend"
+            ],
+            "example": [
+                "\n\tvar mediator = new Mediator({\n\t\tevents:{\n\t\t\t\"appwide1\":{\n\t\t\t\tdispatcher:app\n\t\t\t\tcallback:\"method\"\n\t\t\t}\n\t\t},\n\t\tinitialize:function(options){\n\t\t\t...\n\t\t},\n\t\tmethod:function(e){\n\t\t\t...\n\t\t},\n\t\thandle:function(eventName,module){\n\t\t\t...\n\t\t}\n\t});\n\tmediator.addView(view,\"event1 event2\");\n\tview.trigger(\"something\",view);\n\tmediator.removeView(view);"
             ]
         },
         "Backbone.Rebar.DependencyRouter": {
@@ -124,7 +146,7 @@
             "extension_for": [],
             "namespace": "Backbone.Rebar",
             "file": "../temp/backbone.rebar.js",
-            "line": 737,
+            "line": 937,
             "description": "Handles all pre and post routing functionality. This is the default router when you initialize\nan `Application` instance. Once initialized any time the browser's anchor location changes this\nclass notifies the rest of the application of the new directory, file, view and anchor to use.\nTo use simply listen to the application's `routeDidChange` or the router's `routeDidChange` event firing\nand then implement the AMD loader that makes the most sense (for your project) to use.",
             "extends": "Backbone.Router",
             "is_constructor": 1,
@@ -507,7 +529,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 474,
+            "line": 473,
             "description": "Overridden to reroute the to a localStorage endpoint.",
             "itemtype": "method",
             "name": "sync",
@@ -535,7 +557,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 496,
+            "line": 495,
             "description": "Helper method pulls data based on urlRoot from local storage",
             "itemtype": "method",
             "name": "pullLocalStore",
@@ -556,7 +578,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 548,
+            "line": 546,
             "itemtype": "method",
             "name": "initialize",
             "class": "Backbone.Rebar.View",
@@ -564,7 +586,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 555,
+            "line": 553,
             "description": "This method is a great helper method to call when the subclass view is about to be removed.\nIt recursively will call destroy on any subviews reference in the sub views array. It also handles\nremoving any event listeners that may have been added to the subViews array.",
             "itemtype": "method",
             "name": "destroy",
@@ -573,7 +595,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 571,
+            "line": 569,
             "description": "For instances that are used in dependency routing the render method is called\nand used directly after loading. For all other uses you must call render manually.",
             "itemtype": "method",
             "name": "render",
@@ -589,7 +611,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 579,
+            "line": 577,
             "description": "Transitions in the view. By default this method actually does nothing.",
             "itemtype": "method",
             "name": "transitionIn",
@@ -605,7 +627,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 590,
+            "line": 588,
             "description": "Transitions out the view. By default this method actually does nothing.",
             "itemtype": "method",
             "name": "transitionOut",
@@ -621,7 +643,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 626,
+            "line": 624,
             "description": "Creates an empty array where subview references can be push for later use.",
             "itemtype": "method",
             "name": "initialize",
@@ -630,7 +652,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 636,
+            "line": 634,
             "description": "Adds a sub view to a container BaseView",
             "itemtype": "method",
             "name": "addSubView",
@@ -646,7 +668,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 657,
+            "line": 655,
             "description": "Adds an array of sub views to a container BaseView",
             "itemtype": "method",
             "name": "addSubViews",
@@ -662,7 +684,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 668,
+            "line": 666,
             "description": "Removes a sub view from the container view",
             "itemtype": "method",
             "name": "removeSubView",
@@ -678,7 +700,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 686,
+            "line": 684,
             "description": "Removes all sub views from view",
             "itemtype": "method",
             "name": "removeAllSubViews",
@@ -687,7 +709,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 696,
+            "line": 694,
             "description": "This method is a great helper method to call when the subclass view is about to be removed.\nIt recursively will call destroy on any subviews reference in the sub views array. It also handles\nremoving any event listeners that may have been added to the subViews array.",
             "itemtype": "method",
             "name": "destroy",
@@ -696,7 +718,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 716,
+            "line": 714,
             "description": "Checks to see if the passed view has destroy functionality and then if it does not\ncalls the prototype destroy functionality and passes the reference",
             "itemtype": "method",
             "name": "destroySubView",
@@ -712,7 +734,157 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 762,
+            "line": 777,
+            "description": "Stores reference to all views added to the mediator.",
+            "itemtype": "property",
+            "name": "_views",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 790,
+            "description": "Called for any modules that extend the `Mediator` prototype.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 800,
+            "description": "Adds module as one that the mediator should be listening for events.",
+            "itemtype": "method",
+            "name": "addView",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "Backbone.View"
+                },
+                {
+                    "name": "eventNames",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 825,
+            "description": "Removes module from one that the mediator should be listening for.",
+            "itemtype": "method",
+            "name": "removeView",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "Backbone.View"
+                }
+            ],
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 845,
+            "description": "Returns boolean for whether the mediator contains a view or not.",
+            "itemtype": "method",
+            "name": "hasView",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "Backbone.View"
+                }
+            ],
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 860,
+            "description": "destroys a mediator and removes all listeners.",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 874,
+            "description": "Handler method that is called when one of the module the mediator is listening\nfor is fired. Should be overriden in `Mediator` instances.",
+            "itemtype": "method",
+            "name": "handle",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "module",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 889,
+            "description": "Runs through all of the events that the mediator should be listening for.",
+            "itemtype": "method",
+            "name": "processEvents",
+            "params": [
+                {
+                    "name": "events",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 909,
+            "description": "Assigns a callback to the passed dispatcher for the event to be fired.",
+            "itemtype": "method",
+            "name": "assignCallbackToDispatcher",
+            "params": [
+                {
+                    "name": "eventName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "callbackName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "dispatcher",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 962,
             "description": "Default landing for no hash. Where the browser will be routed to when landing\non the root url of the applicaiton.",
             "itemtype": "property",
             "name": "landing",
@@ -723,7 +895,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 771,
+            "line": 971,
             "description": "Define only the route hash here because we'll be using dependency routing\nfor the rest of the functionality.",
             "itemtype": "property",
             "name": "routes",
@@ -736,7 +908,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 784,
+            "line": 984,
             "description": "This object is empty by default, but routes added here, either manually,\nor through the two methods, setStaticRoute and setStaticRoutes, will bypass\nthe handleAll and handleNoHash methods referenced in the routes object.",
             "itemtype": "property",
             "name": "staticRoutes",
@@ -748,7 +920,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 794,
+            "line": 994,
             "description": "Router init functionality",
             "itemtype": "method",
             "name": "initialize",
@@ -766,7 +938,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 808,
+            "line": 1008,
             "description": "Reroute the page to the page referenced as landing",
             "itemtype": "method",
             "name": "handleNoHash",
@@ -777,7 +949,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 817,
+            "line": 1017,
             "description": "Handles every route that doesnt match any of the previous matches",
             "itemtype": "method",
             "name": "handleAll",
@@ -788,7 +960,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 846,
+            "line": 1046,
             "description": "Parses a passed route string and determains directory, file, view and data",
             "itemtype": "method",
             "name": "parseRoute",
@@ -806,7 +978,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 900,
+            "line": 1100,
             "description": "Parse the query string provides and returns key value pair object",
             "itemtype": "method",
             "name": "parseRouteData",
@@ -824,7 +996,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 919,
+            "line": 1119,
             "description": "Takes a passed route object and determains a file location",
             "itemtype": "method",
             "name": "getFileLocation",
@@ -842,7 +1014,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 935,
+            "line": 1135,
             "description": "Adds the name and method to the staticRoutes object as a key/value pair",
             "itemtype": "method",
             "name": "setStaticRoute",
@@ -863,7 +1035,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 945,
+            "line": 1145,
             "description": "Takes key value pairs from an object and sets them to the staticRoutes\nobject on the router",
             "itemtype": "method",
             "name": "setStaticRoutes",

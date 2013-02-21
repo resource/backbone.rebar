@@ -4,6 +4,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Backbone.Rebar.Application",
         "Backbone.Rebar.CompositeView",
         "Backbone.Rebar.DependencyRouter",
+        "Backbone.Rebar.Mediator",
         "Backbone.Rebar.PersistenceModel",
         "Backbone.Rebar.Services",
         "Backbone.Rebar.View"

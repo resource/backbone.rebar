@@ -47,6 +47,8 @@
             
                 <li><a href="..&#x2F;classes/Backbone.Rebar.DependencyRouter.html">Backbone.Rebar.DependencyRouter</a></li>
             
+                <li><a href="..&#x2F;classes/Backbone.Rebar.Mediator.html">Backbone.Rebar.Mediator</a></li>
+            
                 <li><a href="..&#x2F;classes/Backbone.Rebar.PersistenceModel.html">Backbone.Rebar.PersistenceModel</a></li>
             
                 <li><a href="..&#x2F;classes/Backbone.Rebar.Services.html">Backbone.Rebar.Services</a></li>
@@ -560,7 +562,6 @@
          * @param {Object} options
          *&#x2F;
         set: function(key, val, options) {
-            console.log(key);
             if (key === &quot;url&quot;) {
                 this.urlRoot = val;
             } else if (_.isObject(key) &amp;&amp; _.has(key, &quot;url&quot;) &amp;&amp; !_.isUndefined(key.url)) {
@@ -601,7 +602,6 @@
             if (localStorage) {
                 var data = localStorage.getItem(model.getStoargeId());
                 if (data !== null) {
-                    console.log(data);
                     var parsedData = JSON.parse(data);
                     model.set(parsedData);
                     if (options.success) {
@@ -827,6 +827,208 @@
             }
         }
     });
+
+    &#x2F;&#x2F; =======================================================================
+    &#x2F;&#x2F; === Mediator ==========================================================
+    &#x2F;&#x2F; =======================================================================
+
+    &#x2F;**
+     * Simple implementation of the mediator pattern for use with Backbone.Views.
+     * event architecture
+     * @class Mediator
+     * @constructor
+     * @uses extend
+     * @example
+     *	var mediator = new Mediator({
+     *		events:{
+     *			&quot;appwide1&quot;:{
+     *				dispatcher:app
+     *				callback:&quot;method&quot;
+     *			}
+     *		},
+     *		initialize:function(options){
+     *			...
+     *		},
+     *		method:function(e){
+     *			...
+     *		},
+     *		handle:function(eventName,module){
+     *			...
+     *		}
+     *	});
+     *	mediator.addView(view,&quot;event1 event2&quot;);
+     *	view.trigger(&quot;something&quot;,view);
+     *	mediator.removeView(view);
+     *&#x2F;
+    var Mediator = Rebar.Mediator = function(options) {
+        if (options) {
+            this.options = options;
+            _.extend(this, _.pick(this.options, [&quot;initialize&quot;, &quot;handle&quot;]));
+            if (this.options.events) {
+                this.processEvents(this.options.events);
+            }
+        }
+        this._views = [];
+        this.initialize(options);
+    };
+
+    Mediator.prototype = Object.create(Backbone.Events, {
+
+        &#x2F;**
+         * Stores reference to all views added to the mediator.
+         * @property _views
+         * @type Array
+         * @for Mediator
+         * @private
+         *&#x2F;
+        _views: {
+            value: undefined,
+            writable: true,
+            configurable: false
+        },
+
+        &#x2F;**
+         * Called for any modules that extend the &#x60;Mediator&#x60; prototype.
+         * @method initialize
+         * @for Mediator
+         *&#x2F;
+        initialize: {
+            value: function(options) {},
+            writable: true
+        },
+
+        &#x2F;**
+         * Adds module as one that the mediator should be listening for events.
+         * @method addView
+         * @for Mediator
+         * @param {Backbone.View} view
+         * @param {String} eventNames
+         *&#x2F;
+        addView: {
+            value: function(view, eventNames) {
+                var events;
+                if (eventNames) {
+                    events = eventNames.split(&quot; &quot;);
+                } else {
+                    events = [&quot;all&quot;];
+                }
+                _.each(events, function(eventName) {
+                    view.on(eventName, function(options) {
+                        this.handle(eventName, view, options);
+                    }, this);
+                }, this);
+                this._views.push(view);
+            },
+            writable: true
+        },
+
+        &#x2F;**
+         * Removes module from one that the mediator should be listening for.
+         * @method removeView
+         * @for Mediator
+         * @param {Backbone.View} view
+         *&#x2F;
+        removeView: {
+            value: function(view) {
+                &#x2F;&#x2F; @TODO: remove all events that the view has with this handler
+                view.off(null, this.handle, this);
+                this._views = _.reject(this._views, function(v) {
+                    if (v.cid === view.cid) {
+                        return true;
+                    }
+                    return false;
+                }, this);
+            },
+            writable: true
+        },
+
+        &#x2F;**
+         * Returns boolean for whether the mediator contains a view or not.
+         * @method hasView
+         * @for Mediator
+         * @param {Backbone.View} view
+         *&#x2F;
+        hasView: {
+            value: function(view) {
+                return _.where(this._views, {
+                    cid: view.cid
+                })[0];
+            },
+            writable: true
+        },
+
+        &#x2F;**
+         * destroys a mediator and removes all listeners.
+         * @method destroy
+         * @for Mediator
+         *&#x2F;
+        destroy: {
+            value: function() {
+                _.each(this._views, function(view) {
+                    this.removeView(view);
+                }, this);
+            },
+            writable: true
+        },
+
+        &#x2F;**
+         * Handler method that is called when one of the module the mediator is listening
+         * for is fired. Should be overriden in &#x60;Mediator&#x60; instances.
+         * @method handle
+         * @for Mediator
+         * @param {Object} eventName
+         * @param {Object} module
+         *&#x2F;
+        handle: {
+            value: function(eventName, view) {
+                &#x2F;&#x2F; ...
+            },
+            writable: true
+        },
+
+        &#x2F;**
+         * Runs through all of the events that the mediator should be listening for.
+         * @method processEvents
+         * @for Mediator
+         * @param {Object} events
+         * @private
+         *&#x2F;
+        processEvents: {
+            value: function(events) {
+                for (var item in events) {
+                    var eventObj = events[item];
+                    if (_.isObject(eventObj)) {
+                        this.assignCallbackToDispatcher(item, eventObj.callback, eventObj.dispatcher);
+                    } else {
+                        this.assignCallbackToDispatcher(item, eventObj, this.options.dispatcher);
+                    }
+                }
+            }
+        },
+
+        &#x2F;**
+         * Assigns a callback to the passed dispatcher for the event to be fired.
+         * @method assignCallbackToDispatcher
+         * @for Mediator
+         * @param {String} eventName
+         * @param {String} callbackName
+         * @param {Object} dispatcher
+         * @private
+         *&#x2F;
+        assignCallbackToDispatcher: {
+            value: function(eventName, callbackName, dispatcher) {
+                if (this[callbackName]) {
+                    dispatcher.on(eventName, this[callbackName], this);
+                } else if (this.options[callbackName]) {
+                    dispatcher.on(eventName, this.options[callbackName], this);
+                } else {
+                    console.error(&quot;Error: No method &#x27;&quot; + callbackName + &quot;&#x27; found on mediator&quot;);
+                }
+            }
+        }
+    });
+
+    Mediator.extend = extend;
 
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Dependency Router =================================================

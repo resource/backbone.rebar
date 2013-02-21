@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Backbone.Rebar.Services - Backbone.Rebar</title>
+    <title>Backbone.Rebar.Mediator - Backbone.Rebar</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -94,15 +94,24 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Backbone.Rebar.Services Class</h1>
+                        <h1>Backbone.Rebar.Mediator Class</h1>
 <div class="box meta">
+    
+        <div class="uses">
+            Uses
+            <ul class="inline commas">
+                
+                    <li><a href="extend.html">extend</a></li>
+                
+            </ul>
+        </div>
     
 
     
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l38"><code>..&#x2F;temp&#x2F;backbone.rebar.js:38</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l735"><code>..&#x2F;temp&#x2F;backbone.rebar.js:735</code></a>
         </div>
     
 
@@ -114,9 +123,95 @@
 
 
 <div class="box intro">
-    <p>Static class with boilerplate functionality for jquery ajax requests</p>
+    <p>Simple implementation of the mediator pattern for use with Backbone.Views.
+event architecture</p>
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_Backbone.Rebar.Mediator" class="method item">
+    <h3 class="name"><code>Backbone.Rebar.Mediator</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l735"><code>..&#x2F;temp&#x2F;backbone.rebar.js:735</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>var mediator = new Mediator({
+    events:{
+        "appwide1":{
+            dispatcher:app
+            callback:"method"
+        }
+    },
+    initialize:function(options){
+        ...
+    },
+    method:function(e){
+        ...
+    },
+    handle:function(eventName,module){
+        ...
+    }
+});
+mediator.addView(view,"event1 event2");
+view.trigger("something",view);
+mediator.removeView(view);
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -126,6 +221,8 @@
         
             <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
         
         
@@ -142,70 +239,73 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_delete">delete</a>
+                                <a href="#method_addView">addView</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_assignCallbackToDispatcher">assignCallbackToDispatcher</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_extend">extend</a>
+                                <a href="#method_destroy">destroy</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_get">get</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method_handleError">handleError</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method_handleSuccess">handleSuccess</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method_parseError">parseError</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method_parseOptions">parseOptions</a>
+                                <a href="#method_handle">handle</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_post">post</a>
+                                <a href="#method_hasView">hasView</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_put">put</a>
+                                <a href="#method_initialize">initialize</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method_request">request</a>
+                                <a href="#method_processEvents">processEvents</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_removeView">removeView</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property private">
+                                <a href="#property__views">_views</a>
 
                                 
                                 
@@ -218,8 +318,6 @@
             
 
             
-
-            
         </div>
 
         
@@ -227,8 +325,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_delete" class="method item">
-    <h3 class="name"><code>delete</code></h3>
+                    <div id="method_addView" class="method item">
+    <h3 class="name"><code>addView</code></h3>
 
     
         <div class="args">
@@ -236,13 +334,13 @@
             
                 <li class="arg">
                     
-                        <code>options</code>
+                        <code>view</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>context</code>
+                        <code>eventNames</code>
                     
                 </li>
             
@@ -275,7 +373,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l195"><code>..&#x2F;temp&#x2F;backbone.rebar.js:195</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l800"><code>..&#x2F;temp&#x2F;backbone.rebar.js:800</code></a>
         
         </p>
 
@@ -286,7 +384,7 @@
     </div>
 
     <div class="description">
-        <p>DELETE request</p>
+        <p>Adds module as one that the mediator should be listening for events.</p>
     </div>
 
     
@@ -297,8 +395,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">view</code>
+                        <span class="type">Backbone.View</span>
                     
 
                     
@@ -312,8 +410,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">context</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">eventNames</code>
+                        <span class="type">String</span>
                     
 
                     
@@ -335,8 +433,8 @@
 </div>
 
                 
-                    <div id="method_extend" class="method item">
-    <h3 class="name"><code>extend</code></h3>
+                    <div id="method_assignCallbackToDispatcher" class="method item private">
+    <h3 class="name"><code>assignCallbackToDispatcher</code></h3>
 
     
         <div class="args">
@@ -344,231 +442,19 @@
             
                 <li class="arg">
                     
-                        <code>protoProps</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Object</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l19"><code>..&#x2F;temp&#x2F;backbone.rebar.js:19</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Extention functionality for the prototyped object that implements it.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">protoProps</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Object</span>:
-                    
-                    child
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_get" class="method item">
-    <h3 class="name"><code>get</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>options</code>
+                        <code>eventName</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>context</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l162"><code>..&#x2F;temp&#x2F;backbone.rebar.js:162</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>GET request</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">context</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_handleError" class="method item private">
-    <h3 class="name"><code>handleError</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>context</code>
+                        <code>callbackName</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>callback</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>response</code>
+                        <code>dispatcher</code>
                     
                 </li>
             
@@ -603,7 +489,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l149"><code>..&#x2F;temp&#x2F;backbone.rebar.js:149</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l909"><code>..&#x2F;temp&#x2F;backbone.rebar.js:909</code></a>
         
         </p>
 
@@ -614,7 +500,7 @@
     </div>
 
     <div class="description">
-        <p>jquery ajax error handler</p>
+        <p>Assigns a callback to the passed dispatcher for the event to be fired.</p>
     </div>
 
     
@@ -625,8 +511,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">context</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">eventName</code>
+                        <span class="type">String</span>
                     
 
                     
@@ -640,8 +526,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">callback</code>
-                        <span class="type">Function</span>
+                        <code class="param-name">callbackName</code>
+                        <span class="type">String</span>
                     
 
                     
@@ -655,7 +541,7 @@
             
                 <li class="param">
                     
-                        <code class="param-name">response</code>
+                        <code class="param-name">dispatcher</code>
                         <span class="type">Object</span>
                     
 
@@ -678,8 +564,62 @@
 </div>
 
                 
-                    <div id="method_handleSuccess" class="method item private">
-    <h3 class="name"><code>handleSuccess</code></h3>
+                    <div id="method_destroy" class="method item">
+    <h3 class="name"><code>destroy</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l860"><code>..&#x2F;temp&#x2F;backbone.rebar.js:860</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>destroys a mediator and removes all listeners.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_handle" class="method item">
+    <h3 class="name"><code>handle</code></h3>
 
     
         <div class="args">
@@ -687,19 +627,257 @@
             
                 <li class="arg">
                     
-                        <code>context</code>
+                        <code>eventName</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>callback</code>
+                        <code>module</code>
                     
                 </li>
             
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l874"><code>..&#x2F;temp&#x2F;backbone.rebar.js:874</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Handler method that is called when one of the module the mediator is listening
+for is fired. Should be overriden in <code>Mediator</code> instances.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">eventName</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">module</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_hasView" class="method item">
+    <h3 class="name"><code>hasView</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
                 <li class="arg">
                     
-                        <code>response</code>
+                        <code>view</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l845"><code>..&#x2F;temp&#x2F;backbone.rebar.js:845</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns boolean for whether the mediator contains a view or not.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">view</code>
+                        <span class="type">Backbone.View</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_initialize" class="method item">
+    <h3 class="name"><code>initialize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l790"><code>..&#x2F;temp&#x2F;backbone.rebar.js:790</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Called for any modules that extend the <code>Mediator</code> prototype.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_processEvents" class="method item private">
+    <h3 class="name"><code>processEvents</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>events</code>
                     
                 </li>
             
@@ -734,7 +912,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l136"><code>..&#x2F;temp&#x2F;backbone.rebar.js:136</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l889"><code>..&#x2F;temp&#x2F;backbone.rebar.js:889</code></a>
         
         </p>
 
@@ -745,7 +923,7 @@
     </div>
 
     <div class="description">
-        <p>jquery success handler</p>
+        <p>Runs through all of the events that the mediator should be listening for.</p>
     </div>
 
     
@@ -756,37 +934,7 @@
             
                 <li class="param">
                     
-                        <code class="param-name">context</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">callback</code>
-                        <span class="type">Function</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">response</code>
+                        <code class="param-name">events</code>
                         <span class="type">Object</span>
                     
 
@@ -809,8 +957,8 @@
 </div>
 
                 
-                    <div id="method_parseError" class="method item private">
-    <h3 class="name"><code>parseError</code></h3>
+                    <div id="method_removeView" class="method item">
+    <h3 class="name"><code>removeView</code></h3>
 
     
         <div class="args">
@@ -818,192 +966,7 @@
             
                 <li class="arg">
                     
-                        <code>error</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l116"><code>..&#x2F;temp&#x2F;backbone.rebar.js:116</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Processes the error object returned by the http request</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">error</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_parseOptions" class="method item private">
-    <h3 class="name"><code>parseOptions</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>options</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l98"><code>..&#x2F;temp&#x2F;backbone.rebar.js:98</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Parses the incoming options object to the http method and returns
-a useable options object for the request</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_post" class="method item">
-    <h3 class="name"><code>post</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>options</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>context</code>
+                        <code>view</code>
                     
                 </li>
             
@@ -1036,7 +999,7 @@ a useable options object for the request</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l173"><code>..&#x2F;temp&#x2F;backbone.rebar.js:173</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l825"><code>..&#x2F;temp&#x2F;backbone.rebar.js:825</code></a>
         
         </p>
 
@@ -1047,7 +1010,7 @@ a useable options object for the request</p>
     </div>
 
     <div class="description">
-        <p>POST request</p>
+        <p>Removes module from one that the mediator should be listening for.</p>
     </div>
 
     
@@ -1058,241 +1021,8 @@ a useable options object for the request</p>
             
                 <li class="param">
                     
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">context</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_put" class="method item">
-    <h3 class="name"><code>put</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>options</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>context</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l184"><code>..&#x2F;temp&#x2F;backbone.rebar.js:184</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>PUT request</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">context</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_request" class="method item private">
-    <h3 class="name"><code>request</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>options</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>context</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l45"><code>..&#x2F;temp&#x2F;backbone.rebar.js:45</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>jQuery wrapper for ajax() calls</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">context</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">view</code>
+                        <span class="type">Backbone.View</span>
                     
 
                     
@@ -1317,6 +1047,58 @@ a useable options object for the request</p>
             </div>
         
 
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__views" class="property item private">
+    <h3 class="name"><code>_views</code></h3>
+    <span class="type">Array</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l777"><code>..&#x2F;temp&#x2F;backbone.rebar.js:777</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Stores reference to all views added to the mediator.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
         
 
         

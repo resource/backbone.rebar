@@ -49,12 +49,11 @@ describe("persistence-model", function() {
 		expect(data.foo).toEqual("bar");
 	});
 
-	it("direct implementation fetches", function() {
+	it("!!! direct implementation fetches !!!", function() {
 		p2.set("foo","bar");
 		p2.save();
 		p2.clear();
 		p2.fetch();
-		console.log(p2);
 		//expect(p2.get('foo')).toEqual("bar");
 	});
 
