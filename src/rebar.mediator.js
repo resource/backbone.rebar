@@ -29,7 +29,7 @@
 var Mediator = Rebar.Mediator = function(options) {
 	if(options) {
 		this.options = options;
-		_.extend(this, _.pick(this.options, ["initialize","handle"]));
+		_.extend(this, _.pick(this.options, ["initialize", "handle"]));
 		if(this.options.events) {
 			this.processEvents(this.options.events);
 		}
@@ -78,11 +78,11 @@ Mediator.prototype = Object.create(Backbone.Events, {
 			} else {
 				events = ["all"];
 			}
-			_.each(events,function(eventName){
-				view.on(eventName, function(options){
-					this.handle(eventName,view,options);
+			_.each(events, function(eventName) {
+				view.on(eventName, function(options) {
+					this.handle(eventName, view, options);
 				}, this);
-			},this);
+			}, this);
 			this._views.push(view);
 		},
 		writable: true
@@ -121,6 +121,53 @@ Mediator.prototype = Object.create(Backbone.Events, {
 			})[0];
 		},
 		writable: true
+	},
+
+	/**
+	 * Returns a view that has the same value/key pairs provided
+	 * @method getView
+	 * @for Mediator
+	 * @param {Object} attribute Key/Value pair to use with an UnderscoreJS _.with look up
+	 * @example
+	 *	...
+	 *	mediator.getView({name:"foo"});
+	 */
+	getView: {
+		value: function(attribute) {
+			return _.filter(this._views, function(view) {
+				var key = _.keys(attribute)[0];
+				var value = _.values(attribute)[0];
+				if(view[key] && view[key] === value) {
+					return true;
+				} else if(view.options && view.options[key] && view.options[key] === value) {
+					return true;
+				}
+				return false;
+			})[0];
+		},
+		writable: true
+	},
+
+	/**
+	 * Returns a view that has the same **user defined** name provided
+	 * @method getViewByName
+	 * @for Mediator
+	 * @param {String} name User defined view name
+	 * @example
+	 *	...
+	 *	mediator.getView({name:"foo"});
+	 */
+	getViewByName:{
+		value:function(name){
+			var view = this.getView({
+				name:name
+			});
+			if(_.isUndefined(view)){
+				console.warn("Property 'name' was not found on any views.");
+			}
+			return view;
+		},
+		writable:true
 	},
 
 	/**

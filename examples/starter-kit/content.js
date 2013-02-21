@@ -4,8 +4,8 @@ define(["rebar"], function() {
 
 	ContentModule.ContentView = Backbone.Rebar.CompositeView.extend({
 		initialize: function() {
-			var appController = Backbone.Rebar.Application.instance.controller;
-			appController.on("routeDidChange", this.handleRouteChange,this);
+			var dispatcher = Backbone.Rebar.Application.instance;
+			dispatcher.on("routeDidChange", this.handleRouteChange,this);
 			Backbone.Rebar.CompositeView.prototype.initialize.call(this);
 		},
 		addSubView:function(view){
@@ -51,9 +51,21 @@ define(["rebar"], function() {
 
 	ContentModule.View1 = Backbone.Rebar.View.extend({
 		className:"custom-one custom",
+		initialize:function(){
+			this.persistence = new Backbone.Rebar.PersistenceModel({
+				url:"content-persistence"
+			});
+			this.persistence.fetch();
+			Backbone.Rebar.View.prototype.initialize.call(this);
+		},
 		render: function(callback) {
 			this.$el.html("<p>Custom Subview One</p>");
+			this.persistence.set("view1-timestamp",new Date().getTime());
 			callback(this.el);
+		},
+		destroy:function(){
+			this.persistence.save();
+			Backbone.Rebar.View.prototype.destroy.call(this);
 		},
 		transitionIn:function(){
             this.$el.css("opacity", "0");
@@ -63,9 +75,21 @@ define(["rebar"], function() {
 
 	ContentModule.View2 = Backbone.Rebar.View.extend({
 		className:"custom-two custom",
+		initialize:function(){
+			this.persistence = new Backbone.Rebar.PersistenceModel({
+				url:"content-persistence"
+			});
+			this.persistence.fetch();
+			Backbone.Rebar.View.prototype.initialize.call(this);
+		},
 		render: function(callback) {
 			this.$el.html("<p>Custom Subview Two</p>");
+			this.persistence.set("view2-timestamp",new Date().getTime());
 			callback(this.el);
+		},
+		destroy:function(){
+			this.persistence.save();
+			Backbone.Rebar.View.prototype.destroy.call(this);
 		},
 		transitionIn:function(){
             this.$el.css("opacity", "0");

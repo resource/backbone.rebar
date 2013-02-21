@@ -10,7 +10,7 @@
     /**
      * @namespace Backbone.Rebar
      */
-    var Rebar = Backbone.Rebar = {};
+    var Rebar = this.Rebar = Backbone.Rebar = {};
 
     // =======================================================================
     // === Helpers ===========================================================
@@ -853,6 +853,53 @@
                 return _.where(this._views, {
                     cid: view.cid
                 })[0];
+            },
+            writable: true
+        },
+
+        /**
+         * Returns a view that has the same value/key pairs provided
+         * @method getView
+         * @for Mediator
+         * @param {Object} attribute Key/Value pair to use with an UnderscoreJS _.with look up
+         * @example
+         *	...
+         *	mediator.getView({name:"foo"});
+         */
+        getView: {
+            value: function(attribute) {
+                return _.filter(this._views, function(view) {
+                    var key = _.keys(attribute)[0];
+                    var value = _.values(attribute)[0];
+                    if (view[key] && view[key] === value) {
+                        return true;
+                    } else if (view.options && view.options[key] && view.options[key] === value) {
+                        return true;
+                    }
+                    return false;
+                })[0];
+            },
+            writable: true
+        },
+
+        /**
+         * Returns a view that has the same **user defined** name provided
+         * @method getViewByName
+         * @for Mediator
+         * @param {String} name User defined view name
+         * @example
+         *	...
+         *	mediator.getView({name:"foo"});
+         */
+        getViewByName: {
+            value: function(name) {
+                var view = this.getView({
+                    name: name
+                });
+                if (_.isUndefined(view)) {
+                    console.warn("Property 'name' was not found on any views.");
+                }
+                return view;
             },
             writable: true
         },

@@ -34,8 +34,7 @@ require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, 
 	var application;
 	var appConfig = {
 		landing: "View1",
-		bootstrap: "bootstrap.json",
-		dependencyRouting:true
+		bootstrap: "bootstrap.json"
 	};
 
 	// @TODO: how do I overwrite the transitionIn functionality on the application view
@@ -65,9 +64,15 @@ require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, 
 	var startApplication = new MonkeyBars.Task({
 		name: "startApplication",
 		performTask: function() {
-			application.start(function() {
-				this.complete();
-			}, this);
+			application.on("applicationStateChange",function(state,error){
+				if(state == Backbone.Rebar.States.Started) {
+					this.complete();
+				} else if(state == Backbone.Rebar.States.Faulted) {
+					this.fault(error);
+				}
+			},this);
+			application.startup();
+			console.log(application);
 		}
 	});
 
@@ -81,8 +86,6 @@ require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, 
 		}
 	});
 
-	$(function() {
-		startup.start();
-	});
+	$(function() { startup.start(); });
 
 });

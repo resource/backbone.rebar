@@ -110,7 +110,7 @@
     &#x2F;**
      * @namespace Backbone.Rebar
      *&#x2F;
-    var Rebar = Backbone.Rebar = {};
+    var Rebar = this.Rebar = Backbone.Rebar = {};
 
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Helpers ===========================================================
@@ -953,6 +953,53 @@
                 return _.where(this._views, {
                     cid: view.cid
                 })[0];
+            },
+            writable: true
+        },
+
+        &#x2F;**
+         * Returns a view that has the same value&#x2F;key pairs provided
+         * @method getView
+         * @for Mediator
+         * @param {Object} attribute Key&#x2F;Value pair to use with an UnderscoreJS _.with look up
+         * @example
+         *	...
+         *	mediator.getView({name:&quot;foo&quot;});
+         *&#x2F;
+        getView: {
+            value: function(attribute) {
+                return _.filter(this._views, function(view) {
+                    var key = _.keys(attribute)[0];
+                    var value = _.values(attribute)[0];
+                    if (view[key] &amp;&amp; view[key] === value) {
+                        return true;
+                    } else if (view.options &amp;&amp; view.options[key] &amp;&amp; view.options[key] === value) {
+                        return true;
+                    }
+                    return false;
+                })[0];
+            },
+            writable: true
+        },
+
+        &#x2F;**
+         * Returns a view that has the same **user defined** name provided
+         * @method getViewByName
+         * @for Mediator
+         * @param {String} name User defined view name
+         * @example
+         *	...
+         *	mediator.getView({name:&quot;foo&quot;});
+         *&#x2F;
+        getViewByName: {
+            value: function(name) {
+                var view = this.getView({
+                    name: name
+                });
+                if (_.isUndefined(view)) {
+                    console.warn(&quot;Property &#x27;name&#x27; was not found on any views.&quot;);
+                }
+                return view;
             },
             writable: true
         },

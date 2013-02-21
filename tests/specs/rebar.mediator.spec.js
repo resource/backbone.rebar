@@ -86,6 +86,28 @@ describe("mediator",function(){
 		expect(mediator._views.length).toEqual(0);
 	});
 
+	it("can get view",function(){
+		var mediator = new Mediator();
+		var view = new Backbone.View({
+			name:"foo"
+		});
+		mediator.addView(view);
+		var lookup = mediator.getView({name:"foo"});
+		expect(lookup).toBeDefined();
+		expect(lookup.cid).toEqual(view.cid);
+	});
+
+	it("can get view by name",function(){
+		var mediator = new Mediator();
+		var view = new Backbone.View({
+			name:"foo"
+		});
+		mediator.addView(view);
+		var lookup = mediator.getViewByName("foo");
+		expect(lookup).toBeDefined();
+		expect(lookup.cid).toEqual(view.cid);
+	});
+
 	it("can check for contained views",function(){
 		var mediator = new Mediator();
 		var view = new Backbone.View();

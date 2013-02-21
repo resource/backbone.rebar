@@ -146,7 +146,7 @@
             "extension_for": [],
             "namespace": "Backbone.Rebar",
             "file": "../temp/backbone.rebar.js",
-            "line": 937,
+            "line": 984,
             "description": "Handles all pre and post routing functionality. This is the default router when you initialize\nan `Application` instance. Once initialized any time the browser's anchor location changes this\nclass notifies the rest of the application of the new directory, file, view and anchor to use.\nTo use simply listen to the application's `routeDidChange` or the router's `routeDidChange` event firing\nand then implement the AMD loader that makes the most sense (for your project) to use.",
             "extends": "Backbone.Router",
             "is_constructor": 1,
@@ -809,6 +809,44 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 860,
+            "description": "Returns a view that has the same value/key pairs provided",
+            "itemtype": "method",
+            "name": "getView",
+            "params": [
+                {
+                    "name": "attribute",
+                    "description": "Key/Value pair to use with an UnderscoreJS _.with look up",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n\t...\n\tmediator.getView({name:\"foo\"});"
+            ],
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 885,
+            "description": "Returns a view that has the same **user defined** name provided",
+            "itemtype": "method",
+            "name": "getViewByName",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "User defined view name",
+                    "type": "String"
+                }
+            ],
+            "example": [
+                "\n\t...\n\tmediator.getView({name:\"foo\"});"
+            ],
+            "class": "Backbone.Rebar.Mediator",
+            "namespace": "Backbone.Rebar"
+        },
+        {
+            "file": "../temp/backbone.rebar.js",
+            "line": 907,
             "description": "destroys a mediator and removes all listeners.",
             "itemtype": "method",
             "name": "destroy",
@@ -817,7 +855,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 874,
+            "line": 921,
             "description": "Handler method that is called when one of the module the mediator is listening\nfor is fired. Should be overriden in `Mediator` instances.",
             "itemtype": "method",
             "name": "handle",
@@ -838,7 +876,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 889,
+            "line": 936,
             "description": "Runs through all of the events that the mediator should be listening for.",
             "itemtype": "method",
             "name": "processEvents",
@@ -856,7 +894,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 909,
+            "line": 956,
             "description": "Assigns a callback to the passed dispatcher for the event to be fired.",
             "itemtype": "method",
             "name": "assignCallbackToDispatcher",
@@ -884,7 +922,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 962,
+            "line": 1009,
             "description": "Default landing for no hash. Where the browser will be routed to when landing\non the root url of the applicaiton.",
             "itemtype": "property",
             "name": "landing",
@@ -895,7 +933,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 971,
+            "line": 1018,
             "description": "Define only the route hash here because we'll be using dependency routing\nfor the rest of the functionality.",
             "itemtype": "property",
             "name": "routes",
@@ -908,7 +946,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 984,
+            "line": 1031,
             "description": "This object is empty by default, but routes added here, either manually,\nor through the two methods, setStaticRoute and setStaticRoutes, will bypass\nthe handleAll and handleNoHash methods referenced in the routes object.",
             "itemtype": "property",
             "name": "staticRoutes",
@@ -920,7 +958,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 994,
+            "line": 1041,
             "description": "Router init functionality",
             "itemtype": "method",
             "name": "initialize",
@@ -938,7 +976,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1008,
+            "line": 1055,
             "description": "Reroute the page to the page referenced as landing",
             "itemtype": "method",
             "name": "handleNoHash",
@@ -949,7 +987,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1017,
+            "line": 1064,
             "description": "Handles every route that doesnt match any of the previous matches",
             "itemtype": "method",
             "name": "handleAll",
@@ -960,7 +998,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1046,
+            "line": 1093,
             "description": "Parses a passed route string and determains directory, file, view and data",
             "itemtype": "method",
             "name": "parseRoute",
@@ -978,7 +1016,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1100,
+            "line": 1147,
             "description": "Parse the query string provides and returns key value pair object",
             "itemtype": "method",
             "name": "parseRouteData",
@@ -996,7 +1034,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1119,
+            "line": 1166,
             "description": "Takes a passed route object and determains a file location",
             "itemtype": "method",
             "name": "getFileLocation",
@@ -1014,7 +1052,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1135,
+            "line": 1182,
             "description": "Adds the name and method to the staticRoutes object as a key/value pair",
             "itemtype": "method",
             "name": "setStaticRoute",
@@ -1035,7 +1073,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1145,
+            "line": 1192,
             "description": "Takes key value pairs from an object and sets them to the staticRoutes\nobject on the router",
             "itemtype": "method",
             "name": "setStaticRoutes",

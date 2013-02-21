@@ -18,19 +18,13 @@ function buildViews(){
 	var mainView = new Backbone.Rebar.View({
 		name:"mainView",
 		events:{
-			"click":"this.handler"
+			"click":"destroy"
 		},
 		render:function(callback){
 			this.$el.append("<p>Click me to destroy</p>");
 			callback(this.el);
-		},
-		handler:function(e){
-			// ...
 		}
 	});
 
 	application.view.addSubView(mainView);
-
-	console.log(application);
-	console.log(mainView);
 }

@@ -5,7 +5,7 @@
 	/**
 	 * @namespace Backbone.Rebar
 	 */
-	var Rebar = Backbone.Rebar = {};
+	var Rebar = this.Rebar = Backbone.Rebar = {};
 
 	// =======================================================================
 	// === Helpers ===========================================================
