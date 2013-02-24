@@ -1,3 +1,7 @@
+// =======================================================================
+// === Persistence Model =================================================
+// =======================================================================
+
 /**
  * The `PeristenceModel` extends the basic [Backbone.Model](http://backbonejs.org/#Model)
  * and overwrites its sync method to take advantage of local storage and persist data
@@ -25,11 +29,11 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @private
 	 */
 	getStoargeId: function() {
-		var id = "pm";
+		var id = 'pm';
 		if(this.urlRoot) {
 			// for right now lets just keep this simple
 			// @TODO: support ids with urlRoots
-			id = id + "_" + this.url().split("/")[0];
+			id = id + '_' + this.url().split('/')[0];
 		}
 		return id;
 	},
@@ -42,9 +46,9 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @param {Object} options
 	 */
 	set: function(key, val, options) {
-		if(key === "url") {
+		if(key === 'url') {
 			this.urlRoot = val;
-		} else if(_.isObject(key) && _.has(key, "url") && !_.isUndefined(key.url)) {
+		} else if(_.isObject(key) && _.has(key, 'url') && !_.isUndefined(key.url)) {
 			this.urlRoot = key.url;
 		}
 		Backbone.Model.prototype.set.call(this, key, val, options);
@@ -59,16 +63,16 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @private
 	 */
 	sync: function(method, model, options) {
-		if(method === "read") {
+		if(method === 'read') {
 			this.pullLocalStore(model, options);
-		} else if(method === "create") {
-			localStorage.setItem(model.getStoargeId(), JSON.stringify( _.omit(model.attributes,["url","urlRoot"]) ) );
-		} else if(method === "update") {
+		} else if(method === 'create') {
+			localStorage.setItem(model.getStoargeId(), JSON.stringify( _.omit(model.attributes,['url','urlRoot']) ) );
+		} else if(method === 'update') {
 			this.pullLocalStore(model, options);
-		} else if(method === "patch") {
-			throw "'patch' not implemented yet";
-		} else if(method === "delete") {
-			throw "'delete' not implemented yet";
+		} else if(method === 'patch') {
+			throw '\'patch\' not implemented yet';
+		} else if(method === 'delete') {
+			throw '\'delete\' not implemented yet';
 		}
 	},
 
@@ -90,7 +94,7 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 				model.trigger('sync', model, parsedData, options);
 			}
 		} else {
-			var error = "Error: 'localStorage' is not supported";
+			var error = 'Error: \'localStorage\' is not supported';
 			if(options.error) {
 				options.error(model, error, options);
 			}

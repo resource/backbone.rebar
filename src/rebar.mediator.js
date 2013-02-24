@@ -1,3 +1,7 @@
+// =======================================================================
+// === Mediator ==========================================================
+// =======================================================================
+
 /**
  * Simple implementation of the mediator pattern for use with Backbone.Views.
  * event architecture
@@ -29,7 +33,7 @@
 var Mediator = Rebar.Mediator = function(options) {
 	if(options) {
 		this.options = options;
-		_.extend(this, _.pick(this.options, ["initialize", "handle"]));
+		_.extend(this, _.pick(this.options, ['initialize', 'handle']));
 		if(this.options.events) {
 			this.processEvents(this.options.events);
 		}
@@ -74,9 +78,9 @@ Mediator.prototype = Object.create(Backbone.Events, {
 		value: function(view, eventNames) {
 			var events;
 			if(eventNames) {
-				events = eventNames.split(" ");
+				events = eventNames.split(' ');
 			} else {
-				events = ["all"];
+				events = ['all'];
 			}
 			_.each(events, function(eventName) {
 				view.on(eventName, function(options) {
@@ -163,7 +167,7 @@ Mediator.prototype = Object.create(Backbone.Events, {
 				name:name
 			});
 			if(_.isUndefined(view)){
-				console.warn("Property 'name' was not found on any views.");
+				console.warn('Property \'name\' was not found on any views.');
 			}
 			return view;
 		},
@@ -193,9 +197,7 @@ Mediator.prototype = Object.create(Backbone.Events, {
 	 * @param {Object} module
 	 */
 	handle: {
-		value: function(eventName, view) {
-			// ...
-		},
+		value: function(eventName, view) {},
 		writable: true
 	},
 
@@ -235,7 +237,7 @@ Mediator.prototype = Object.create(Backbone.Events, {
 			} else if(this.options[callbackName]) {
 				dispatcher.on(eventName, this.options[callbackName], this);
 			} else {
-				console.error("Error: No method '" + callbackName + "' found on mediator");
+				console.error('Error: No method \'' + callbackName + '\' found on mediator');
 			}
 		}
 	}

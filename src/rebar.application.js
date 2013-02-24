@@ -1,14 +1,18 @@
+// =======================================================================
+// === Application =======================================================
+// =======================================================================
+	
 /**
  * The application shell provides a simple default architecture consisting of a model,
  * view and controller. The application is a singleton class in that there can only be one.
- * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events) 
+ * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)
  * for more detailed information.
  * @class Application
  * @constructor
  * @extends Backbone.Events
  * @example
  *	var appConfig = {
- *		...	
+ *		...
  *	};
  *	var app = new Backbone.Rebar.Application(appConfig);
  *	app.on("applicationStateChange",function(state){
@@ -22,12 +26,12 @@ var Application = Rebar.Application = function(options) {
 		return Application.instance;
 	}
 	if(options && options.logLevel) {
-		Application.logLevel = options.logLevel;	
+		Application.logLevel = options.logLevel;
 	} else {
-		Application.logLevel = Application.LogLevel.None;	
+		Application.logLevel = Application.LogLevel.None;
 	}
 	Application.instance = this;
-	this.options = options;
+	this.options = options ? options : {};
 	this.state = Application.States.Initialized;
 };
 
@@ -92,19 +96,8 @@ Application.prototype = Object.create(Backbone.Events, {
 				this.createRouter();
 				this.initialize(this.options);
 			}
-			this.trigger("applicationStateDidChange",this.state);
+			this.trigger('applicationStateDidChange',this.state);
 		}
-	},
-
-	/**
-	 * Reference to the services object.
-	 * @property services
-	 * @type Services
-	 * @for Application
-	 */
-	services: {
-		value: Services,
-		writable: false
 	},
 
 	/**
@@ -139,8 +132,8 @@ Application.prototype = Object.create(Backbone.Events, {
 	createView: {
 		value: function() {
 			if(!this.view) {
-				this.view = new CompositeView({ 
-					el: $("#application") 
+				this.view = new CompositeView({
+					el: $('#application')
 				});
 			}
 		},
@@ -156,11 +149,11 @@ Application.prototype = Object.create(Backbone.Events, {
 		value: function() {
 			if(!this.router) {
 				this.router = new DependencyRouter({
-					landing: this.options.landing ? this.options.landing : "",
+					landing: this.options.landing ? this.options.landing : '',
 					dispatcher:this
 				});
-				this.router.on("routeDidChange",function(route){
-					this.trigger("routeDidChange",route);
+				this.router.on('routeDidChange',function(route){
+					this.trigger('routeDidChange',route);
 				},this);
 			}
 		},
@@ -176,18 +169,27 @@ Application.prototype = Object.create(Backbone.Events, {
 	startup: {
 		value: function() {
 			if(this.options.bootstrap) {
-				this.services.get({
+				var delegate = this;
+				$.ajax({
+					cache: false,
+					dataType: 'json',
+					type: 'GET',
 					url: this.options.bootstrap,
 					success: function(response) {
-						this.model.set("bootstrap", response);
-						Backbone.history.start({ pushState: false });
-						this.state = Application.States.Started;
+						if(!_.isEmpty(response)) {
+							delegate.model.set('bootstrap', response);
+							Backbone.history.start({ pushState: false });
+							delegate.state = Application.States.Started;
+						} else {
+							delegate.error = 'Error: Bootstrap load error.';
+							delegate.state = Application.States.Faulted;
+						}
 					},
 					error: function(error) {
-						this.error = error;
-						this.state = Application.States.Faulted;
+						delegate.error = error;
+						delegate.state = Application.States.Faulted;
 					}
-				}, this);
+				});
 			} else {
 				Backbone.history.start({ pushState: false });
 				this.state = Application.States.Started;

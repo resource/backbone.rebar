@@ -1,3 +1,7 @@
+// =======================================================================
+// === Dependency Router =================================================
+// =======================================================================
+
 /**
  * Handles all pre and post routing functionality. This is the default router when you initialize
  * an `Application` instance. Once initialized any time the browser's anchor location changes this
@@ -30,7 +34,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @type {String}
 	 * @default ""
 	 */
-	landing: "",
+	landing: '',
 
 	/**
 	 * Define only the route hash here because we'll be using dependency routing
@@ -41,8 +45,8 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @private
 	 */
 	routes: {
-		"": "handleNoHash",
-		"*splat": "handleAll"
+		'': 'handleNoHash',
+		'*splat': 'handleAll'
 	},
 
 	/**
@@ -97,12 +101,10 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 		}
 
 		var pRoute = this.parseRoute(routeString);
-		var router = this;
-		var directory = this.getFileLocation(pRoute);
 
 		// now that we're sure that the current route is not one of the static routes set
 		// then we'll move forward with the dependency routing functionality
-		this.trigger("routeDidChange", pRoute);
+		this.trigger('routeDidChange', pRoute);
 		this.pRoute = pRoute;
 
 	},
@@ -115,15 +117,15 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 */
 	parseRoute: function(route) {
 
-		var hash = route.split("/");
+		var hash = route.split('/');
 		var directory;
 		var file;
 
 		// define view and data
-		var splitView = hash[hash.length - 1].split("?");
+		var splitView = hash[hash.length - 1].split('?');
 
 		// figure out view and anchor
-		var viewParts = splitView[0].split("#");
+		var viewParts = splitView[0].split('#');
 		var view = viewParts[0];
 		var anchor = viewParts[1];
 
@@ -145,9 +147,9 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 		// to be directories
 		if(hash.length > 3) {
 			var dirLength = hash.length - 2;
-			directory = "";
+			directory = '';
 			for(var i = 0; i < dirLength; i++) {
-				directory += hash[i] + (i < dirLength - 1 ? "/" : "");
+				directory += hash[i] + (i < dirLength - 1 ? '/' : '');
 			}
 			file = hash[hash.length - 2];
 		}
@@ -155,7 +157,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 		return {
 			directory: directory,
 			file: file,
-			view: view !== "" ? view : undefined,
+			view: view !== '' ? view : undefined,
 			data: data,
 			anchor: anchor
 		};
@@ -174,7 +176,7 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 		var vars = query.split('&');
 		var data = {};
 		_.each(vars, function(v) {
-			var pair = v.split("=");
+			var pair = v.split('=');
 			data[pair[0]] = pair[1];
 		});
 		return data;
@@ -187,13 +189,13 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @private
 	 */
 	getFileLocation: function(route) {
-		if(_.isUndefined(route.directory) || route.directory === "") {
-			if(_.isUndefined(route.file) || route.file === "") {
-				return "";
+		if(_.isUndefined(route.directory) || route.directory === '') {
+			if(_.isUndefined(route.file) || route.file === '') {
+				return '';
 			}
 			return route.file;
 		}
-		return route.directory + "/" + route.file;
+		return route.directory + '/' + route.file;
 	},
 
 	/**

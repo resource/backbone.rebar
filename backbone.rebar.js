@@ -1,11 +1,5 @@
-/**
- * Backbone.Rebar v0.4.0
- * Adding a little bit more reinforcement to an already spectacular framework.
- * https://github.com/mcgaryes/rebar
- */
 (function(Backbone, _, $) {
-
-    "use strict";
+    'use strict';
 
     /**
      * @namespace Backbone.Rebar
@@ -15,7 +9,6 @@
     // =======================================================================
     // === Helpers ===========================================================
     // =======================================================================
-
     /**
      * Extention functionality for the prototyped object that implements it.
      * @method extend
@@ -30,180 +23,6 @@
         child.prototype = _.extend(parent.prototype, protoProps);
         return child;
     };
-
-    // =======================================================================
-    // === Services ==========================================================
-    // =======================================================================
-
-    /**
-     * Static class with boilerplate functionality for jquery ajax requests
-     * @class Services
-     * @static
-     */
-    var Services = Rebar.Services = {
-
-        /**
-         * jQuery wrapper for ajax() calls
-         * @method request
-         * @param {Object} options
-         * @param {Object} context
-         * @private
-         * @for Services
-         */
-        request: function(type, options, context) {
-
-            // options
-            var opts = this.parseOptions(options);
-            var id = opts.id;
-            var error = opts.error;
-            var success = opts.success;
-            var data = opts.data;
-            var delegate = this;
-            var url = opts.url;
-
-            // create ajax object
-            var o = {};
-
-            // set the url passed
-            o.url = opts.url ? opts.url : (opts.id ? this.getServiceEndpointById(id) : undefined);
-
-            // set the data passed
-            if (!_.isUndefined(data)) {
-                o.data = data;
-            }
-
-            // set the success funx
-            o.success = function(response) {
-                if (!_.isEmpty(response)) {
-                    delegate.handleSuccess(context, success, response);
-                } else {
-                    delegate.handleError(context);
-                }
-            };
-
-            // set the error funx
-            o.error = function(e) {
-                delegate.handleError(context, error, e);
-            };
-
-            o.cache = false;
-            o.dataType = 'json';
-            o.type = type;
-
-            // call ajax
-            $.ajax(o);
-
-        },
-
-        /**
-         * Parses the incoming options object to the http method and returns
-         * a useable options object for the request
-         * @method parseOptions
-         * @param {Object} options
-         * @private
-         * @for Services
-         */
-        parseOptions: function(options) {
-            return {
-                id: options.id ? options.id : undefined,
-                error: options.error ? options.error : function() {},
-                success: options.success ? options.success : function() {},
-                data: options.data ? options.data : undefined,
-                url: options.url ? options.url : undefined
-            };
-        },
-
-        /**
-         * Processes the error object returned by the http request
-         * @method parseError
-         * @param {Object} error
-         * @private
-         * @for Services
-         */
-        parseError: function(error) {
-            var temp = {};
-            if (_.isUndefined(error) || _.isEmpty(error) || _.isNull(error)) {
-                temp.code = 204;
-                temp.message = "No Content";
-            } else {
-                temp.code = error.status;
-                temp.message = error.statusText;
-            }
-            temp.originalError = error;
-            return temp;
-        },
-
-        /**
-         * jquery success handler
-         * @method handleSuccess
-         * @param {Object} context
-         * @param {Function} callback
-         * @param {Object} response
-         * @private
-         * @for Services
-         */
-        handleSuccess: function(context, callback, response) {
-            callback.call(context, response);
-        },
-
-        /**
-         * jquery ajax error handler
-         * @method handleError
-         * @param {Object} context
-         * @param {Function} callback
-         * @param {Object} response
-         * @private
-         * @for Services
-         */
-        handleError: function(context, callback, response) {
-            callback.call(context, this.parseError(response));
-        },
-
-        /**
-         * GET request
-         * @method get
-         * @param {Object} options
-         * @param {Object} context
-         * @for Services
-         */
-        get: function(options, context) {
-            this.request("GET", options, context);
-        },
-
-        /**
-         * POST request
-         * @method post
-         * @param {Object} options
-         * @param {Object} context
-         * @for Services
-         */
-        post: function(options, context) {
-            this.request("POST", options, context);
-        },
-
-        /**
-         * PUT request
-         * @method put
-         * @param {Object} options
-         * @param {Object} context
-         * @for Services
-         */
-        put: function(options, context) {
-            this.request("PUT", options, context);
-        },
-
-        /**
-         * DELETE request
-         * @method delete
-         * @param {Object} options
-         * @param {Object} context
-         * @for Services
-         */
-        delete: function(options, context) {
-            this.request("DELETE", options, context);
-        }
-    };
-
     // =======================================================================
     // === Application =======================================================
     // =======================================================================
@@ -211,14 +30,14 @@
     /**
      * The application shell provides a simple default architecture consisting of a model,
      * view and controller. The application is a singleton class in that there can only be one.
-     * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events) 
+     * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)
      * for more detailed information.
      * @class Application
      * @constructor
      * @extends Backbone.Events
      * @example
      *	var appConfig = {
-     *		...	
+     *		...
      *	};
      *	var app = new Backbone.Rebar.Application(appConfig);
      *	app.on("applicationStateChange",function(state){
@@ -237,7 +56,7 @@
             Application.logLevel = Application.LogLevel.None;
         }
         Application.instance = this;
-        this.options = options;
+        this.options = options ? options : {};
         this.state = Application.States.Initialized;
     };
 
@@ -304,19 +123,8 @@
                     this.createRouter();
                     this.initialize(this.options);
                 }
-                this.trigger("applicationStateDidChange", this.state);
+                this.trigger('applicationStateDidChange', this.state);
             }
-        },
-
-        /**
-         * Reference to the services object.
-         * @property services
-         * @type Services
-         * @for Application
-         */
-        services: {
-            value: Services,
-            writable: false
         },
 
         /**
@@ -352,7 +160,7 @@
             value: function() {
                 if (!this.view) {
                     this.view = new CompositeView({
-                        el: $("#application")
+                        el: $('#application')
                     });
                 }
             },
@@ -368,11 +176,11 @@
             value: function() {
                 if (!this.router) {
                     this.router = new DependencyRouter({
-                        landing: this.options.landing ? this.options.landing : "",
+                        landing: this.options.landing ? this.options.landing : '',
                         dispatcher: this
                     });
-                    this.router.on("routeDidChange", function(route) {
-                        this.trigger("routeDidChange", route);
+                    this.router.on('routeDidChange', function(route) {
+                        this.trigger('routeDidChange', route);
                     }, this);
                 }
             },
@@ -388,20 +196,29 @@
         startup: {
             value: function() {
                 if (this.options.bootstrap) {
-                    this.services.get({
+                    var delegate = this;
+                    $.ajax({
+                        cache: false,
+                        dataType: 'json',
+                        type: 'GET',
                         url: this.options.bootstrap,
                         success: function(response) {
-                            this.model.set("bootstrap", response);
-                            Backbone.history.start({
-                                pushState: false
-                            });
-                            this.state = Application.States.Started;
+                            if (!_.isEmpty(response)) {
+                                delegate.model.set('bootstrap', response);
+                                Backbone.history.start({
+                                    pushState: false
+                                });
+                                delegate.state = Application.States.Started;
+                            } else {
+                                delegate.error = 'Error: Bootstrap load error.';
+                                delegate.state = Application.States.Faulted;
+                            }
                         },
                         error: function(error) {
-                            this.error = error;
-                            this.state = Application.States.Faulted;
+                            delegate.error = error;
+                            delegate.state = Application.States.Faulted;
                         }
-                    }, this);
+                    });
                 } else {
                     Backbone.history.start({
                         pushState: false
@@ -413,7 +230,6 @@
     });
 
     Application.extend = extend;
-
     // =======================================================================
     // === Persistence Model =================================================
     // =======================================================================
@@ -445,11 +261,11 @@
          * @private
          */
         getStoargeId: function() {
-            var id = "pm";
+            var id = 'pm';
             if (this.urlRoot) {
                 // for right now lets just keep this simple
                 // @TODO: support ids with urlRoots
-                id = id + "_" + this.url().split("/")[0];
+                id = id + '_' + this.url().split('/')[0];
             }
             return id;
         },
@@ -462,9 +278,9 @@
          * @param {Object} options
          */
         set: function(key, val, options) {
-            if (key === "url") {
+            if (key === 'url') {
                 this.urlRoot = val;
-            } else if (_.isObject(key) && _.has(key, "url") && !_.isUndefined(key.url)) {
+            } else if (_.isObject(key) && _.has(key, 'url') && !_.isUndefined(key.url)) {
                 this.urlRoot = key.url;
             }
             Backbone.Model.prototype.set.call(this, key, val, options);
@@ -479,16 +295,16 @@
          * @private
          */
         sync: function(method, model, options) {
-            if (method === "read") {
+            if (method === 'read') {
                 this.pullLocalStore(model, options);
-            } else if (method === "create") {
-                localStorage.setItem(model.getStoargeId(), JSON.stringify(_.omit(model.attributes, ["url", "urlRoot"])));
-            } else if (method === "update") {
+            } else if (method === 'create') {
+                localStorage.setItem(model.getStoargeId(), JSON.stringify(_.omit(model.attributes, ['url', 'urlRoot'])));
+            } else if (method === 'update') {
                 this.pullLocalStore(model, options);
-            } else if (method === "patch") {
-                throw "'patch' not implemented yet";
-            } else if (method === "delete") {
-                throw "'delete' not implemented yet";
+            } else if (method === 'patch') {
+                throw '\'patch\' not implemented yet';
+            } else if (method === 'delete') {
+                throw '\'delete\' not implemented yet';
             }
         },
 
@@ -510,7 +326,7 @@
                     model.trigger('sync', model, parsedData, options);
                 }
             } else {
-                var error = "Error: 'localStorage' is not supported";
+                var error = 'Error: \'localStorage\' is not supported';
                 if (options.error) {
                     options.error(model, error, options);
                 }
@@ -518,7 +334,6 @@
             }
         }
     });
-
     // =======================================================================
     // === View ==============================================================
     // =======================================================================
@@ -547,7 +362,7 @@
          * @method initialize
          */
         initialize: function() {
-            _.extend(this, _.pick(this.options, ["render", "destroy", "transitionIn", "transitionOut"]));
+            _.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut']));
         },
 
         /**
@@ -559,7 +374,7 @@
         destroy: function() {
             if (!this._isDestroyed) {
                 this._isDestroyed = true;
-                this.trigger("viewDidDestroy", this);
+                this.trigger('viewDidDestroy', this);
                 this.off();
                 this.$el.off();
                 this.remove();
@@ -596,15 +411,14 @@
             }
         }
     });
-
     // =======================================================================
     // === Composite View ====================================================
     // =======================================================================
 
     /**
      * Most of the time Backbone views need to be able to contain other views. When you do this you run
-     * into situations where you need to add the view then render and when you go to destroy the parent 
-     * view, you want to make sure you properly dispose of its children. 
+     * into situations where you need to add the view then render and when you go to destroy the parent
+     * view, you want to make sure you properly dispose of its children.
      * The composite view makes managing child parent relationships a bit easier by adding recursive destroy
      * functionality as well as making it possible to quickly add and remove child views.
      * @class CompositeView
@@ -627,7 +441,7 @@
          */
         initialize: function() {
             this.subViews = [];
-            _.extend(this, _.pick(this.options, ["addSubView", "removeSubView", "removeAllSubViews", "destroy"]));
+            _.extend(this, _.pick(this.options, ['addSubView', 'removeSubView', 'removeAllSubViews', 'destroy']));
             View.prototype.initialize.call(this);
         },
 
@@ -638,10 +452,10 @@
          */
         addSubView: function(view) {
             // add event listeners for view
-            view.on("viewDidDestroy", function(view) {
+            view.on('viewDidDestroy', function(view) {
                 this.removeSubView(view);
             }, this);
-            // add sub view 
+            // add sub view
             this.subViews.push(view);
             // render subview
             var delegate = this;
@@ -727,7 +541,6 @@
             }
         }
     });
-
     // =======================================================================
     // === Mediator ==========================================================
     // =======================================================================
@@ -763,7 +576,7 @@
     var Mediator = Rebar.Mediator = function(options) {
         if (options) {
             this.options = options;
-            _.extend(this, _.pick(this.options, ["initialize", "handle"]));
+            _.extend(this, _.pick(this.options, ['initialize', 'handle']));
             if (this.options.events) {
                 this.processEvents(this.options.events);
             }
@@ -808,9 +621,9 @@
             value: function(view, eventNames) {
                 var events;
                 if (eventNames) {
-                    events = eventNames.split(" ");
+                    events = eventNames.split(' ');
                 } else {
-                    events = ["all"];
+                    events = ['all'];
                 }
                 _.each(events, function(eventName) {
                     view.on(eventName, function(options) {
@@ -897,7 +710,7 @@
                     name: name
                 });
                 if (_.isUndefined(view)) {
-                    console.warn("Property 'name' was not found on any views.");
+                    console.warn('Property \'name\' was not found on any views.');
                 }
                 return view;
             },
@@ -927,9 +740,7 @@
          * @param {Object} module
          */
         handle: {
-            value: function(eventName, view) {
-                // ...
-            },
+            value: function(eventName, view) {},
             writable: true
         },
 
@@ -969,14 +780,13 @@
                 } else if (this.options[callbackName]) {
                     dispatcher.on(eventName, this.options[callbackName], this);
                 } else {
-                    console.error("Error: No method '" + callbackName + "' found on mediator");
+                    console.error('Error: No method \'' + callbackName + '\' found on mediator');
                 }
             }
         }
     });
 
     Mediator.extend = extend;
-
     // =======================================================================
     // === Dependency Router =================================================
     // =======================================================================
@@ -1013,7 +823,7 @@
          * @type {String}
          * @default ""
          */
-        landing: "",
+        landing: '',
 
         /**
          * Define only the route hash here because we'll be using dependency routing
@@ -1024,8 +834,8 @@
          * @private
          */
         routes: {
-            "": "handleNoHash",
-            "*splat": "handleAll"
+            '': 'handleNoHash',
+            '*splat': 'handleAll'
         },
 
         /**
@@ -1080,12 +890,10 @@
             }
 
             var pRoute = this.parseRoute(routeString);
-            var router = this;
-            var directory = this.getFileLocation(pRoute);
 
             // now that we're sure that the current route is not one of the static routes set
             // then we'll move forward with the dependency routing functionality
-            this.trigger("routeDidChange", pRoute);
+            this.trigger('routeDidChange', pRoute);
             this.pRoute = pRoute;
 
         },
@@ -1098,15 +906,15 @@
          */
         parseRoute: function(route) {
 
-            var hash = route.split("/");
+            var hash = route.split('/');
             var directory;
             var file;
 
             // define view and data
-            var splitView = hash[hash.length - 1].split("?");
+            var splitView = hash[hash.length - 1].split('?');
 
             // figure out view and anchor
-            var viewParts = splitView[0].split("#");
+            var viewParts = splitView[0].split('#');
             var view = viewParts[0];
             var anchor = viewParts[1];
 
@@ -1128,9 +936,9 @@
             // to be directories
             if (hash.length > 3) {
                 var dirLength = hash.length - 2;
-                directory = "";
+                directory = '';
                 for (var i = 0; i < dirLength; i++) {
-                    directory += hash[i] + (i < dirLength - 1 ? "/" : "");
+                    directory += hash[i] + (i < dirLength - 1 ? '/' : '');
                 }
                 file = hash[hash.length - 2];
             }
@@ -1138,7 +946,7 @@
             return {
                 directory: directory,
                 file: file,
-                view: view !== "" ? view : undefined,
+                view: view !== '' ? view : undefined,
                 data: data,
                 anchor: anchor
             };
@@ -1157,7 +965,7 @@
             var vars = query.split('&');
             var data = {};
             _.each(vars, function(v) {
-                var pair = v.split("=");
+                var pair = v.split('=');
                 data[pair[0]] = pair[1];
             });
             return data;
@@ -1170,13 +978,13 @@
          * @private
          */
         getFileLocation: function(route) {
-            if (_.isUndefined(route.directory) || route.directory === "") {
-                if (_.isUndefined(route.file) || route.file === "") {
-                    return "";
+            if (_.isUndefined(route.directory) || route.directory === '') {
+                if (_.isUndefined(route.file) || route.file === '') {
+                    return '';
                 }
                 return route.file;
             }
-            return route.directory + "/" + route.file;
+            return route.directory + '/' + route.file;
         },
 
         /**
@@ -1201,5 +1009,4 @@
             }
         }
     });
-
 }).call(this, Backbone, _, $);

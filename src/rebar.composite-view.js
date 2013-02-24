@@ -1,7 +1,11 @@
+// =======================================================================
+// === Composite View ====================================================
+// =======================================================================
+
 /**
  * Most of the time Backbone views need to be able to contain other views. When you do this you run
- * into situations where you need to add the view then render and when you go to destroy the parent 
- * view, you want to make sure you properly dispose of its children. 
+ * into situations where you need to add the view then render and when you go to destroy the parent
+ * view, you want to make sure you properly dispose of its children.
  * The composite view makes managing child parent relationships a bit easier by adding recursive destroy
  * functionality as well as making it possible to quickly add and remove child views.
  * @class CompositeView
@@ -24,7 +28,7 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	 */
 	initialize: function() {
 		this.subViews = [];
-		_.extend(this, _.pick(this.options, ["addSubView", "removeSubView", "removeAllSubViews", "destroy"]));
+		_.extend(this, _.pick(this.options, ['addSubView', 'removeSubView', 'removeAllSubViews', 'destroy']));
 		View.prototype.initialize.call(this);
 	},
 
@@ -35,10 +39,10 @@ var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
 	 */
 	addSubView: function(view) {
 		// add event listeners for view
-		view.on("viewDidDestroy",function(view){
+		view.on('viewDidDestroy',function(view){
 			this.removeSubView(view);
 		},this);
-		// add sub view 
+		// add sub view
 		this.subViews.push(view);
 		// render subview
 		var delegate = this;

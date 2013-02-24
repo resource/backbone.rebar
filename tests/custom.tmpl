@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+
+		<% css.forEach(function(style){ %>
+			<link rel="stylesheet" type="text/css" href="<%= style %>">
+		<% }) %>
+
+		<!-- Libraries -->
+		<script type="text/javascript" src="../libs/jquery.js"></script>
+		<script type="text/javascript" src="../libs/underscore.js"></script>
+		<script type="text/javascript" src="../libs/backbone.js"></script>
+		
+		<!-- Backbone.Rebar -->
+		<script type="text/javascript" src="../src/rebar.core.js"></script>
+		<script type="text/javascript" src="../src/rebar.view.js"></script>
+		<script type="text/javascript" src="../src/rebar.composite-view.js"></script>
+		<script type="text/javascript" src="../src/rebar.dependency-router.js"></script>
+		<script type="text/javascript" src="../src/rebar.persistence-model.js"></script>
+		<script type="text/javascript" src="../src/rebar.application.js"></script>
+		<script type="text/javascript" src="../src/rebar.mediator.js"></script>
+
+		<% with (scripts) { %>
+			<% [].concat(jasmine, vendor, helpers, src, specs, reporters, start).forEach(function(script){ %>
+				<script src="<%= script %>"></script>
+			<% }) %>
+		<% }; %>
+
+	</head>
+	<body></body>
+</html>

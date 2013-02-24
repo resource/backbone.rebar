@@ -15,7 +15,6 @@ describe("application", function() {
 		expect(app.model).toBeDefined();
 		expect(app.view).toBeDefined();
 		expect(app.router).toBeDefined();
-		expect(app.services).toBeDefined();
 	});
 
 	it("extends", function() {
@@ -24,7 +23,6 @@ describe("application", function() {
 		expect(c.model).toBeDefined();
 		expect(c.view).toBeDefined();
 		expect(c.router).toBeDefined();
-		expect(c.services).toBeDefined();
 		expect(app.startup).toBeDefined();
 	});
 
