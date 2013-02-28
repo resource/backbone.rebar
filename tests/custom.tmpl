@@ -16,10 +16,12 @@
 		<script type="text/javascript" src="../src/rebar.view.js"></script>
 		<script type="text/javascript" src="../src/rebar.composite-view.js"></script>
 		<script type="text/javascript" src="../src/rebar.dependency-router.js"></script>
+		<script type="text/javascript" src="../src/rebar.controller.js"></script>
 		<script type="text/javascript" src="../src/rebar.persistence-model.js"></script>
 		<script type="text/javascript" src="../src/rebar.application.js"></script>
 		<script type="text/javascript" src="../src/rebar.mediator.js"></script>
-
+		<script type="text/javascript" src="../src/rebar.logger.js"></script>
+		
 		<% with (scripts) { %>
 			<% [].concat(jasmine, vendor, helpers, src, specs, reporters, start).forEach(function(script){ %>
 				<script src="<%= script %>"></script>

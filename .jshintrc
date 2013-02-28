@@ -2,12 +2,9 @@
     "bitwise"       : true,
     "curly"         : true,
     "eqeqeq"        : true,
-    "forin"         : false,
     "immed"         : true,
-    "latedef"       : true,
     "newcap"        : true,
     "nonew"         : true,
-    "quotmark"      : "single",
     "undef"         : true,
     "strict"        : true,
     "trailing"      : true,
@@ -16,12 +13,19 @@
     "es5"           : true,
 
     "browser"       : true,     
-    "devel"         : false,
     "jquery"        : true,
     "yui"           : true,
-    "node"          : true,     
+    "node"          : true,
     
     "predef"        : [
-        "View","Rebar", "Backbone", "CompositeView", "DependencyRouter", "_", "extend", "PersistenceModel"
+        "View",
+        "Rebar",
+        "Backbone",
+        "CompositeView",
+        "DependencyRouter",
+        "_",
+        "extend",
+        "PersistenceModel",
+        "Logger"
     ]
 }

@@ -115,4 +115,33 @@ describe("mediator",function(){
 		expect(mediator.hasView(view)).toBeTruthy();
 	});
 
+	it("with config view",function(){
+		var flag = false;
+		var view = new View();
+		var mediator = new Mediator({
+			view:view,
+			initialize:function(){
+				this.view.on("foo",function(){
+					flag = true;
+				},this);
+			}
+		});
+		view.trigger("foo");
+		expect(flag).toBeTruthy();
+	});
+
+	it("with config view and config view events",function(){
+		var flag = false;
+		var view = new View();
+		var mediator = new Mediator({
+			view:view,
+			viewEvents:"foo",
+			handle:function(event,view,options){
+				flag = true;
+			}
+		});
+		view.trigger("foo");
+		expect(flag).toBeTruthy();
+	});
+
 });

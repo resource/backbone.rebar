@@ -47,31 +47,22 @@
      */
     var Application = Rebar.Application = function(options) {
         // singleton functionality
-        if (Application.instance && !options._bypassSingleton) {
+        if (Application.instance && options && !options._bypassSingleton) {
             return Application.instance;
         }
         if (options && options.logLevel) {
-            Application.logLevel = options.logLevel;
+            Logger.setLogLevel(options.logLevel);
         } else {
-            Application.logLevel = Application.LogLevel.None;
+            Logger.setLogLevel(Logger.Levels.None);
         }
         Application.instance = this;
         this.options = options ? options : {};
         this.state = Application.States.Initialized;
-    };
 
-    /**
-     * Available loglevels used in various logging tasks throughout the applicaiton.
-     * @property LogLevel
-     * @type Object
-     * @for Application
-     * @final
-     */
-    Application.LogLevel = {
-        None: 0,
-        Error: 10,
-        Info: 20,
-        Verbose: 30
+        // setup listener for app shutdown
+        $(window).on('beforeunload unload', $.proxy(function(e) {
+            this.state = Application.States.Shutdown;
+        }, this));
     };
 
     /**
@@ -84,8 +75,9 @@
     Application.States = {
         Default: 0,
         Initialized: 1,
+        Faulted: 2,
         Started: 3,
-        Faulted: 2
+        Shutdown: 4
     };
 
     Application.prototype = Object.create(Backbone.Events, {
@@ -356,29 +348,29 @@
      *		this.destroy();
      *	},this);
      */
-    var View = Rebar.View = Backbone.View.extend({
+    var View = Rebar.View = function(options) {
+        Backbone.View.call(this, options);
+        _.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut']));
+    };
 
-        /**
-         * @method initialize
-         */
-        initialize: function() {
-            _.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut']));
-        },
-
+    View.prototype = Object.create(Backbone.View.prototype, {
         /**
          * This method is a great helper method to call when the subclass view is about to be removed.
          * It recursively will call destroy on any subviews reference in the sub views array. It also handles
          * removing any event listeners that may have been added to the subViews array.
          * @method destroy
          */
-        destroy: function() {
-            if (!this._isDestroyed) {
-                this._isDestroyed = true;
-                this.trigger('viewDidDestroy', this);
-                this.off();
-                this.$el.off();
-                this.remove();
-            }
+        destroy: {
+            value: function() {
+                if (!this._isDestroyed) {
+                    this._isDestroyed = true;
+                    this.trigger('viewDidDestroy', this);
+                    this.off();
+                    this.$el.off();
+                    this.remove();
+                }
+            },
+            writable: true
         },
 
         /**
@@ -387,17 +379,25 @@
          * @method render
          * @param {Function} callback
          */
-        render: function(callback) {},
+        render: {
+            value: function(callback) {
+                // ...
+            },
+            writable: true
+        },
 
         /**
          * Transitions in the view. By default this method actually does nothing.
          * @method transitionIn
          * @param {Function} callback
          */
-        transitionIn: function(callback, context) {
-            if (_.isFunction(callback)) {
-                callback.call(context ? context : this);
-            }
+        transitionIn: {
+            value: function(callback, context) {
+                if (_.isFunction(callback)) {
+                    callback.call(context ? context : this);
+                }
+            },
+            writable: true
         },
 
         /**
@@ -405,12 +405,17 @@
          * @method transitionOut
          * @param {Function} callback
          */
-        transitionOut: function(callback, context) {
-            if (_.isFunction(callback)) {
-                callback.call(context ? context : this);
-            }
+        transitionOut: {
+            value: function(callback, context) {
+                if (_.isFunction(callback)) {
+                    callback.call(context ? context : this);
+                }
+            },
+            writable: true
         }
     });
+
+    View.extend = Backbone.View.extend;
     // =======================================================================
     // === Composite View ====================================================
     // =======================================================================
@@ -433,37 +438,36 @@
      *	});
      *	composite.addSubView(view);
      */
-    var CompositeView = Rebar.CompositeView = Backbone.Rebar.View.extend({
+    var CompositeView = Rebar.CompositeView = function(options) {
+        this.subViews = [];
+        View.call(this, options);
+        //_.extend(this, _.pick(this.options, ['addSubView', 'removeSubView', 'removeAllSubViews', 'destroy']));
+    };
 
-        /**
-         * Creates an empty array where subview references can be push for later use.
-         * @method initialize
-         */
-        initialize: function() {
-            this.subViews = [];
-            _.extend(this, _.pick(this.options, ['addSubView', 'removeSubView', 'removeAllSubViews', 'destroy']));
-            View.prototype.initialize.call(this);
-        },
+    CompositeView.prototype = Object.create(View.prototype, {
 
         /**
          * Adds a sub view to a container BaseView
          * @method addSubView
          * @param {View} view
          */
-        addSubView: function(view) {
-            // add event listeners for view
-            view.on('viewDidDestroy', function(view) {
-                this.removeSubView(view);
-            }, this);
-            // add sub view
-            this.subViews.push(view);
-            // render subview
-            var delegate = this;
-            view.render(function(el) {
-                var markup = el ? el : view.el;
-                delegate.$el.append(markup);
-            });
-            // @TODO - possibly trigger view has been added
+        addSubView: {
+            value: function(view) {
+                // add event listeners for view
+                view.on('viewDidDestroy', function(view) {
+                    this.removeSubView(view);
+                }, this);
+                // add sub view
+                this.subViews.push(view);
+                // render subview
+                var delegate = this;
+                view.render(function(el) {
+                    var markup = el ? el : view.el;
+                    delegate.$el.append(markup);
+                });
+                // @TODO - possibly trigger view has been added
+            },
+            writable: true
         },
 
         /**
@@ -471,10 +475,13 @@
          * @method addSubViews
          * @param {Array} views Array of subviews
          */
-        addSubViews: function(views) {
-            _.each(views, function(view) {
-                this.addSubView(view);
-            }, this);
+        addSubViews: {
+            value: function(views) {
+                _.each(views, function(view) {
+                    this.addSubView(view);
+                }, this);
+            },
+            writable: true
         },
 
         /**
@@ -482,27 +489,34 @@
          * @method removeSubView
          * @param {Object} view A base view or a cid of the sub view
          */
-        removeSubView: function(view) {
-            // assuming that what was passed was not an actual view and in fact was a cid
-            if (!view.cid) {
-                view = _.where(this.subViews, {
-                    cid: view
-                })[0];
-            }
-            this.destroySubView(view);
-            this.subViews = _.reject(this.subViews, function(subView) {
-                return subView.cid === view.cid;
-            });
+        removeSubView: {
+            value: function(view) {
+                // assuming that what was passed was not an actual view and in fact was a cid
+                if (!view.cid) {
+                    view = _.where(this.subViews, {
+                        cid: view
+                    })[0];
+                }
+                this.destroySubView(view);
+                this.subViews = _.reject(this.subViews, function(subView) {
+                    return subView.cid === view.cid;
+                });
+            },
+            writable: true
         },
 
         /**
          * Removes all sub views from view
          * @method removeAllSubViews
          */
-        removeAllSubViews: function() {
-            _.each(this.subViews, function(view) {
-                this.removeSubView(view);
-            }, this);
+        removeAllSubViews: {
+            value: function() {
+                _.each(this.subViews, function(view) {
+                    this.removeSubView(view);
+                }, this);
+
+            },
+            writable: true
         },
 
         /**
@@ -511,18 +525,18 @@
          * removing any event listeners that may have been added to the subViews array.
          * @method destroy
          */
-        destroy: function() {
-
-            // recursively destroy sub views
-            if (this.subViews.length > 0) {
-                _.each(this.subViews, function(view) {
-                    this.destroySubView(view);
-                }, this);
-            }
-
-            this.subViews = [];
-
-            View.prototype.destroy.call(this);
+        destroy: {
+            value: function() {
+                // recursively destroy sub views
+                if (this.subViews.length > 0) {
+                    _.each(this.subViews, function(view) {
+                        this.destroySubView(view);
+                    }, this);
+                }
+                this.subViews = [];
+                View.prototype.destroy.call(this);
+            },
+            writable: true
         },
 
         /**
@@ -531,16 +545,21 @@
          * @method destroySubView
          * @param {View} view
          */
-        destroySubView: function(view) {
-            if (_.isFunction(view.destroy)) {
-                view.destroy(true);
-            } else {
-                if (!_.isUndefined(view.cid)) {
-                    View.prototype.destroy.call(view);
+        destroySubView: {
+            value: function(view) {
+                if (_.isFunction(view.destroy)) {
+                    view.destroy(true);
+                } else {
+                    if (!_.isUndefined(view.cid)) {
+                        View.prototype.destroy.call(view);
+                    }
                 }
-            }
+            },
+            writable: true
         }
     });
+
+    CompositeView.extend = View.extend;
     // =======================================================================
     // === Mediator ==========================================================
     // =======================================================================
@@ -576,9 +595,12 @@
     var Mediator = Rebar.Mediator = function(options) {
         if (options) {
             this.options = options;
-            _.extend(this, _.pick(this.options, ['initialize', 'handle']));
+            _.extend(this, _.pick(this.options, ['initialize', 'handle', 'view']));
             if (this.options.events) {
                 this.processEvents(this.options.events);
+            }
+            if (this.view && this.options.viewEvents) {
+                this.processViewEvents(this.options.viewEvents);
             }
         }
         this._views = [];
@@ -595,6 +617,18 @@
          * @private
          */
         _views: {
+            value: undefined,
+            writable: true,
+            configurable: false
+        },
+
+        /**
+         * Reference to a single view who we'll be mediating for.
+         * @property view
+         * @type Backbone.View
+         * @for Mediator
+         */
+        view: {
             value: undefined,
             writable: true,
             configurable: false
@@ -764,6 +798,17 @@
             }
         },
 
+        processViewEvents: {
+            value: function(events) {
+                var eventsArr = events.split(" ");
+                _.each(eventsArr, function(event, index) {
+                    this.view.on(event.toString(), function(options) {
+                        this.handle(event, this.view, options);
+                    }, this);
+                }, this);
+            }
+        },
+
         /**
          * Assigns a callback to the passed dispatcher for the event to be fired.
          * @method assignCallbackToDispatcher
@@ -787,6 +832,22 @@
     });
 
     Mediator.extend = extend;
+    // =======================================================================
+    // === Controller ========================================================
+    // =======================================================================
+
+    /**
+     * The application shell provides a simple default architecture consisting of a model,
+     * view and controller. The application is a singleton class in that there can only be one.
+     * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)
+     * for more detailed information.
+     * @class Application
+     * @constructor
+     * @extends Backbone.Events
+     * @example
+     */
+    var Controller = Rebar.Controller = function() {};
+    Controller.prototype = Object.create(Backbone.Events, {});
     // =======================================================================
     // === Dependency Router =================================================
     // =======================================================================
@@ -1009,4 +1070,54 @@
             }
         }
     });
+    // =======================================================================
+    // === Logger ============================================================
+    // =======================================================================
+
+    /**
+     * Logger
+     * @class Logger
+     */
+    var Logger = Rebar.Logger = (function() {
+
+        var root = this;
+        var _console = typeof(console) !== undefined;
+        var _logLevel = 0;
+
+        function log(msg) {
+            if (_console && _logLevel >= Logger.Levels.Info) {
+                root.console.log(msg);
+            }
+        }
+
+        function warn(msg) {
+            if (_console && _logLevel >= Logger.Levels.Info) {
+                root.console.warn(msg);
+            }
+        }
+
+        function error(msg) {
+            if (_console && _logLevel >= Logger.Levels.Error) {
+                root.console.error(msg);
+            }
+        }
+
+        function setLogLevel(logLevel) {
+            _logLevel = logLevel;
+            return _logLevel;
+        }
+
+        return {
+            log: log,
+            warn: warn,
+            error: error,
+            setLogLevel: setLogLevel,
+            Levels: {
+                None: 0,
+                Error: 10,
+                Info: 20,
+                Verbose: 30
+            }
+        };
+    }).call(this);
 }).call(this, Backbone, _, $);

@@ -31,11 +31,14 @@
  *	mediator.removeView(view);
  */
 var Mediator = Rebar.Mediator = function(options) {
-	if(options) {
+	if (options) {
 		this.options = options;
-		_.extend(this, _.pick(this.options, ['initialize', 'handle']));
-		if(this.options.events) {
+		_.extend(this, _.pick(this.options, ['initialize', 'handle', 'view']));
+		if (this.options.events) {
 			this.processEvents(this.options.events);
+		}
+		if (this.view && this.options.viewEvents) {
+			this.processViewEvents(this.options.viewEvents);
 		}
 	}
 	this._views = [];
@@ -52,6 +55,18 @@ Mediator.prototype = Object.create(Backbone.Events, {
 	 * @private
 	 */
 	_views: {
+		value: undefined,
+		writable: true,
+		configurable: false
+	},
+
+	/**
+	 * Reference to a single view who we'll be mediating for.
+	 * @property view
+	 * @type Backbone.View
+	 * @for Mediator
+	 */
+	view: {
 		value: undefined,
 		writable: true,
 		configurable: false
@@ -77,7 +92,7 @@ Mediator.prototype = Object.create(Backbone.Events, {
 	addView: {
 		value: function(view, eventNames) {
 			var events;
-			if(eventNames) {
+			if (eventNames) {
 				events = eventNames.split(' ');
 			} else {
 				events = ['all'];
@@ -103,7 +118,7 @@ Mediator.prototype = Object.create(Backbone.Events, {
 			// @TODO: remove all events that the view has with this handler
 			view.off(null, this.handle, this);
 			this._views = _.reject(this._views, function(v) {
-				if(v.cid === view.cid) {
+				if (v.cid === view.cid) {
 					return true;
 				}
 				return false;
@@ -141,9 +156,9 @@ Mediator.prototype = Object.create(Backbone.Events, {
 			return _.filter(this._views, function(view) {
 				var key = _.keys(attribute)[0];
 				var value = _.values(attribute)[0];
-				if(view[key] && view[key] === value) {
+				if (view[key] && view[key] === value) {
 					return true;
-				} else if(view.options && view.options[key] && view.options[key] === value) {
+				} else if (view.options && view.options[key] && view.options[key] === value) {
 					return true;
 				}
 				return false;
@@ -161,17 +176,17 @@ Mediator.prototype = Object.create(Backbone.Events, {
 	 *	...
 	 *	mediator.getView({name:"foo"});
 	 */
-	getViewByName:{
-		value:function(name){
+	getViewByName: {
+		value: function(name) {
 			var view = this.getView({
-				name:name
+				name: name
 			});
-			if(_.isUndefined(view)){
+			if (_.isUndefined(view)) {
 				console.warn('Property \'name\' was not found on any views.');
 			}
 			return view;
 		},
-		writable:true
+		writable: true
 	},
 
 	/**
@@ -210,14 +225,25 @@ Mediator.prototype = Object.create(Backbone.Events, {
 	 */
 	processEvents: {
 		value: function(events) {
-			for(var item in events) {
+			for (var item in events) {
 				var eventObj = events[item];
-				if(_.isObject(eventObj)) {
+				if (_.isObject(eventObj)) {
 					this.assignCallbackToDispatcher(item, eventObj.callback, eventObj.dispatcher);
 				} else {
 					this.assignCallbackToDispatcher(item, eventObj, this.options.dispatcher);
 				}
 			}
+		}
+	},
+
+	processViewEvents: {
+		value: function(events) {
+			var eventsArr = events.split(" ");
+			_.each(eventsArr, function(event, index) {
+				this.view.on(event.toString(), function(options) {
+					this.handle(event, this.view, options);
+				}, this);
+			}, this);
 		}
 	},
 
@@ -232,9 +258,9 @@ Mediator.prototype = Object.create(Backbone.Events, {
 	 */
 	assignCallbackToDispatcher: {
 		value: function(eventName, callbackName, dispatcher) {
-			if(this[callbackName]) {
+			if (this[callbackName]) {
 				dispatcher.on(eventName, this[callbackName], this);
-			} else if(this.options[callbackName]) {
+			} else if (this.options[callbackName]) {
 				dispatcher.on(eventName, this.options[callbackName], this);
 			} else {
 				console.error('Error: No method \'' + callbackName + '\' found on mediator');

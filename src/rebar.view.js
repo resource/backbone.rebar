@@ -20,29 +20,29 @@
  *		this.destroy();
  *	},this);
  */
-var View = Rebar.View = Backbone.View.extend({
+var View = Rebar.View = function(options) {
+	Backbone.View.call(this,options);
+	_.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut']));
+};
 
-	/**
-	 * @method initialize
-	 */
-	initialize: function() {
-		_.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut']));
-	},
-
+View.prototype = Object.create(Backbone.View.prototype, {
 	/**
 	 * This method is a great helper method to call when the subclass view is about to be removed.
 	 * It recursively will call destroy on any subviews reference in the sub views array. It also handles
 	 * removing any event listeners that may have been added to the subViews array.
 	 * @method destroy
 	 */
-	destroy: function() {
-		if(!this._isDestroyed) {
-			this._isDestroyed = true;
-			this.trigger('viewDidDestroy',this);
-			this.off();
-			this.$el.off();
-			this.remove();
-		}
+	destroy: {
+		value: function() {
+			if (!this._isDestroyed) {
+				this._isDestroyed = true;
+				this.trigger('viewDidDestroy', this);
+				this.off();
+				this.$el.off();
+				this.remove();
+			}
+		},
+		writable: true
 	},
 
 	/**
@@ -51,17 +51,25 @@ var View = Rebar.View = Backbone.View.extend({
 	 * @method render
 	 * @param {Function} callback
 	 */
-	render: function(callback) {},
+	render: {
+		value: function(callback) {
+			// ...
+		},
+		writable: true
+	},
 
 	/**
 	 * Transitions in the view. By default this method actually does nothing.
 	 * @method transitionIn
 	 * @param {Function} callback
 	 */
-	transitionIn: function(callback, context) {
-		if(_.isFunction(callback)) {
-			callback.call(context ? context : this);
-		}
+	transitionIn: {
+		value: function(callback, context) {
+			if (_.isFunction(callback)) {
+				callback.call(context ? context : this);
+			}
+		},
+		writable: true
 	},
 
 	/**
@@ -69,9 +77,14 @@ var View = Rebar.View = Backbone.View.extend({
 	 * @method transitionOut
 	 * @param {Function} callback
 	 */
-	transitionOut: function(callback, context) {
-		if(_.isFunction(callback)) {
-			callback.call(context ? context : this);
-		}
+	transitionOut: {
+		value: function(callback, context) {
+			if (_.isFunction(callback)) {
+				callback.call(context ? context : this);
+			}
+		},
+		writable: true
 	}
 });
+
+View.extend = Backbone.View.extend;

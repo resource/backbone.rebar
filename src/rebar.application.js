@@ -22,31 +22,22 @@
  */
 var Application = Rebar.Application = function(options) {
 	// singleton functionality
-	if(Application.instance && !options._bypassSingleton) {
+	if(Application.instance && options && !options._bypassSingleton) {
 		return Application.instance;
 	}
 	if(options && options.logLevel) {
-		Application.logLevel = options.logLevel;
+		Logger.setLogLevel(options.logLevel);
 	} else {
-		Application.logLevel = Application.LogLevel.None;
+		Logger.setLogLevel(Logger.Levels.None);
 	}
 	Application.instance = this;
 	this.options = options ? options : {};
 	this.state = Application.States.Initialized;
-};
 
-/**
- * Available loglevels used in various logging tasks throughout the applicaiton.
- * @property LogLevel
- * @type Object
- * @for Application
- * @final
- */
-Application.LogLevel = {
-	None:0,
-	Error:10,
-	Info:20,
-	Verbose:30
+	// setup listener for app shutdown
+	$(window).on('beforeunload unload',$.proxy(function(e){
+		this.state = Application.States.Shutdown;
+	},this));
 };
 
 /**
@@ -59,8 +50,9 @@ Application.LogLevel = {
 Application.States = {
 	Default:0,
 	Initialized:1,
+	Faulted:2,
 	Started:3,
-	Faulted:2
+	Shutdown:4
 };
 
 Application.prototype = Object.create(Backbone.Events, {

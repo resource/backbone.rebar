@@ -1,0 +1,52 @@
+<html>
+<head>
+
+	<title></title>
+	
+	<style type="text/css">
+		
+		#content {
+			width: auto;
+			background: #abcdef;
+			height: 100%;
+		}
+
+		#controls {
+
+		}
+
+	</style>
+
+</head>
+<body>
+
+	<div id="application"></div>
+
+	<!-- Libraries -->
+	<script type="text/javascript" src="libs/jquery.js"></script>
+	<script type="text/javascript" src="libs/underscore.js"></script>
+	<script type="text/javascript" src="libs/backbone.js"></script>	
+	<script type="text/javascript" src="libs/backbone.rebar.js"></script>
+
+	<!-- Application -->
+	<script type="text/javascript" src="app.js"></script>
+
+	<!-- Templates -->
+	<script type="text/template" id="simple-template">
+		<h1><%= cid %></h1>
+	</script>
+
+	<script type="text/template" id="content-template"></script>
+	<script type="text/template" id="controls-template">
+		<form>
+	        <fieldset>
+                <legend>What color would you like?</legend>
+                <input type="radio" name="color" value="blue" checked/>Blue<br />
+                <input type="radio" name="color" value="red" />Red<br />
+                <input type="radio" name="color" value="yellow" />Yellow<br />
+	        </fieldset>
+		</form>
+	</script>
+
+</body>
+</html>
