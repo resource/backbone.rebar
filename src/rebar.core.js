@@ -2,7 +2,7 @@
 'use strict';
 
 /**
- * @namespace Backbone.Rebar
+ * @namespace Rebar
  */
 var Rebar = this.Rebar = Backbone.Rebar = {};
 

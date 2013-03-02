@@ -34,10 +34,16 @@ module.exports = function(grunt) {
                     src: ['../backbone.rebar.js'],
                     dest: '../temp/backbone.rebar.js'
                 }]
-            }
+            },
+            pages: {
+                files: [{
+                    src: ['../docs/**'],
+                    dest: '../../backbone-rebar-pages/docs/'
+                }]
+            },
         },
         yuidoc: {
-            compile: {
+            project: {
                 name: NAME,
                 description: DESCRIPTION,
                 version: VERSION,
@@ -93,7 +99,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsbeautifier');
 
     // tasks
-    grunt.registerTask('docs', ['copy:docs', 'yuidoc']);
+    grunt.registerTask('docs', ['copy:docs', 'yuidoc', 'copy:pages']);
     grunt.registerTask('dev', ['jasmine', 'concat', 'jsbeautifier', 'jshint']);
     grunt.registerTask('default', ['dev', 'uglify', 'docs']);
     

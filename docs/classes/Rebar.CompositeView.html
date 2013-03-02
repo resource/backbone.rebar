@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Backbone.Rebar.Logger - Backbone.Rebar</title>
+    <title>Rebar.CompositeView - Backbone.Rebar</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -41,21 +41,21 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Application.html">Backbone.Rebar.Application</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Application.html">Rebar.Application</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.CompositeView.html">Backbone.Rebar.CompositeView</a></li>
+                <li><a href="..&#x2F;classes/Rebar.CompositeView.html">Rebar.CompositeView</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Controller.html">Backbone.Rebar.Controller</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Controller.html">Rebar.Controller</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.DependencyRouter.html">Backbone.Rebar.DependencyRouter</a></li>
+                <li><a href="..&#x2F;classes/Rebar.DependencyRouter.html">Rebar.DependencyRouter</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Logger.html">Backbone.Rebar.Logger</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Logger.html">Rebar.Logger</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Mediator.html">Backbone.Rebar.Mediator</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Mediator.html">Rebar.Mediator</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.PersistenceModel.html">Backbone.Rebar.PersistenceModel</a></li>
+                <li><a href="..&#x2F;classes/Rebar.PersistenceModel.html">Rebar.PersistenceModel</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.View.html">Backbone.Rebar.View</a></li>
+                <li><a href="..&#x2F;classes/Rebar.View.html">Rebar.View</a></li>
             
             </ul>
 
@@ -96,15 +96,19 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Backbone.Rebar.Logger Class</h1>
+                        <h1>Rebar.CompositeView Class</h1>
 <div class="box meta">
     
 
     
+        <div class="extends">
+            Extends View
+        </div>
+    
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l1154"><code>..&#x2F;temp&#x2F;backbone.rebar.js:1154</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l456"><code>..&#x2F;temp&#x2F;backbone.rebar.js:456</code></a>
         </div>
     
 
@@ -116,9 +120,85 @@
 
 
 <div class="box intro">
-    <p>Logger</p>
+    <p>Most of the time Backbone views need to be able to contain other views. When you do this you run
+into situations where you need to add the view then render and when you go to destroy the parent
+view, you want to make sure you properly dispose of its children.
+The composite view makes managing child parent relationships a bit easier by adding recursive destroy
+functionality as well as making it possible to quickly add and remove child views.</p>
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_Rebar.CompositeView" class="method item">
+    <h3 class="name"><code>Rebar.CompositeView</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l456"><code>..&#x2F;temp&#x2F;backbone.rebar.js:456</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>var composite = new Backbone.Rebar.CompositeView({
+    ...
+});
+var view = new Backbone.Rebar.View({
+    ...
+});
+composite.addSubView(view);
+</code></pre>
+            </div>
+        </div>
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -128,8 +208,6 @@
         
             <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         
-        
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
         
         
@@ -143,31 +221,45 @@
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
-                    <ul class="index-list methods">
+                    <ul class="index-list methods extends">
                         
                             <li class="index-item method">
-                                <a href="#method_error">error</a>
+                                <a href="#method_addSubView">addSubView</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_log">log</a>
+                                <a href="#method_addSubViews">addSubViews</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_setLogLevel">setLogLevel</a>
+                                <a href="#method_destroy">destroy</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_warn">warn</a>
+                                <a href="#method_destroySubView">destroySubView</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_removeAllSubViews">removeAllSubViews</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_removeSubView">removeSubView</a>
 
                                 
                                 
@@ -177,23 +269,6 @@
                 </div>
             
 
-            
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties">
-                        
-                            <li class="index-item property">
-                                <a href="#property_Levels">Levels</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
             
 
             
@@ -206,8 +281,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_error" class="method item">
-    <h3 class="name"><code>error</code></h3>
+                    <div id="method_addSubView" class="method item">
+    <h3 class="name"><code>addSubView</code></h3>
 
     
         <div class="args">
@@ -215,7 +290,7 @@
             
                 <li class="arg">
                     
-                        <code>msg</code>
+                        <code>view</code>
                     
                 </li>
             
@@ -248,7 +323,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l1203"><code>..&#x2F;temp&#x2F;backbone.rebar.js:1203</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l482"><code>..&#x2F;temp&#x2F;backbone.rebar.js:482</code></a>
         
         </p>
 
@@ -259,7 +334,7 @@
     </div>
 
     <div class="description">
-        <p>console.error wrapper</p>
+        <p>Adds a sub view to a container BaseView</p>
     </div>
 
     
@@ -270,8 +345,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">msg</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">view</code>
+                        <span class="type">View</span>
                     
 
                     
@@ -293,8 +368,8 @@
 </div>
 
                 
-                    <div id="method_log" class="method item">
-    <h3 class="name"><code>log</code></h3>
+                    <div id="method_addSubViews" class="method item">
+    <h3 class="name"><code>addSubViews</code></h3>
 
     
         <div class="args">
@@ -302,7 +377,7 @@
             
                 <li class="arg">
                     
-                        <code>msg</code>
+                        <code>views</code>
                     
                 </li>
             
@@ -335,7 +410,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l1189"><code>..&#x2F;temp&#x2F;backbone.rebar.js:1189</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l506"><code>..&#x2F;temp&#x2F;backbone.rebar.js:506</code></a>
         
         </p>
 
@@ -346,7 +421,7 @@
     </div>
 
     <div class="description">
-        <p>console.log wrapper</p>
+        <p>Adds an array of sub views to a container BaseView</p>
     </div>
 
     
@@ -357,8 +432,152 @@
             
                 <li class="param">
                     
-                        <code class="param-name">msg</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">views</code>
+                        <span class="type">Array</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Array of subviews</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_destroy" class="method item">
+    <h3 class="name"><code>destroy</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l554"><code>..&#x2F;temp&#x2F;backbone.rebar.js:554</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>This method is a great helper method to call when the subclass view is about to be removed.
+It recursively will call destroy on any subviews reference in the sub views array. It also handles
+removing any event listeners that may have been added to the subViews array.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_destroySubView" class="method item">
+    <h3 class="name"><code>destroySubView</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>view</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l574"><code>..&#x2F;temp&#x2F;backbone.rebar.js:574</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Checks to see if the passed view has destroy functionality and then if it does not
+calls the prototype destroy functionality and passes the reference</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">view</code>
+                        <span class="type">View</span>
                     
 
                     
@@ -380,21 +599,11 @@
 </div>
 
                 
-                    <div id="method_setLogLevel" class="method item">
-    <h3 class="name"><code>setLogLevel</code></h3>
+                    <div id="method_removeAllSubViews" class="method item">
+    <h3 class="name"><code>removeAllSubViews</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>logLevel</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
@@ -422,7 +631,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l1210"><code>..&#x2F;temp&#x2F;backbone.rebar.js:1210</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l541"><code>..&#x2F;temp&#x2F;backbone.rebar.js:541</code></a>
         
         </p>
 
@@ -433,32 +642,9 @@
     </div>
 
     <div class="description">
-        <p>Sets the log level for the logger</p>
+        <p>Removes all sub views from view</p>
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">logLevel</code>
-                        <span class="type">Logger.Levels</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -467,8 +653,8 @@
 </div>
 
                 
-                    <div id="method_warn" class="method item">
-    <h3 class="name"><code>warn</code></h3>
+                    <div id="method_removeSubView" class="method item">
+    <h3 class="name"><code>removeSubView</code></h3>
 
     
         <div class="args">
@@ -476,7 +662,7 @@
             
                 <li class="arg">
                     
-                        <code>msg</code>
+                        <code>view</code>
                     
                 </li>
             
@@ -509,7 +695,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l1196"><code>..&#x2F;temp&#x2F;backbone.rebar.js:1196</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l520"><code>..&#x2F;temp&#x2F;backbone.rebar.js:520</code></a>
         
         </p>
 
@@ -520,7 +706,7 @@
     </div>
 
     <div class="description">
-        <p>console.warn wrapper</p>
+        <p>Removes a sub view from the container view</p>
     </div>
 
     
@@ -531,14 +717,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">msg</code>
+                        <code class="param-name">view</code>
                         <span class="type">Object</span>
                     
 
                     
 
                     <div class="param-description">
-                         
+                        <p>A base view or a cid of the sub view</p>
                     </div>
 
                     
@@ -557,58 +743,6 @@
             </div>
         
 
-        
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
-
-                
-                    <div id="property_Levels" class="property item">
-    <h3 class="name"><code>Levels</code></h3>
-    <span class="type">Unknown</span>
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l1217"><code>..&#x2F;temp&#x2F;backbone.rebar.js:1217</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Possible log levels to set the logger to</p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-            </div>
         
 
         

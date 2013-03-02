@@ -10,35 +10,35 @@
             "name": "../temp/backbone.rebar.js",
             "modules": {},
             "classes": {
-                "Backbone.Rebar.Application": 1,
-                "Backbone.Rebar.PersistenceModel": 1,
-                "Backbone.Rebar.View": 1,
-                "Backbone.Rebar.CompositeView": 1,
-                "Backbone.Rebar.Mediator": 1,
-                "Backbone.Rebar.Controller": 1,
-                "Backbone.Rebar.DependencyRouter": 1,
-                "Backbone.Rebar.Logger": 1
+                "Rebar.Application": 1,
+                "Rebar.PersistenceModel": 1,
+                "Rebar.View": 1,
+                "Rebar.CompositeView": 1,
+                "Rebar.Mediator": 1,
+                "Rebar.Controller": 1,
+                "Rebar.DependencyRouter": 1,
+                "Rebar.Logger": 1
             },
             "fors": {
-                "Backbone.Rebar.Application": 1,
-                "Backbone.Rebar.Mediator": 1
+                "Rebar.Application": 1,
+                "Rebar.Mediator": 1
             },
             "namespaces": {
-                "Backbone.Rebar": 1
+                "Rebar": 1
             }
         }
     },
     "modules": {},
     "classes": {
-        "Backbone.Rebar.Application": {
-            "name": "Backbone.Rebar.Application",
+        "Rebar.Application": {
+            "name": "Rebar.Application",
             "shortname": "Application",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 33,
             "description": "The application shell provides a simple default architecture consisting of a model,\nview and controller. The application is a singleton class in that there can only be one.\nIt extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)\nfor more detailed information.",
@@ -51,15 +51,15 @@
                 "\n\tvar appConfig = {\n\t\t...\n\t};\n\tvar app = new Backbone.Rebar.Application(appConfig);\n\tapp.on(\"applicationStateChange\",function(state){\n\t\t...\n\t});\n\tapp.startup();"
             ]
         },
-        "Backbone.Rebar.PersistenceModel": {
-            "name": "Backbone.Rebar.PersistenceModel",
+        "Rebar.PersistenceModel": {
+            "name": "Rebar.PersistenceModel",
             "shortname": "PersistenceModel",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 259,
             "description": "The `PeristenceModel` extends the basic [Backbone.Model](http://backbonejs.org/#Model)\nand overwrites its sync method to take advantage of local storage and persist data\nacross multiple pages within the same domain. The url property is used to grab data\nfrom a specific object of the localStorage object. Use the `fetch` method to pull\nwhatever data already exists in localStorage and use the `save` method to store for\nlater use.",
@@ -69,15 +69,15 @@
                 "\n\tvar model = new Backbone.Rebar.PersistenceModel({\n\t\turl:\"custom\"\n\t});\n\tmodel.fetch();\n\tmodel.set(\"foo\",\"bar\");\n\tmodel.save();"
             ]
         },
-        "Backbone.Rebar.View": {
-            "name": "Backbone.Rebar.View",
+        "Rebar.View": {
+            "name": "Rebar.View",
             "shortname": "View",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 364,
             "description": "Base class that extends [Backbone.View](http://backbonejs.org/#View) and\nprovides boilerplate plate functionality for transitioning in and out, destroying\nand rendering views.",
@@ -87,15 +87,15 @@
                 "\n\tvar view = new Backbone.Rebar.View({\n\t\t...\n\t});\n\tview.transitionIn({\n\t\t...\n\t});\n\tview.transitionOut({\n\t\tthis.destroy();\n\t},this);"
             ]
         },
-        "Backbone.Rebar.CompositeView": {
-            "name": "Backbone.Rebar.CompositeView",
+        "Rebar.CompositeView": {
+            "name": "Rebar.CompositeView",
             "shortname": "CompositeView",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 456,
             "description": "Most of the time Backbone views need to be able to contain other views. When you do this you run\ninto situations where you need to add the view then render and when you go to destroy the parent\nview, you want to make sure you properly dispose of its children.\nThe composite view makes managing child parent relationships a bit easier by adding recursive destroy\nfunctionality as well as making it possible to quickly add and remove child views.",
@@ -105,15 +105,15 @@
                 "\n\tvar composite = new Backbone.Rebar.CompositeView({\n\t\t...\n\t});\n\tvar view = new Backbone.Rebar.View({\n\t\t...\n\t});\n\tcomposite.addSubView(view);"
             ]
         },
-        "Backbone.Rebar.Mediator": {
-            "name": "Backbone.Rebar.Mediator",
+        "Rebar.Mediator": {
+            "name": "Rebar.Mediator",
             "shortname": "Mediator",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 600,
             "description": "Simple implementation of the mediator pattern for use with Backbone.Views.\nevent architecture",
@@ -125,15 +125,15 @@
                 "\n\tvar mediator = new Mediator({\n\t\tevents:{\n\t\t\t\"appwide1\":{\n\t\t\t\tdispatcher:app\n\t\t\t\tcallback:\"method\"\n\t\t\t}\n\t\t},\n\t\tinitialize:function(options){\n\t\t\t...\n\t\t},\n\t\tmethod:function(e){\n\t\t\t...\n\t\t},\n\t\thandle:function(eventName,module){\n\t\t\t...\n\t\t}\n\t});\n\tmediator.addView(view,\"event1 event2\");\n\tview.trigger(\"something\",view);\n\tmediator.removeView(view);"
             ]
         },
-        "Backbone.Rebar.Controller": {
-            "name": "Backbone.Rebar.Controller",
+        "Rebar.Controller": {
+            "name": "Rebar.Controller",
             "shortname": "Controller",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 880,
             "description": "Simple controller object.",
@@ -146,15 +146,15 @@
                 "Determain what other functionality needs to be a part of the controller."
             ]
         },
-        "Backbone.Rebar.DependencyRouter": {
-            "name": "Backbone.Rebar.DependencyRouter",
+        "Rebar.DependencyRouter": {
+            "name": "Rebar.DependencyRouter",
             "shortname": "DependencyRouter",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 898,
             "description": "Handles all pre and post routing functionality. This is the default router when you initialize\nan `Application` instance. Once initialized any time the browser's anchor location changes this\nclass notifies the rest of the application of the new directory, file, view and anchor to use.\nTo use simply listen to the application's `routeDidChange` or the router's `routeDidChange` event firing\nand then implement the AMD loader that makes the most sense (for your project) to use.",
@@ -164,15 +164,15 @@
                 "\n\t// requirejs example\n\trouter.on(\"routeDidChange\", function(route){\n\t\tvar mReq = require([resource], function(a) {\n\t\t\tvar Constructor = a[view];\n\t\t\tvar v = new Constructor({\n\t\t\t\trouteData: data\n\t\t\t});\n\t\t\tdelegate.addSubView(v);\n\t\t}, function(e) {\n\t\t\tconsole.log(\"Error: \" + e);\n\t\t});\n\t});"
             ]
         },
-        "Backbone.Rebar.Logger": {
-            "name": "Backbone.Rebar.Logger",
+        "Rebar.Logger": {
+            "name": "Rebar.Logger",
             "shortname": "Logger",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "namespace": "Backbone.Rebar",
+            "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 1154,
             "description": "Logger"
@@ -182,8 +182,8 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 5,
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -202,8 +202,8 @@
                 "description": "child",
                 "type": "Object"
             },
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -213,8 +213,8 @@
             "name": "States",
             "type": "Object",
             "final": 1,
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -225,8 +225,8 @@
             "type": "Integer",
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -235,8 +235,8 @@
             "itemtype": "property",
             "name": "state",
             "type": "Integer",
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -244,8 +244,8 @@
             "description": "Initialization functionality for extended Applicaiton instances.",
             "itemtype": "method",
             "name": "initialize",
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -253,8 +253,8 @@
             "description": "Create a model instance for the Applicaiton instance.",
             "itemtype": "method",
             "name": "createModel",
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -262,8 +262,8 @@
             "description": "Create a view instance for the Applicaiton instance.",
             "itemtype": "method",
             "name": "createView",
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -271,8 +271,8 @@
             "description": "Create a dependency router instance for the Applicaiton instance.",
             "itemtype": "method",
             "name": "createRouter",
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -280,8 +280,8 @@
             "description": "This method kicks off Backbone's history managment as well as loads the bootstrap data\nif a reference was passed through the contructors options argument.",
             "itemtype": "method",
             "name": "startup",
-            "class": "Backbone.Rebar.Application",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Application",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -295,8 +295,8 @@
             },
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.PersistenceModel",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.PersistenceModel",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -321,8 +321,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.PersistenceModel",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.PersistenceModel",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -349,8 +349,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.PersistenceModel",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.PersistenceModel",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -370,8 +370,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.PersistenceModel",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.PersistenceModel",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -379,8 +379,8 @@
             "description": "This method is a great helper method to call when the subclass view is about to be removed.\nIt recursively will call destroy on any subviews reference in the sub views array. It also handles\nremoving any event listeners that may have been added to the subViews array.",
             "itemtype": "method",
             "name": "destroy",
-            "class": "Backbone.Rebar.View",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.View",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -395,8 +395,8 @@
                     "type": "Function"
                 }
             ],
-            "class": "Backbone.Rebar.View",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.View",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -411,8 +411,8 @@
                     "type": "Function"
                 }
             ],
-            "class": "Backbone.Rebar.View",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.View",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -427,8 +427,8 @@
                     "type": "Function"
                 }
             ],
-            "class": "Backbone.Rebar.View",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.View",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -443,8 +443,8 @@
                     "type": "View"
                 }
             ],
-            "class": "Backbone.Rebar.CompositeView",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.CompositeView",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -459,8 +459,8 @@
                     "type": "Array"
                 }
             ],
-            "class": "Backbone.Rebar.CompositeView",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.CompositeView",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -475,8 +475,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.CompositeView",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.CompositeView",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -484,8 +484,8 @@
             "description": "Removes all sub views from view",
             "itemtype": "method",
             "name": "removeAllSubViews",
-            "class": "Backbone.Rebar.CompositeView",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.CompositeView",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -493,8 +493,8 @@
             "description": "This method is a great helper method to call when the subclass view is about to be removed.\nIt recursively will call destroy on any subviews reference in the sub views array. It also handles\nremoving any event listeners that may have been added to the subViews array.",
             "itemtype": "method",
             "name": "destroy",
-            "class": "Backbone.Rebar.CompositeView",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.CompositeView",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -509,8 +509,8 @@
                     "type": "View"
                 }
             ],
-            "class": "Backbone.Rebar.CompositeView",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.CompositeView",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -521,8 +521,8 @@
             "type": "Array",
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -531,8 +531,8 @@
             "itemtype": "property",
             "name": "view",
             "type": "Backbone.View",
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -540,8 +540,8 @@
             "description": "Called for any modules that extend the `Mediator` prototype.",
             "itemtype": "method",
             "name": "initialize",
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -561,8 +561,8 @@
                     "type": "String"
                 }
             ],
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -577,8 +577,8 @@
                     "type": "Backbone.View"
                 }
             ],
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -593,8 +593,8 @@
                     "type": "Backbone.View"
                 }
             ],
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -612,8 +612,8 @@
             "example": [
                 "\n\t...\n\tmediator.getView({name:\"foo\"});"
             ],
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -631,8 +631,8 @@
             "example": [
                 "\n\t...\n\tmediator.getView({name:\"foo\"});"
             ],
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -640,8 +640,8 @@
             "description": "destroys a mediator and removes all listeners.",
             "itemtype": "method",
             "name": "destroy",
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -661,8 +661,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -679,8 +679,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -697,8 +697,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -725,8 +725,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.Mediator",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Mediator",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -736,8 +736,8 @@
             "name": "landing",
             "type": "{String}",
             "default": "\"\"",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -749,8 +749,8 @@
             "default": "{ \"\": \"handleNoHash\", \"*splat\": \"handleAll\" }",
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -761,8 +761,8 @@
             "type": "{Object} static route key value pairs",
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -772,8 +772,8 @@
             "name": "handleNoHash",
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -783,8 +783,8 @@
             "name": "handleAll",
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -801,8 +801,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -819,8 +819,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -837,8 +837,8 @@
             ],
             "access": "private",
             "tagname": "",
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -858,8 +858,8 @@
                     "type": "Function"
                 }
             ],
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -874,8 +874,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.DependencyRouter",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.DependencyRouter",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -890,8 +890,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.Logger",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Logger",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -906,8 +906,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.Logger",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Logger",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -922,8 +922,8 @@
                     "type": "Object"
                 }
             ],
-            "class": "Backbone.Rebar.Logger",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Logger",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -938,8 +938,8 @@
                     "type": "Logger.Levels"
                 }
             ],
-            "class": "Backbone.Rebar.Logger",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Logger",
+            "namespace": "Rebar"
         },
         {
             "file": "../temp/backbone.rebar.js",
@@ -948,8 +948,8 @@
             "itemtype": "property",
             "name": "Levels",
             "static": 1,
-            "class": "Backbone.Rebar.Logger",
-            "namespace": "Backbone.Rebar"
+            "class": "Rebar.Logger",
+            "namespace": "Rebar"
         }
     ],
     "warnings": [

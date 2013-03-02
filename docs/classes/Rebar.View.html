@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Backbone.Rebar.PersistenceModel - Backbone.Rebar</title>
+    <title>Rebar.View - Backbone.Rebar</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -41,21 +41,21 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Application.html">Backbone.Rebar.Application</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Application.html">Rebar.Application</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.CompositeView.html">Backbone.Rebar.CompositeView</a></li>
+                <li><a href="..&#x2F;classes/Rebar.CompositeView.html">Rebar.CompositeView</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Controller.html">Backbone.Rebar.Controller</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Controller.html">Rebar.Controller</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.DependencyRouter.html">Backbone.Rebar.DependencyRouter</a></li>
+                <li><a href="..&#x2F;classes/Rebar.DependencyRouter.html">Rebar.DependencyRouter</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Logger.html">Backbone.Rebar.Logger</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Logger.html">Rebar.Logger</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.Mediator.html">Backbone.Rebar.Mediator</a></li>
+                <li><a href="..&#x2F;classes/Rebar.Mediator.html">Rebar.Mediator</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.PersistenceModel.html">Backbone.Rebar.PersistenceModel</a></li>
+                <li><a href="..&#x2F;classes/Rebar.PersistenceModel.html">Rebar.PersistenceModel</a></li>
             
-                <li><a href="..&#x2F;classes/Backbone.Rebar.View.html">Backbone.Rebar.View</a></li>
+                <li><a href="..&#x2F;classes/Rebar.View.html">Rebar.View</a></li>
             
             </ul>
 
@@ -96,19 +96,19 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Backbone.Rebar.PersistenceModel Class</h1>
+                        <h1>Rebar.View Class</h1>
 <div class="box meta">
     
 
     
         <div class="extends">
-            Extends Backbone.Model
+            Extends Backbone.View
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l259"><code>..&#x2F;temp&#x2F;backbone.rebar.js:259</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l364"><code>..&#x2F;temp&#x2F;backbone.rebar.js:364</code></a>
         </div>
     
 
@@ -120,19 +120,16 @@
 
 
 <div class="box intro">
-    <p>The <code>PeristenceModel</code> extends the basic <a href="http://backbonejs.org/#Model">Backbone.Model</a>
-and overwrites its sync method to take advantage of local storage and persist data
-across multiple pages within the same domain. The url property is used to grab data
-from a specific object of the localStorage object. Use the <code>fetch</code> method to pull
-whatever data already exists in localStorage and use the <code>save</code> method to store for
-later use.</p>
+    <p>Base class that extends <a href="http://backbonejs.org/#View">Backbone.View</a> and
+provides boilerplate plate functionality for transitioning in and out, destroying
+and rendering views.</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Backbone.Rebar.PersistenceModel" class="method item">
-    <h3 class="name"><code>Backbone.Rebar.PersistenceModel</code></h3>
+        <div id="method_Rebar.View" class="method item">
+    <h3 class="name"><code>Rebar.View</code></h3>
 
     
         <span class="paren">()</span>
@@ -163,7 +160,7 @@ later use.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l259"><code>..&#x2F;temp&#x2F;backbone.rebar.js:259</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l364"><code>..&#x2F;temp&#x2F;backbone.rebar.js:364</code></a>
         
         </p>
 
@@ -186,12 +183,15 @@ later use.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>var model = new Backbone.Rebar.PersistenceModel({
-    url:"custom"
+                <pre class="code prettyprint"><code>var view = new Backbone.Rebar.View({
+    ...
 });
-model.fetch();
-model.set("foo","bar");
-model.save();
+view.transitionIn({
+    ...
+});
+view.transitionOut({
+    this.destroy();
+},this);
 </code></pre>
             </div>
         </div>
@@ -223,29 +223,29 @@ model.save();
 
                     <ul class="index-list methods extends">
                         
-                            <li class="index-item method private">
-                                <a href="#method_getStoargeId">getStoargeId</a>
+                            <li class="index-item method">
+                                <a href="#method_destroy">destroy</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_pullLocalStore">pullLocalStore</a>
+                                <a href="#method_render">render</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_set">set</a>
+                                <a href="#method_transitionIn">transitionIn</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method private">
-                                <a href="#method_sync">sync</a>
+                            <li class="index-item method">
+                                <a href="#method_transitionOut">transitionOut</a>
 
                                 
                                 
@@ -267,23 +267,17 @@ model.save();
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_getStoargeId" class="method item private">
-    <h3 class="name"><code>getStoargeId</code></h3>
+                    <div id="method_destroy" class="method item">
+    <h3 class="name"><code>destroy</code></h3>
 
     
         <span class="paren">()</span>
     
 
     
-        <span class="returns-inline">
-            <span class="type">String</span>
-        </span>
-    
 
     
 
-    
-        <span class="flag private">private</span>
     
 
     
@@ -305,7 +299,7 @@ model.save();
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l279"><code>..&#x2F;temp&#x2F;backbone.rebar.js:279</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l389"><code>..&#x2F;temp&#x2F;backbone.rebar.js:389</code></a>
         
         </p>
 
@@ -316,32 +310,21 @@ model.save();
     </div>
 
     <div class="description">
-        <p>Determains and returns a storage id based on the passed id in initialization</p>
+        <p>This method is a great helper method to call when the subclass view is about to be removed.
+It recursively will call destroy on any subviews reference in the sub views array. It also handles
+removing any event listeners that may have been added to the subViews array.</p>
     </div>
 
     
 
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">String</span>:
-                    
-                    storage id for this persistence model
-                
-            </div>
-        </div>
     
 
     
 </div>
 
                 
-                    <div id="method_pullLocalStore" class="method item">
-    <h3 class="name"><code>pullLocalStore</code></h3>
+                    <div id="method_render" class="method item">
+    <h3 class="name"><code>render</code></h3>
 
     
         <div class="args">
@@ -349,13 +332,7 @@ model.save();
             
                 <li class="arg">
                     
-                        <code>model</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>options</code>
+                        <code>callback</code>
                     
                 </li>
             
@@ -388,7 +365,7 @@ model.save();
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l333"><code>..&#x2F;temp&#x2F;backbone.rebar.js:333</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l408"><code>..&#x2F;temp&#x2F;backbone.rebar.js:408</code></a>
         
         </p>
 
@@ -399,7 +376,8 @@ model.save();
     </div>
 
     <div class="description">
-        <p>Helper method pulls data based on urlRoot from local storage</p>
+        <p>For instances that are used in dependency routing the render method is called
+and used directly after loading. For all other uses you must call render manually.</p>
     </div>
 
     
@@ -410,23 +388,8 @@ model.save();
             
                 <li class="param">
                     
-                        <code class="param-name">model</code>
-                        <span class="type">PersistenceModel</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">callback</code>
+                        <span class="type">Function</span>
                     
 
                     
@@ -448,8 +411,8 @@ model.save();
 </div>
 
                 
-                    <div id="method_set" class="method item">
-    <h3 class="name"><code>set</code></h3>
+                    <div id="method_transitionIn" class="method item">
+    <h3 class="name"><code>transitionIn</code></h3>
 
     
         <div class="args">
@@ -457,19 +420,7 @@ model.save();
             
                 <li class="arg">
                     
-                        <code>key</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>val</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>options</code>
+                        <code>callback</code>
                     
                 </li>
             
@@ -502,7 +453,7 @@ model.save();
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l295"><code>..&#x2F;temp&#x2F;backbone.rebar.js:295</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l421"><code>..&#x2F;temp&#x2F;backbone.rebar.js:421</code></a>
         
         </p>
 
@@ -513,7 +464,7 @@ model.save();
     </div>
 
     <div class="description">
-        <p>Overriden to make sure that we have a urlRoot on our persistence model</p>
+        <p>Transitions in the view. By default this method actually does nothing.</p>
     </div>
 
     
@@ -524,38 +475,8 @@ model.save();
             
                 <li class="param">
                     
-                        <code class="param-name">key</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">val</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">callback</code>
+                        <span class="type">Function</span>
                     
 
                     
@@ -577,8 +498,8 @@ model.save();
 </div>
 
                 
-                    <div id="method_sync" class="method item private">
-    <h3 class="name"><code>sync</code></h3>
+                    <div id="method_transitionOut" class="method item">
+    <h3 class="name"><code>transitionOut</code></h3>
 
     
         <div class="args">
@@ -586,19 +507,7 @@ model.save();
             
                 <li class="arg">
                     
-                        <code>method</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>model</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>options</code>
+                        <code>callback</code>
                     
                 </li>
             
@@ -610,8 +519,6 @@ model.save();
 
     
 
-    
-        <span class="flag private">private</span>
     
 
     
@@ -633,7 +540,7 @@ model.save();
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l311"><code>..&#x2F;temp&#x2F;backbone.rebar.js:311</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l435"><code>..&#x2F;temp&#x2F;backbone.rebar.js:435</code></a>
         
         </p>
 
@@ -644,7 +551,7 @@ model.save();
     </div>
 
     <div class="description">
-        <p>Overridden to reroute the to a localStorage endpoint.</p>
+        <p>Transitions out the view. By default this method actually does nothing.</p>
     </div>
 
     
@@ -655,38 +562,8 @@ model.save();
             
                 <li class="param">
                     
-                        <code class="param-name">method</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">model</code>
-                        <span class="type">PersistenceModel</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">callback</code>
+                        <span class="type">Function</span>
                     
 
                     
