@@ -23,11 +23,21 @@
  */
 var View = Rebar.View = function(options) {
 	Backbone.View.call(this,options);
-	_.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut']));
+	_.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut','controller']));
 };
 
 View.prototype = Object.create(Backbone.View.prototype, {
 	
+	/**
+	 * Reference to the views controller
+	 * @property controller
+	 * @type Controller
+	 */
+	controller:{
+		value:undefined,
+		writable: true
+	},
+
 	/**
 	 * This method is a great helper method to call when the subclass view is about to be removed.
 	 * It recursively will call destroy on any subviews reference in the sub views array. It also handles

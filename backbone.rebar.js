@@ -114,9 +114,18 @@
                 }
                 this._state = state;
                 if (this._state === Application.States.Initialized) {
-                    this.createModel(this.options.modelOptions);
-                    this.createView(this.options.viewOptions);
-                    this.createRouter(this.options.routerOptions);
+                    if (_.isFunction(this.createModel)) {
+                        this.createModel(this.options.modelOptions);
+                    }
+                    if (_.isFunction(this.createController)) {
+                        this.createController(this.options.controllerOptions);
+                    }
+                    if (_.isFunction(this.createView)) {
+                        this.createView(this.options.viewOptions);
+                    }
+                    if (_.isFunction(this.createRouter)) {
+                        this.createRouter(this.options.routerOptions);
+                    }
                     this.initialize(this.options);
                 }
                 this.trigger('applicationStateDidChange', this.state);
@@ -156,8 +165,26 @@
             value: function(viewOptions) {
                 if (!this.view) {
                     this.view = new CompositeView(_.extend({
-                        el: $('#application')
+                        el: $('#application'),
+                        model: this.model,
+                        controller: this.controller
                     }, viewOptions));
+                }
+            },
+            writable: true
+        },
+
+        /**
+         * Create a view instance for the Applicaiton instance.
+         * @method createView
+         * @for Application
+         */
+        createController: {
+            value: function(controllerOptions) {
+                if (!this.controller) {
+                    this.controller = new Controller(_.extend({
+                        model: this.model
+                    }, controllerOptions));
                 }
             },
             writable: true
@@ -381,10 +408,20 @@
      */
     var View = Rebar.View = function(options) {
         Backbone.View.call(this, options);
-        _.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut']));
+        _.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut', 'controller']));
     };
 
     View.prototype = Object.create(Backbone.View.prototype, {
+
+        /**
+         * Reference to the views controller
+         * @property controller
+         * @type Controller
+         */
+        controller: {
+            value: undefined,
+            writable: true
+        },
 
         /**
          * This method is a great helper method to call when the subclass view is about to be removed.
@@ -885,9 +922,24 @@
      * @uses extend
      * @TODO Determain what other functionality needs to be a part of the controller.
      */
-    var Controller = Rebar.Controller = function() {};
+    var Controller = Rebar.Controller = function(options) {
+        if (!_.isUndefined(options)) {
+            this.options = options;
+            _.extend(this, _.pick(this.options, ['model']));
+        }
+    };
 
-    Controller.prototype = Object.create(Backbone.Events, {});
+    Controller.prototype = Object.create(Backbone.Events, {
+        /**
+         * Reference to the model the controller will be interacting with
+         * @property model
+         * @type Backbone.Model
+         */
+        model: {
+            value: undefined,
+            writable: true
+        }
+    });
 
     Controller.extend = extend;
 

@@ -7,6 +7,8 @@ module.exports = function(grunt) {
     var URL = 'https://github.com/mcgaryes/rebar';
     var VERSION = '0.4.0';
     var BANNER = '/**\n * ' + NAME + ' v' + VERSION + '\n * ' + DESCRIPTION + '\n * ' + URL + '\n */\n';
+    var LOGO = "../rebar.png";
+
 
     // config
     grunt.initConfig({
@@ -48,6 +50,7 @@ module.exports = function(grunt) {
                 description: DESCRIPTION,
                 version: VERSION,
                 url: URL,
+                logo: LOGO,
                 options: {
                     paths: '../temp/',
                     outdir: '../docs/'

@@ -85,9 +85,18 @@ Application.prototype = Object.create(Backbone.Events, {
 			if(this._state === state) { return; }
 			this._state = state;
 			if(this._state === Application.States.Initialized) {
-				this.createModel(this.options.modelOptions);
-				this.createView(this.options.viewOptions);
-				this.createRouter(this.options.routerOptions);
+				if(_.isFunction(this.createModel)) {
+					this.createModel(this.options.modelOptions);
+				}
+				if(_.isFunction(this.createController)) {
+					this.createController(this.options.controllerOptions);
+				}
+				if(_.isFunction(this.createView)) {
+					this.createView(this.options.viewOptions);
+				}
+				if(_.isFunction(this.createRouter)) {
+					this.createRouter(this.options.routerOptions);
+				}
 				this.initialize(this.options);
 			}
 			this.trigger('applicationStateDidChange',this.state);
@@ -127,8 +136,26 @@ Application.prototype = Object.create(Backbone.Events, {
 		value: function(viewOptions) {
 			if(!this.view) {
 				this.view = new CompositeView(_.extend({
-					el: $('#application')
+					el: $('#application'),
+					model:this.model,
+					controller:this.controller
 				},viewOptions));
+			}
+		},
+		writable: true
+	},
+
+	/**
+	 * Create a view instance for the Applicaiton instance.
+	 * @method createView
+	 * @for Application
+	 */
+	createController: {
+		value: function(controllerOptions) {
+			if(!this.controller) {
+				this.controller = new Controller(_.extend({
+					model: this.model
+				},controllerOptions));
 			}
 		},
 		writable: true

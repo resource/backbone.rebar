@@ -22,6 +22,7 @@
         "Rebar",
         "Backbone",
         "CompositeView",
+        "Controller",
         "DependencyRouter",
         "_",
         "extend",
