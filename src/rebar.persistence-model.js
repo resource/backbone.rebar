@@ -82,6 +82,7 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @method pullLocalStore
 	 * @param {PersistenceModel} model
 	 * @param {Object} options
+	 * @private
 	 */
 	pullLocalStore: function(model, options) {
 		if(localStorage) {

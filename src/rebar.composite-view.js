@@ -126,6 +126,7 @@ CompositeView.prototype = Object.create(View.prototype, {
 	 * calls the prototype destroy functionality and passes the reference
 	 * @method destroySubView
 	 * @param {View} view
+	 * @private
 	 */
 	destroySubView: {
 		value: function(view) {

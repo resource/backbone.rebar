@@ -4,8 +4,7 @@
 // =======================================================================
 
 /**
- * Simple implementation of the mediator pattern for use with Backbone.Views.
- * event architecture
+ * Simple implementation of the mediator pattern for use with Backbone.Views
  * @class Mediator
  * @constructor
  * @uses extend

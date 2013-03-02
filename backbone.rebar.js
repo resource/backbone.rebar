@@ -190,8 +190,8 @@
         },
 
         /**
-         * Create a view instance for the Applicaiton instance.
-         * @method createView
+         * Create a controller instance for the Applicaiton instance.
+         * @method createController
          * @for Application
          */
         createController: {
@@ -352,6 +352,7 @@
          * @method pullLocalStore
          * @param {PersistenceModel} model
          * @param {Object} options
+         * @private
          */
         pullLocalStore: function(model, options) {
             if (localStorage) {
@@ -603,6 +604,7 @@
          * calls the prototype destroy functionality and passes the reference
          * @method destroySubView
          * @param {View} view
+         * @private
          */
         destroySubView: {
             value: function(view) {
@@ -625,8 +627,7 @@
     // =======================================================================
 
     /**
-     * Simple implementation of the mediator pattern for use with Backbone.Views.
-     * event architecture
+     * Simple implementation of the mediator pattern for use with Backbone.Views
      * @class Mediator
      * @constructor
      * @uses extend

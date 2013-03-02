@@ -146,8 +146,8 @@ Application.prototype = Object.create(Backbone.Events, {
 	},
 
 	/**
-	 * Create a view instance for the Applicaiton instance.
-	 * @method createView
+	 * Create a controller instance for the Applicaiton instance.
+	 * @method createController
 	 * @for Application
 	 */
 	createController: {
