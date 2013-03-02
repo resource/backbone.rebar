@@ -42,6 +42,6 @@ Very simple boilerplate object that extends `Backbone.Events`. More to come here
 
 Console wrapper that looks to the Logger.Loglevel to determain whether or not it should actual call log, warn or error.
 
-# Documentation
+# API Documentation
 
 For full api documentation reference the [api docs](http://mcgaryes.github.com/backbone.rebar/docs/index.html).
