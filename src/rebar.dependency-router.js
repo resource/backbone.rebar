@@ -26,7 +26,6 @@
  *		});
  *	});
  */
-
 var DependencyRouter = Rebar.DependencyRouter = function(options) {
 	if (!_.isUndefined(options)) {
 		if (!_.isUndefined(options.landing)) {

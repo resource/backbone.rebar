@@ -217,32 +217,6 @@ Application.prototype = Object.create(Backbone.Events, {
 			}
 		}
 	}
-
-	/*
-
-	// =======================================================================
-	// === Mediator Helpers ==================================================
-	// =======================================================================
-
-	hasMediator:{
-		value:function(mediator){}
-	},
-
-	registerMediator:{
-		value:function(mediator){}
-	},
-
-	removeMediator:{
-		value:function(mediator){}
-	},
-
-	hasMediator:{
-		value:function(mediator){}
-	}
-
-	*/
-
-
 });
 
 Application.extend = extend;

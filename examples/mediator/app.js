@@ -38,7 +38,7 @@ $(function(){
 	var controller = new Controller({ model:model });
 	var view = new View({ el:$("#foo-edit"), model:model, controller:controller });
 	var application = new Application();
-	
+
 	application.view.addSubView(view);
 	console.log(application);
 });

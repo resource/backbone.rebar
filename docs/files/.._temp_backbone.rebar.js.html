@@ -101,13 +101,28 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 (function(Backbone, _, $) {
-
     &#x27;use strict&#x27;;
 
     &#x2F;**
      * @namespace Rebar
      *&#x2F;
     var Rebar = this.Rebar = Backbone.Rebar = {};
+
+    &#x2F;&#x2F; =======================================================================
+    &#x2F;&#x2F; === Pollyfills ========================================================
+    &#x2F;&#x2F; =======================================================================
+
+    if (!Object.create) {
+        Object.create = function(o) {
+            if (arguments.length &gt; 1) {
+                throw new Error(&#x27;Object.create implementation only accepts the first parameter.&#x27;);
+            }
+
+            function F() {}
+            F.prototype = o;
+            return new F();
+        };
+    }
 
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Helpers ===========================================================
@@ -352,31 +367,6 @@
                 }
             }
         }
-
-        &#x2F;*
-
-	&#x2F;&#x2F; =======================================================================
-	&#x2F;&#x2F; === Mediator Helpers ==================================================
-	&#x2F;&#x2F; =======================================================================
-
-	hasMediator:{
-		value:function(mediator){}
-	},
-
-	registerMediator:{
-		value:function(mediator){}
-	},
-
-	removeMediator:{
-		value:function(mediator){}
-	},
-
-	hasMediator:{
-		value:function(mediator){}
-	}
-
-	*&#x2F;
-
     });
 
     Application.extend = extend;
@@ -1072,7 +1062,6 @@
      *		});
      *	});
      *&#x2F;
-
     var DependencyRouter = Rebar.DependencyRouter = function(options) {
         if (!_.isUndefined(options)) {
             if (!_.isUndefined(options.landing)) {
