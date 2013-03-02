@@ -36,7 +36,7 @@ You can also add static routes via the `setStaticRoute` and `setStaticRoutes` me
 
 ### Controller
 
-Very simpler boilerplate object that extends `Backbone.Events`.
+Very simple boilerplate object that extends `Backbone.Events`. More to come here.
 
 ### Logger
 
