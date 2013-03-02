@@ -1,3 +1,4 @@
+
 // =======================================================================
 // === View ==============================================================
 // =======================================================================
@@ -26,6 +27,7 @@ var View = Rebar.View = function(options) {
 };
 
 View.prototype = Object.create(Backbone.View.prototype, {
+	
 	/**
 	 * This method is a great helper method to call when the subclass view is about to be removed.
 	 * It recursively will call destroy on any subviews reference in the sub views array. It also handles

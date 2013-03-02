@@ -1,5 +1,7 @@
 define(["rebar"], function() {
 	
+	"use strict";
+
 	var ContentModule = {};
 
 	ContentModule.ContentView = Backbone.Rebar.CompositeView.extend({

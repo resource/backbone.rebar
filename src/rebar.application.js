@@ -1,3 +1,4 @@
+
 // =======================================================================
 // === Application =======================================================
 // =======================================================================
@@ -10,6 +11,7 @@
  * @class Application
  * @constructor
  * @extends Backbone.Events
+ * @uses extend
  * @example
  *	var appConfig = {
  *		...
@@ -83,9 +85,9 @@ Application.prototype = Object.create(Backbone.Events, {
 			if(this._state === state) { return; }
 			this._state = state;
 			if(this._state === Application.States.Initialized) {
-				this.createModel();
-				this.createView();
-				this.createRouter();
+				this.createModel(this.options.modelOptions);
+				this.createView(this.options.viewOptions);
+				this.createRouter(this.options.routerOptions);
 				this.initialize(this.options);
 			}
 			this.trigger('applicationStateDidChange',this.state);
@@ -108,9 +110,9 @@ Application.prototype = Object.create(Backbone.Events, {
 	 * @for Application
 	 */
 	createModel: {
-		value: function() {
+		value: function(modelOptions) {
 			if(!this.model) {
-				this.model = new Backbone.Model();
+				this.model = new Backbone.Model(_.extend({},modelOptions));
 			}
 		},
 		writable: true
@@ -122,11 +124,11 @@ Application.prototype = Object.create(Backbone.Events, {
 	 * @for Application
 	 */
 	createView: {
-		value: function() {
+		value: function(viewOptions) {
 			if(!this.view) {
-				this.view = new CompositeView({
+				this.view = new CompositeView(_.extend({
 					el: $('#application')
-				});
+				},viewOptions));
 			}
 		},
 		writable: true
@@ -138,12 +140,12 @@ Application.prototype = Object.create(Backbone.Events, {
 	 * @for Application
 	 */
 	createRouter: {
-		value: function() {
+		value: function(routerOptions) {
 			if(!this.router) {
-				this.router = new DependencyRouter({
+				this.router = new DependencyRouter(_.extend({
 					landing: this.options.landing ? this.options.landing : '',
 					dispatcher:this
-				});
+				},routerOptions));
 				this.router.on('routeDidChange',function(route){
 					this.trigger('routeDidChange',route);
 				},this);
@@ -188,6 +190,32 @@ Application.prototype = Object.create(Backbone.Events, {
 			}
 		}
 	}
+
+	/*
+
+	// =======================================================================
+	// === Mediator Helpers ==================================================
+	// =======================================================================
+
+	hasMediator:{
+		value:function(mediator){}
+	},
+
+	registerMediator:{
+		value:function(mediator){}
+	},
+
+	removeMediator:{
+		value:function(mediator){}
+	},
+
+	hasMediator:{
+		value:function(mediator){}
+	}
+
+	*/
+
+
 });
 
 Application.extend = extend;

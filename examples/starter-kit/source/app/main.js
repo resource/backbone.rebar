@@ -1,12 +1,13 @@
 'use strict';
+
 require.config({
 	deps: ["main"],
 	paths: {
-		underscore: "libs/underscore",
-		backbone: "libs/backbone",
-		jquery: "libs/jquery",
-		monkeybars: "libs/monkeybars",
-		rebar: "backbone.rebar"
+		underscore: "../assets/js/underscore",
+		backbone: "../assets/js/backbone",
+		jquery: "../assets/js/jquery",
+		monkeybars: "../assets/js/monkeybars",
+		rebar: "../assets/js/backbone.rebar"
 	},
 	shim: {
 		'backbone': {
@@ -29,21 +30,24 @@ require.config({
 	}
 });
 
-require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, MonkeyBars, HeaderView, ContentModule, FooterView) {
+require(["rebar", "monkeybars", "modules/header", "modules/content", "modules/footer"], function(Rebar, MonkeyBars, HeaderView, ContentModule, FooterView) {
 
 	var application;
-	var appConfig = {
-		landing: "View1",
-		bootstrap: "bootstrap.json"
-	};
-
-	// @TODO: how do I overwrite the transitionIn functionality on the application view
 
 	// Initialize the application core
 	var createApplication = new MonkeyBars.Task({
 		name: "initializeApplication",
 		performTask: function() {
-			application = new Backbone.Rebar.Application(appConfig);
+			application = new Backbone.Rebar.Application({
+				landing: "View1",
+				bootstrap: "/assets/data/bootstrap.json",
+				viewOptions:{
+					transitionIn:function(callback,context){
+						this.$el.css("opacity",1);
+						Rebar.View.prototype.transitionIn.call(context,callback);
+					}
+				}
+			});
 			this.complete();
 		}
 	});
@@ -52,10 +56,16 @@ require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, 
 	var buildApplication = new MonkeyBars.Task({
 		name: "initializeApplication",
 		performTask: function() {
-			var content = new ContentModule.ContentView({ el: $("#content") });
-            var header = new HeaderView({ el: $("#header") });
-            var footer = new FooterView({ el: $("#footer") });
-            application.view.addSubViews([content,header,footer]);
+			var content = new ContentModule.ContentView({
+				el: $("#content")
+			});
+			var header = new HeaderView({
+				el: $("#header")
+			});
+			var footer = new FooterView({
+				el: $("#footer")
+			});
+			application.view.addSubViews([content, header, footer]);
 			this.complete();
 		}
 	});
@@ -64,15 +74,14 @@ require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, 
 	var startApplication = new MonkeyBars.Task({
 		name: "startApplication",
 		performTask: function() {
-			application.on("applicationStateChange",function(state,error){
-				if(state == Backbone.Rebar.States.Started) {
+			application.on("applicationStateDidChange", function(state, error) {
+				if (state === Rebar.Application.States.Started) {
 					this.complete();
-				} else if(state == Backbone.Rebar.States.Faulted) {
+				} else if (state === Rebar.Application.States.Faulted) {
 					this.fault(error);
 				}
-			},this);
+			}, this);
 			application.startup();
-			console.log(application);
 		}
 	});
 
@@ -81,11 +90,16 @@ require(["rebar", "monkeybars", "header", "content", "footer"], function(Rebar, 
 		name: "startup",
 		logLevel: MonkeyBars.LogLevels.Verbose,
 		tasks: [createApplication, buildApplication, startApplication],
+		onComplete:function(){
+			application.view.transitionIn();
+		},
 		onFault: function(error) {
 			window.alert(error);
 		}
 	});
 
-	$(function() { startup.start(); });
+	$(function() {
+		startup.start();
+	});
 
 });

@@ -17,6 +17,44 @@ describe("application", function() {
 		expect(app.router).toBeDefined();
 	});
 
+	it("view options are applied", function() {
+		var viewApp = new Application({
+			_bypassSingleton: true,
+			viewOptions:{
+				"foo":"bar",
+				transitionIn:function(){
+					return "transitionIn";
+				}
+			}
+		});
+		expect(viewApp.view.options.foo).toEqual("bar");
+		expect(viewApp.view.transitionIn()).toEqual("transitionIn");
+	});
+
+	it("model options are applied", function() {
+		var viewApp = new Application({
+			_bypassSingleton: true,
+			modelOptions:{
+				"foo":"bar"
+			}
+		});
+		expect(viewApp.model.get("foo")).toEqual("bar");
+	});
+
+	it("router options are applied", function() {
+		var viewApp = new Application({
+			_bypassSingleton: true,
+			routerOptions:{
+				staticRoutes:{
+					foo:function(){
+						return "bar";
+					}
+				}
+			}
+		});
+		expect(viewApp.router.staticRoutes.foo()).toEqual("bar");
+	});
+
 	it("extends", function() {
 		var C = Application.extend();
 		var c = new C(appConfig);

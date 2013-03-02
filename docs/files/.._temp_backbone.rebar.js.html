@@ -45,6 +45,8 @@
             
                 <li><a href="..&#x2F;classes/Backbone.Rebar.CompositeView.html">Backbone.Rebar.CompositeView</a></li>
             
+                <li><a href="..&#x2F;classes/Backbone.Rebar.Controller.html">Backbone.Rebar.Controller</a></li>
+            
                 <li><a href="..&#x2F;classes/Backbone.Rebar.DependencyRouter.html">Backbone.Rebar.DependencyRouter</a></li>
             
                 <li><a href="..&#x2F;classes/Backbone.Rebar.Logger.html">Backbone.Rebar.Logger</a></li>
@@ -99,6 +101,7 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 (function(Backbone, _, $) {
+
     &#x27;use strict&#x27;;
 
     &#x2F;**
@@ -109,6 +112,7 @@
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Helpers ===========================================================
     &#x2F;&#x2F; =======================================================================
+
     &#x2F;**
      * Extention functionality for the prototyped object that implements it.
      * @method extend
@@ -123,6 +127,7 @@
         child.prototype = _.extend(parent.prototype, protoProps);
         return child;
     };
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Application =======================================================
     &#x2F;&#x2F; =======================================================================
@@ -135,6 +140,7 @@
      * @class Application
      * @constructor
      * @extends Backbone.Events
+     * @uses extend
      * @example
      *	var appConfig = {
      *		...
@@ -210,9 +216,9 @@
                 }
                 this._state = state;
                 if (this._state === Application.States.Initialized) {
-                    this.createModel();
-                    this.createView();
-                    this.createRouter();
+                    this.createModel(this.options.modelOptions);
+                    this.createView(this.options.viewOptions);
+                    this.createRouter(this.options.routerOptions);
                     this.initialize(this.options);
                 }
                 this.trigger(&#x27;applicationStateDidChange&#x27;, this.state);
@@ -235,9 +241,9 @@
          * @for Application
          *&#x2F;
         createModel: {
-            value: function() {
+            value: function(modelOptions) {
                 if (!this.model) {
-                    this.model = new Backbone.Model();
+                    this.model = new Backbone.Model(_.extend({}, modelOptions));
                 }
             },
             writable: true
@@ -249,11 +255,11 @@
          * @for Application
          *&#x2F;
         createView: {
-            value: function() {
+            value: function(viewOptions) {
                 if (!this.view) {
-                    this.view = new CompositeView({
+                    this.view = new CompositeView(_.extend({
                         el: $(&#x27;#application&#x27;)
-                    });
+                    }, viewOptions));
                 }
             },
             writable: true
@@ -265,12 +271,12 @@
          * @for Application
          *&#x2F;
         createRouter: {
-            value: function() {
+            value: function(routerOptions) {
                 if (!this.router) {
-                    this.router = new DependencyRouter({
+                    this.router = new DependencyRouter(_.extend({
                         landing: this.options.landing ? this.options.landing : &#x27;&#x27;,
                         dispatcher: this
-                    });
+                    }, routerOptions));
                     this.router.on(&#x27;routeDidChange&#x27;, function(route) {
                         this.trigger(&#x27;routeDidChange&#x27;, route);
                     }, this);
@@ -319,9 +325,35 @@
                 }
             }
         }
+
+        &#x2F;*
+
+	&#x2F;&#x2F; =======================================================================
+	&#x2F;&#x2F; === Mediator Helpers ==================================================
+	&#x2F;&#x2F; =======================================================================
+
+	hasMediator:{
+		value:function(mediator){}
+	},
+
+	registerMediator:{
+		value:function(mediator){}
+	},
+
+	removeMediator:{
+		value:function(mediator){}
+	},
+
+	hasMediator:{
+		value:function(mediator){}
+	}
+
+	*&#x2F;
+
     });
 
     Application.extend = extend;
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Persistence Model =================================================
     &#x2F;&#x2F; =======================================================================
@@ -426,6 +458,7 @@
             }
         }
     });
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === View ==============================================================
     &#x2F;&#x2F; =======================================================================
@@ -454,6 +487,7 @@
     };
 
     View.prototype = Object.create(Backbone.View.prototype, {
+
         &#x2F;**
          * This method is a great helper method to call when the subclass view is about to be removed.
          * It recursively will call destroy on any subviews reference in the sub views array. It also handles
@@ -516,6 +550,7 @@
     });
 
     View.extend = Backbone.View.extend;
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Composite View ====================================================
     &#x2F;&#x2F; =======================================================================
@@ -614,7 +649,6 @@
                 _.each(this.subViews, function(view) {
                     this.removeSubView(view);
                 }, this);
-
             },
             writable: true
         },
@@ -660,6 +694,7 @@
     });
 
     CompositeView.extend = View.extend;
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Mediator ==========================================================
     &#x2F;&#x2F; =======================================================================
@@ -898,6 +933,13 @@
             }
         },
 
+        &#x2F;**
+         * Processes all of the viewEvents passes in through the mediator config options
+         * @method processViewEvents
+         * @for Mediator
+         * @param {String} events
+         * @private
+         *&#x2F;
         processViewEvents: {
             value: function(events) {
                 var eventsArr = events.split(&quot; &quot;);
@@ -932,22 +974,25 @@
     });
 
     Mediator.extend = extend;
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Controller ========================================================
     &#x2F;&#x2F; =======================================================================
 
     &#x2F;**
-     * The application shell provides a simple default architecture consisting of a model,
-     * view and controller. The application is a singleton class in that there can only be one.
-     * It extend &#x60;Backbone.Events&#x60; and you can see the [documentation](http:&#x2F;&#x2F;backbonejs.org&#x2F;#Events)
-     * for more detailed information.
-     * @class Application
+     * Simple controller object.
+     * @class Controller
      * @constructor
      * @extends Backbone.Events
-     * @example
+     * @uses extend
+     * @TODO Determain what other functionality needs to be a part of the controller.
      *&#x2F;
     var Controller = Rebar.Controller = function() {};
+
     Controller.prototype = Object.create(Backbone.Events, {});
+
+    Controller.extend = extend;
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Dependency Router =================================================
     &#x2F;&#x2F; =======================================================================
@@ -975,7 +1020,22 @@
      *		});
      *	});
      *&#x2F;
-    var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
+
+    var DependencyRouter = Rebar.DependencyRouter = function(options) {
+        if (!_.isUndefined(options)) {
+            if (!_.isUndefined(options.landing)) {
+                this.landing = options.landing;
+            }
+            if (!_.isUndefined(options.staticRoutes)) {
+                for (var route in options.staticRoutes) {
+                    this.setStaticRoute(route, options.staticRoutes[route]);
+                }
+            }
+        }
+        Backbone.Router.call(this, options);
+    };
+
+    DependencyRouter.prototype = Object.create(Backbone.Router.prototype, {
 
         &#x2F;**
          * Default landing for no hash. Where the browser will be routed to when landing
@@ -984,7 +1044,10 @@
          * @type {String}
          * @default &quot;&quot;
          *&#x2F;
-        landing: &#x27;&#x27;,
+        landing: {
+            value: &#x27;&#x27;,
+            writable: true
+        },
 
         &#x2F;**
          * Define only the route hash here because we&#x27;ll be using dependency routing
@@ -995,8 +1058,11 @@
          * @private
          *&#x2F;
         routes: {
-            &#x27;&#x27;: &#x27;handleNoHash&#x27;,
-            &#x27;*splat&#x27;: &#x27;handleAll&#x27;
+            value: {
+                &#x27;&#x27;: &#x27;handleNoHash&#x27;,
+                &#x27;*splat&#x27;: &#x27;handleAll&#x27;
+            },
+            writable: true
         },
 
         &#x2F;**
@@ -1007,20 +1073,9 @@
          * @type {Object} static route key value pairs
          * @private
          *&#x2F;
-        staticRoutes: {},
-
-        &#x2F;**
-         * Router init functionality
-         * @method initialize
-         * @param {Object} options
-         * @private
-         *&#x2F;
-        initialize: function(options) {
-            if (!_.isUndefined(options)) {
-                if (!_.isUndefined(options.landing)) {
-                    this.landing = options.landing;
-                }
-            }
+        staticRoutes: {
+            value: {},
+            writable: true
         },
 
         &#x2F;**
@@ -1028,8 +1083,11 @@
          * @method handleNoHash
          * @private
          *&#x2F;
-        handleNoHash: function() {
-            this.handleAll(this.landing + Backbone.history.location.search);
+        handleNoHash: {
+            value: function() {
+                this.handleAll(this.landing + Backbone.history.location.search);
+            },
+            writable: true
         },
 
         &#x2F;**
@@ -1037,26 +1095,29 @@
          * @method handleAll
          * @private
          *&#x2F;
-        handleAll: function(route) {
+        handleAll: {
+            value: function(route) {
 
-            &#x2F;&#x2F; reference the current url from backbone
-            var routeString = _.isUndefined(route) ? Backbone.history.getFragment() : route;
+                &#x2F;&#x2F; reference the current url from backbone
+                var routeString = _.isUndefined(route) ? Backbone.history.getFragment() : route;
 
-            &#x2F;&#x2F; check to make sure we dont have any static routes that were added
-            for (var sRoute in this.staticRoutes) {
-                if (sRoute === routeString) {
-                    this.staticRoutes[sRoute]();
-                    return;
+                &#x2F;&#x2F; check to make sure we dont have any static routes that were added
+                for (var sRoute in this.staticRoutes) {
+                    if (sRoute === routeString) {
+                        this.staticRoutes[sRoute]();
+                        return;
+                    }
                 }
-            }
 
-            var pRoute = this.parseRoute(routeString);
+                var pRoute = this.parseRoute(routeString);
 
-            &#x2F;&#x2F; now that we&#x27;re sure that the current route is not one of the static routes set
-            &#x2F;&#x2F; then we&#x27;ll move forward with the dependency routing functionality
-            this.trigger(&#x27;routeDidChange&#x27;, pRoute);
-            this.pRoute = pRoute;
+                &#x2F;&#x2F; now that we&#x27;re sure that the current route is not one of the static routes set
+                &#x2F;&#x2F; then we&#x27;ll move forward with the dependency routing functionality
+                this.trigger(&#x27;routeDidChange&#x27;, pRoute);
+                this.pRoute = pRoute;
 
+            },
+            writable: true
         },
 
         &#x2F;**
@@ -1065,52 +1126,55 @@
          * @param {String} route The current Backbone.history fragment
          * @private
          *&#x2F;
-        parseRoute: function(route) {
+        parseRoute: {
+            value: function(route) {
 
-            var hash = route.split(&#x27;&#x2F;&#x27;);
-            var directory;
-            var file;
+                var hash = route.split(&#x27;&#x2F;&#x27;);
+                var directory;
+                var file;
 
-            &#x2F;&#x2F; define view and data
-            var splitView = hash[hash.length - 1].split(&#x27;?&#x27;);
+                &#x2F;&#x2F; define view and data
+                var splitView = hash[hash.length - 1].split(&#x27;?&#x27;);
 
-            &#x2F;&#x2F; figure out view and anchor
-            var viewParts = splitView[0].split(&#x27;#&#x27;);
-            var view = viewParts[0];
-            var anchor = viewParts[1];
+                &#x2F;&#x2F; figure out view and anchor
+                var viewParts = splitView[0].split(&#x27;#&#x27;);
+                var view = viewParts[0];
+                var anchor = route.split(&#x27;#&#x27;)[1];
 
-            var data = this.parseRouteData(splitView[1]);
+                var data = this.parseRouteData(splitView[1]);
 
-            &#x2F;&#x2F; if only two parts are passed then we should assume that there is no directory and the two parts
-            &#x2F;&#x2F; are the file reference and the view reference is the view to instantiate
-            if (hash.length === 2) {
-                file = hash[0];
-            }
-
-            &#x2F;&#x2F; this is the default behavior, 3 parts, directory, file and view
-            if (hash.length === 3) {
-                directory = hash[0];
-                file = hash[1];
-            }
-
-            &#x2F;&#x2F; here we&#x27;re going to take everything before the last two parts of the has and concider them
-            &#x2F;&#x2F; to be directories
-            if (hash.length &gt; 3) {
-                var dirLength = hash.length - 2;
-                directory = &#x27;&#x27;;
-                for (var i = 0; i &lt; dirLength; i++) {
-                    directory += hash[i] + (i &lt; dirLength - 1 ? &#x27;&#x2F;&#x27; : &#x27;&#x27;);
+                &#x2F;&#x2F; if only two parts are passed then we should assume that there is no directory and the two parts
+                &#x2F;&#x2F; are the file reference and the view reference is the view to instantiate
+                if (hash.length === 2) {
+                    file = hash[0];
                 }
-                file = hash[hash.length - 2];
-            }
 
-            return {
-                directory: directory,
-                file: file,
-                view: view !== &#x27;&#x27; ? view : undefined,
-                data: data,
-                anchor: anchor
-            };
+                &#x2F;&#x2F; this is the default behavior, 3 parts, directory, file and view
+                if (hash.length === 3) {
+                    directory = hash[0];
+                    file = hash[1];
+                }
+
+                &#x2F;&#x2F; here we&#x27;re going to take everything before the last two parts of the has and concider them
+                &#x2F;&#x2F; to be directories
+                if (hash.length &gt; 3) {
+                    var dirLength = hash.length - 2;
+                    directory = &#x27;&#x27;;
+                    for (var i = 0; i &lt; dirLength; i++) {
+                        directory += hash[i] + (i &lt; dirLength - 1 ? &#x27;&#x2F;&#x27; : &#x27;&#x27;);
+                    }
+                    file = hash[hash.length - 2];
+                }
+
+                return {
+                    directory: directory,
+                    file: file,
+                    view: view !== &#x27;&#x27; ? view : undefined,
+                    data: data,
+                    anchor: anchor
+                };
+            },
+            writable: true
         },
 
         &#x2F;**
@@ -1119,17 +1183,20 @@
          * @param {String} query
          * @private
          *&#x2F;
-        parseRouteData: function(query) {
-            if (_.isUndefined(query)) {
-                return undefined;
-            }
-            var vars = query.split(&#x27;&amp;&#x27;);
-            var data = {};
-            _.each(vars, function(v) {
-                var pair = v.split(&#x27;=&#x27;);
-                data[pair[0]] = pair[1];
-            });
-            return data;
+        parseRouteData: {
+            value: function(query) {
+                if (_.isUndefined(query)) {
+                    return undefined;
+                }
+                var vars = query.split(&#x27;&amp;&#x27;);
+                var data = {};
+                _.each(vars, function(v) {
+                    var pair = v.split(&#x27;=&#x27;);
+                    data[pair[0]] = pair[1];
+                });
+                return data;
+            },
+            writable: true
         },
 
         &#x2F;**
@@ -1138,14 +1205,17 @@
          * @param {Object} route Object formed in parseRoute method
          * @private
          *&#x2F;
-        getFileLocation: function(route) {
-            if (_.isUndefined(route.directory) || route.directory === &#x27;&#x27;) {
-                if (_.isUndefined(route.file) || route.file === &#x27;&#x27;) {
-                    return &#x27;&#x27;;
+        getFileLocation: {
+            value: function(route) {
+                if (_.isUndefined(route.directory) || route.directory === &#x27;&#x27;) {
+                    if (_.isUndefined(route.file) || route.file === &#x27;&#x27;) {
+                        return &#x27;&#x27;;
+                    }
+                    return route.file;
                 }
-                return route.file;
-            }
-            return route.directory + &#x27;&#x2F;&#x27; + route.file;
+                return route.directory + &#x27;&#x2F;&#x27; + route.file;
+            },
+            writable: true
         },
 
         &#x2F;**
@@ -1154,8 +1224,11 @@
          * @param {String} name
          * @param {Function} method
          *&#x2F;
-        setStaticRoute: function(name, method) {
-            this.staticRoutes[name] = method;
+        setStaticRoute: {
+            value: function(name, method) {
+                this.staticRoutes[name] = method;
+            },
+            writable: true
         },
 
         &#x2F;**
@@ -1164,12 +1237,18 @@
          * @method setStaticRoutes
          * @param {Object} routes
          *&#x2F;
-        setStaticRoutes: function(routes) {
-            for (var route in routes) {
-                this.staticRoutes[route] = routes[route];
-            }
+        setStaticRoutes: {
+            value: function(routes) {
+                for (var route in routes) {
+                    this.staticRoutes[route] = routes[route];
+                }
+            },
+            writable: true
         }
     });
+
+    DependencyRouter.extend = Backbone.Router.extend;
+
     &#x2F;&#x2F; =======================================================================
     &#x2F;&#x2F; === Logger ============================================================
     &#x2F;&#x2F; =======================================================================
@@ -1208,10 +1287,40 @@
         }
 
         return {
+
+            &#x2F;**
+             * console.log wrapper
+             * @method log
+             * @param {Object} msg
+             *&#x2F;
             log: log,
+
+            &#x2F;**
+             * console.warn wrapper
+             * @method warn
+             * @param {Object} msg
+             *&#x2F;
             warn: warn,
+
+            &#x2F;**
+             * console.error wrapper
+             * @method error
+             * @param {Object} msg
+             *&#x2F;
             error: error,
+
+            &#x2F;**
+             * Sets the log level for the logger
+             * @method setLogLevel
+             * @param {Logger.Levels} logLevel
+             *&#x2F;
             setLogLevel: setLogLevel,
+
+            &#x2F;**
+             * Possible log levels to set the logger to
+             * @property Levels
+             * @static
+             *&#x2F;
             Levels: {
                 None: 0,
                 Error: 10,
@@ -1220,6 +1329,7 @@
             }
         };
     }).call(this);
+
 }).call(this, Backbone, _, $);
     </pre>
 </div>

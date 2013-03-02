@@ -1,3 +1,4 @@
+
 // =======================================================================
 // === Composite View ====================================================
 // =======================================================================
@@ -96,7 +97,6 @@ CompositeView.prototype = Object.create(View.prototype, {
 			_.each(this.subViews, function(view) {
 				this.removeSubView(view);
 			}, this);
-
 		},
 		writable: true
 	},

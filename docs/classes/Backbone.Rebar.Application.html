@@ -45,6 +45,8 @@
             
                 <li><a href="..&#x2F;classes/Backbone.Rebar.CompositeView.html">Backbone.Rebar.CompositeView</a></li>
             
+                <li><a href="..&#x2F;classes/Backbone.Rebar.Controller.html">Backbone.Rebar.Controller</a></li>
+            
                 <li><a href="..&#x2F;classes/Backbone.Rebar.DependencyRouter.html">Backbone.Rebar.DependencyRouter</a></li>
             
                 <li><a href="..&#x2F;classes/Backbone.Rebar.Logger.html">Backbone.Rebar.Logger</a></li>
@@ -97,6 +99,15 @@
                         <h1>Backbone.Rebar.Application Class</h1>
 <div class="box meta">
     
+        <div class="uses">
+            Uses
+            <ul class="inline commas">
+                
+                    <li><a href="extend.html">extend</a></li>
+                
+            </ul>
+        </div>
+    
 
     
         <div class="extends">
@@ -106,7 +117,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l839"><code>..&#x2F;temp&#x2F;backbone.rebar.js:839</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l33"><code>..&#x2F;temp&#x2F;backbone.rebar.js:33</code></a>
         </div>
     
 
@@ -159,7 +170,7 @@ for more detailed information.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l839"><code>..&#x2F;temp&#x2F;backbone.rebar.js:839</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l33"><code>..&#x2F;temp&#x2F;backbone.rebar.js:33</code></a>
         
         </p>
 
@@ -182,7 +193,15 @@ for more detailed information.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                
+                <pre class="code prettyprint"><code>var appConfig = {
+    ...
+};
+var app = new Backbone.Rebar.Application(appConfig);
+app.on("applicationStateChange",function(state){
+    ...
+});
+app.startup();
+</code></pre>
             </div>
         </div>
     
@@ -334,7 +353,7 @@ for more detailed information.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l132"><code>..&#x2F;temp&#x2F;backbone.rebar.js:132</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l136"><code>..&#x2F;temp&#x2F;backbone.rebar.js:136</code></a>
         
         </p>
 
@@ -388,7 +407,7 @@ for more detailed information.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l162"><code>..&#x2F;temp&#x2F;backbone.rebar.js:162</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l166"><code>..&#x2F;temp&#x2F;backbone.rebar.js:166</code></a>
         
         </p>
 
@@ -442,7 +461,7 @@ for more detailed information.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l146"><code>..&#x2F;temp&#x2F;backbone.rebar.js:146</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l150"><code>..&#x2F;temp&#x2F;backbone.rebar.js:150</code></a>
         
         </p>
 
@@ -510,7 +529,7 @@ for more detailed information.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l12"><code>..&#x2F;temp&#x2F;backbone.rebar.js:12</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l14"><code>..&#x2F;temp&#x2F;backbone.rebar.js:14</code></a>
         
         </p>
 
@@ -600,7 +619,7 @@ for more detailed information.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l122"><code>..&#x2F;temp&#x2F;backbone.rebar.js:122</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l126"><code>..&#x2F;temp&#x2F;backbone.rebar.js:126</code></a>
         
         </p>
 
@@ -654,7 +673,7 @@ for more detailed information.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l182"><code>..&#x2F;temp&#x2F;backbone.rebar.js:182</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l186"><code>..&#x2F;temp&#x2F;backbone.rebar.js:186</code></a>
         
         </p>
 
@@ -710,7 +729,7 @@ if a reference was passed through the contructors options argument.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l85"><code>..&#x2F;temp&#x2F;backbone.rebar.js:85</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l89"><code>..&#x2F;temp&#x2F;backbone.rebar.js:89</code></a>
         
         </p>
 
@@ -754,7 +773,7 @@ if a reference was passed through the contructors options argument.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l97"><code>..&#x2F;temp&#x2F;backbone.rebar.js:97</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l101"><code>..&#x2F;temp&#x2F;backbone.rebar.js:101</code></a>
         
         </p>
 
@@ -800,7 +819,7 @@ if a reference was passed through the contructors options argument.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l68"><code>..&#x2F;temp&#x2F;backbone.rebar.js:68</code></a>
+        <a href="..&#x2F;files&#x2F;.._temp_backbone.rebar.js.html#l72"><code>..&#x2F;temp&#x2F;backbone.rebar.js:72</code></a>
         
         </p>
 

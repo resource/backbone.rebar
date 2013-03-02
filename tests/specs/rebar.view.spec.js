@@ -19,12 +19,17 @@ describe("view", function() {
 
 	it("extends", function() {
 		var Custom = Rebar.View.extend({
-			foo: "bar"
+			foo: "bar",
+			transitionIn:function(){
+				return "foo" 
+			}
 		});
 		var c = new Custom({
 			foo: "foo"
 		});
 		expect(c.cid).toBeDefined();
+		expect(c.transitionIn).toBeDefined();
+		expect(c.transitionIn()).toEqual("foo");
 		expect(Custom.prototype.foo).toEqual("bar");
 		expect(c.options.foo).toEqual("foo");
 	});

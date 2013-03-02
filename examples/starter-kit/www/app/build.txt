@@ -1,0 +1,12 @@
+
+main.js
+----------------
+/Users/emcgary/Documents/workspace/javascript/rebar/examples/starter-kit/source/assets/js/underscore.js
+/Users/emcgary/Documents/workspace/javascript/rebar/examples/starter-kit/source/assets/js/jquery.js
+/Users/emcgary/Documents/workspace/javascript/rebar/examples/starter-kit/source/assets/js/backbone.js
+/Users/emcgary/Documents/workspace/javascript/rebar/examples/starter-kit/source/assets/js/backbone.rebar.js
+/Users/emcgary/Documents/workspace/javascript/rebar/examples/starter-kit/source/assets/js/monkeybars.js
+modules/header.js
+modules/content.js
+modules/footer.js
+main.js

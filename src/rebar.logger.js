@@ -1,3 +1,4 @@
+
 // =======================================================================
 // === Logger ============================================================
 // =======================================================================
@@ -36,10 +37,40 @@ var Logger = Rebar.Logger = (function() {
 	}
 
 	return {
+		
+		/**
+		 * console.log wrapper
+		 * @method log
+		 * @param {Object} msg
+		 */
 		log: log,
+
+		/**
+		 * console.warn wrapper
+		 * @method warn
+		 * @param {Object} msg
+		 */
 		warn: warn,
+
+		/**
+		 * console.error wrapper
+		 * @method error
+		 * @param {Object} msg
+		 */
 		error: error,
+
+		/**
+		 * Sets the log level for the logger
+		 * @method setLogLevel
+		 * @param {Logger.Levels} logLevel
+		 */
 		setLogLevel: setLogLevel,
+
+		/**
+		 * Possible log levels to set the logger to
+		 * @property Levels
+		 * @static
+		 */
 		Levels: {
 			None: 0,
 			Error: 10,

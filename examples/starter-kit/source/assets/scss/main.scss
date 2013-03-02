@@ -1,3 +1,5 @@
+@import "normalize";
+
 body {
 	padding: 0;
 	margin: 0;
@@ -9,6 +11,14 @@ p {
 	font-weight: bold;
 	line-height:18px;
 	color:#333;
+}
+
+#application {
+	opacity: 0;
+	-moz-transition: opacity 350ms ease;
+	-webkit-transition: opacity 350ms ease;
+	-o-transition: opacity 350ms ease;
+	transition: opacity 350ms ease;
 }
 
 #header {
@@ -23,13 +33,12 @@ p {
 #content {
 	width: auto;
 	padding:20px;
-}
-
-#content p {
-	margin:0;
-	padding:0;
-	text-align:center;
-	line-height: 100%;
+	p {
+		margin:0;
+		padding:0;
+		text-align:center;
+		line-height: 100%;
+	}
 }
 
 #footer {
@@ -38,10 +47,9 @@ p {
 	margin: 40px 0 0 0;
 	overflow: hidden;
 	padding: 0 40px 0 40px;
-}
-
-#footer p {
-	color:#AAA;
+	p {
+		color:#AAA;
+	}
 }
 
 .border-bottom-light {
@@ -55,10 +63,4 @@ p {
 .custom {
 	margin:0;
 	padding:0;
-}
-
-.custom-one {
-}
-
-.custom-two {
-}
+} 

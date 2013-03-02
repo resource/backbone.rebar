@@ -1,3 +1,4 @@
+
 'use strict';
 
 /**
@@ -8,6 +9,7 @@ var Rebar = this.Rebar = Backbone.Rebar = {};
 // =======================================================================
 // === Helpers ===========================================================
 // =======================================================================
+
 /**
  * Extention functionality for the prototyped object that implements it.
  * @method extend

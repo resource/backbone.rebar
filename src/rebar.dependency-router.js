@@ -1,3 +1,4 @@
+
 // =======================================================================
 // === Dependency Router =================================================
 // =======================================================================
@@ -25,7 +26,22 @@
  *		});
  *	});
  */
-var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
+
+var DependencyRouter = Rebar.DependencyRouter = function(options) {
+	if (!_.isUndefined(options)) {
+		if (!_.isUndefined(options.landing)) {
+			this.landing = options.landing;
+		}
+		if (!_.isUndefined(options.staticRoutes)) {
+			for(var route in options.staticRoutes) {
+				this.setStaticRoute(route, options.staticRoutes[route]);
+			}
+		}
+	}
+	Backbone.Router.call(this, options);
+};
+
+DependencyRouter.prototype = Object.create(Backbone.Router.prototype, {
 
 	/**
 	 * Default landing for no hash. Where the browser will be routed to when landing
@@ -34,7 +50,10 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @type {String}
 	 * @default ""
 	 */
-	landing: '',
+	landing: {
+		value: '',
+		writable: true
+	},
 
 	/**
 	 * Define only the route hash here because we'll be using dependency routing
@@ -45,8 +64,11 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @private
 	 */
 	routes: {
-		'': 'handleNoHash',
-		'*splat': 'handleAll'
+		value: {
+			'': 'handleNoHash',
+			'*splat': 'handleAll'
+		},
+		writable: true
 	},
 
 	/**
@@ -57,20 +79,9 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @type {Object} static route key value pairs
 	 * @private
 	 */
-	staticRoutes: {},
-
-	/**
-	 * Router init functionality
-	 * @method initialize
-	 * @param {Object} options
-	 * @private
-	 */
-	initialize: function(options) {
-		if(!_.isUndefined(options)) {
-			if(!_.isUndefined(options.landing)) {
-				this.landing = options.landing;
-			}
-		}
+	staticRoutes: {
+		value: {},
+		writable: true
 	},
 
 	/**
@@ -78,8 +89,11 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @method handleNoHash
 	 * @private
 	 */
-	handleNoHash: function() {
-		this.handleAll(this.landing + Backbone.history.location.search);
+	handleNoHash: {
+		value: function() {
+			this.handleAll(this.landing + Backbone.history.location.search);
+		},
+		writable: true
 	},
 
 	/**
@@ -87,26 +101,29 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @method handleAll
 	 * @private
 	 */
-	handleAll: function(route) {
+	handleAll: {
+		value: function(route) {
 
-		// reference the current url from backbone
-		var routeString = _.isUndefined(route) ? Backbone.history.getFragment() : route;
+			// reference the current url from backbone
+			var routeString = _.isUndefined(route) ? Backbone.history.getFragment() : route;
 
-		// check to make sure we dont have any static routes that were added
-		for(var sRoute in this.staticRoutes) {
-			if(sRoute === routeString) {
-				this.staticRoutes[sRoute]();
-				return;
+			// check to make sure we dont have any static routes that were added
+			for (var sRoute in this.staticRoutes) {
+				if (sRoute === routeString) {
+					this.staticRoutes[sRoute]();
+					return;
+				}
 			}
-		}
 
-		var pRoute = this.parseRoute(routeString);
+			var pRoute = this.parseRoute(routeString);
 
-		// now that we're sure that the current route is not one of the static routes set
-		// then we'll move forward with the dependency routing functionality
-		this.trigger('routeDidChange', pRoute);
-		this.pRoute = pRoute;
+			// now that we're sure that the current route is not one of the static routes set
+			// then we'll move forward with the dependency routing functionality
+			this.trigger('routeDidChange', pRoute);
+			this.pRoute = pRoute;
 
+		},
+		writable: true
 	},
 
 	/**
@@ -115,52 +132,55 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @param {String} route The current Backbone.history fragment
 	 * @private
 	 */
-	parseRoute: function(route) {
+	parseRoute: {
+		value: function(route) {
 
-		var hash = route.split('/');
-		var directory;
-		var file;
+			var hash = route.split('/');
+			var directory;
+			var file;
 
-		// define view and data
-		var splitView = hash[hash.length - 1].split('?');
+			// define view and data
+			var splitView = hash[hash.length - 1].split('?');
 
-		// figure out view and anchor
-		var viewParts = splitView[0].split('#');
-		var view = viewParts[0];
-		var anchor = viewParts[1];
+			// figure out view and anchor
+			var viewParts = splitView[0].split('#');
+			var view = viewParts[0];
+			var anchor = route.split('#')[1];
 
-		var data = this.parseRouteData(splitView[1]);
+			var data = this.parseRouteData(splitView[1]);
 
-		// if only two parts are passed then we should assume that there is no directory and the two parts
-		// are the file reference and the view reference is the view to instantiate
-		if(hash.length === 2) {
-			file = hash[0];
-		}
-
-		// this is the default behavior, 3 parts, directory, file and view
-		if(hash.length === 3) {
-			directory = hash[0];
-			file = hash[1];
-		}
-
-		// here we're going to take everything before the last two parts of the has and concider them
-		// to be directories
-		if(hash.length > 3) {
-			var dirLength = hash.length - 2;
-			directory = '';
-			for(var i = 0; i < dirLength; i++) {
-				directory += hash[i] + (i < dirLength - 1 ? '/' : '');
+			// if only two parts are passed then we should assume that there is no directory and the two parts
+			// are the file reference and the view reference is the view to instantiate
+			if (hash.length === 2) {
+				file = hash[0];
 			}
-			file = hash[hash.length - 2];
-		}
 
-		return {
-			directory: directory,
-			file: file,
-			view: view !== '' ? view : undefined,
-			data: data,
-			anchor: anchor
-		};
+			// this is the default behavior, 3 parts, directory, file and view
+			if (hash.length === 3) {
+				directory = hash[0];
+				file = hash[1];
+			}
+
+			// here we're going to take everything before the last two parts of the has and concider them
+			// to be directories
+			if (hash.length > 3) {
+				var dirLength = hash.length - 2;
+				directory = '';
+				for (var i = 0; i < dirLength; i++) {
+					directory += hash[i] + (i < dirLength - 1 ? '/' : '');
+				}
+				file = hash[hash.length - 2];
+			}
+
+			return {
+				directory: directory,
+				file: file,
+				view: view !== '' ? view : undefined,
+				data: data,
+				anchor: anchor
+			};
+		},
+		writable: true
 	},
 
 	/**
@@ -169,17 +189,20 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @param {String} query
 	 * @private
 	 */
-	parseRouteData: function(query) {
-		if(_.isUndefined(query)) {
-			return undefined;
-		}
-		var vars = query.split('&');
-		var data = {};
-		_.each(vars, function(v) {
-			var pair = v.split('=');
-			data[pair[0]] = pair[1];
-		});
-		return data;
+	parseRouteData: {
+		value: function(query) {
+			if (_.isUndefined(query)) {
+				return undefined;
+			}
+			var vars = query.split('&');
+			var data = {};
+			_.each(vars, function(v) {
+				var pair = v.split('=');
+				data[pair[0]] = pair[1];
+			});
+			return data;
+		},
+		writable: true
 	},
 
 	/**
@@ -188,14 +211,17 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @param {Object} route Object formed in parseRoute method
 	 * @private
 	 */
-	getFileLocation: function(route) {
-		if(_.isUndefined(route.directory) || route.directory === '') {
-			if(_.isUndefined(route.file) || route.file === '') {
-				return '';
+	getFileLocation: {
+		value: function(route) {
+			if (_.isUndefined(route.directory) || route.directory === '') {
+				if (_.isUndefined(route.file) || route.file === '') {
+					return '';
+				}
+				return route.file;
 			}
-			return route.file;
-		}
-		return route.directory + '/' + route.file;
+			return route.directory + '/' + route.file;
+		},
+		writable: true
 	},
 
 	/**
@@ -204,8 +230,11 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @param {String} name
 	 * @param {Function} method
 	 */
-	setStaticRoute: function(name, method) {
-		this.staticRoutes[name] = method;
+	setStaticRoute: {
+		value: function(name, method) {
+			this.staticRoutes[name] = method;
+		},
+		writable: true
 	},
 
 	/**
@@ -214,9 +243,14 @@ var DependencyRouter = Rebar.DependencyRouter = Backbone.Router.extend({
 	 * @method setStaticRoutes
 	 * @param {Object} routes
 	 */
-	setStaticRoutes: function(routes) {
-		for(var route in routes) {
-			this.staticRoutes[route] = routes[route];
-		}
+	setStaticRoutes: {
+		value: function(routes) {
+			for (var route in routes) {
+				this.staticRoutes[route] = routes[route];
+			}
+		},
+		writable: true
 	}
 });
+
+DependencyRouter.extend = Backbone.Router.extend;

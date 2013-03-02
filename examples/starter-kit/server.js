@@ -16,7 +16,7 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(express.bodyParser());
 	app.use(express.logger('dev'));
-	app.use(express.static(path.join(__dirname, './')));
+	app.use(express.static(path.join(__dirname, 'source')));
 });
 
 app.configure('development', function() {
@@ -25,8 +25,8 @@ app.configure('development', function() {
 
 // routes
 app.get('/', function(req, res) {
-	fs.readFile("./index.html", 'utf8', function(e, data) {
-		if(e) { res.send('Error loading ./index.html'); }
+	fs.readFile("./source/index.html", 'utf8', function(e, data) {
+		if(e) { res.send('Error loading index.html'); }
 		res.send(data);
 	});
 });

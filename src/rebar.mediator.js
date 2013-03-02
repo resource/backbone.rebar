@@ -1,3 +1,4 @@
+
 // =======================================================================
 // === Mediator ==========================================================
 // =======================================================================
@@ -236,6 +237,13 @@ Mediator.prototype = Object.create(Backbone.Events, {
 		}
 	},
 
+	/**
+	 * Processes all of the viewEvents passes in through the mediator config options
+	 * @method processViewEvents
+	 * @for Mediator
+	 * @param {String} events
+	 * @private
+	 */
 	processViewEvents: {
 		value: function(events) {
 			var eventsArr = events.split(" ");
