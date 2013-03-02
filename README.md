@@ -23,7 +23,7 @@ The mediator object brings the power and the structure of the Mediator pattern. 
 
 ### Persistence Model
 
-The persistence model object extends `Backbone.Model`. It overwrites the models sync method esentially rerouting the 'fetch' and 'save' methods to local storage. This is good for disposable data that you want to persist between user sessions or page refreshes.
+The persistence model object extends `Backbone.Model`. It overwrites the models `sync` method esentially rerouting the `fetch` and `save` methods to local storage. This is good for disposable data that you want to persist between user sessions or page refreshes.
 
 ### Dependency Router
 
@@ -32,7 +32,7 @@ The dependency router is set up a bit different than the Backbone.Router. The ro
 * **handleNoHash** - Looks for a property called `landing` and automatically re-routes the user here to kick off the application.
 * **handleAll** - A wildcard catch-all that will do a few things based on the route. Take for example the route `screens/screen/MyView/data/`. This will tell the router that the page should look in the screens directory, look for a file called screen.js, instantiate a backbone view named MyView and pass it a `routeData` JavaScript Array where `routeData[0]` equals `"data"`.
 
-You can also add static routes via the 'setStaticRoute' and 'setStaticRoutes' methods on the router. This basically stores reference to the functionality you wish to preform with a user navigates to the associated URL hash.
+You can also add static routes via the `setStaticRoute` and `setStaticRoutes` methods on the router. This basically stores reference to the functionality you wish to preform with a user navigates to the associated URL hash.
 
 ### Controller
 
