@@ -32,6 +32,8 @@ There are a number of examples within this git repository that you can use to se
 
 After the server has been started you'll be notified with a port number. You can then open a browser and navigate to http://localhost:PORT.
 
+The most complete example is the starter-kit. You can use this as a starting point for most web-applications.
+
 
 # Features
 
