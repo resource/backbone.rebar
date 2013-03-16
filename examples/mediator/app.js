@@ -1,44 +1,43 @@
 "use strict";
 
-// our application
-var Application = Rebar.Application.extend({
-	createRouter:null
-});
+$(function(){ buildApplication(); });
 
-// our model
-var Model = Backbone.Model.extend();
+var appConfig = {};
+var app = new Backbone.Rebar.Application(appConfig);
 
-// our view
-var View = Rebar.View.extend({
-	events:{
-		"click button":"buttonClick"
-	},
-	initialize:function(){
-		this.model.on("change:foo",this.handleFooUpdate,this);
-	},
-	handleFooUpdate:function(){
-		this.$el.find('p').text(this.model.get("foo"));
-	},
-	buttonClick:function(e){
-		this.controller.handleUserInteraction();
+var CustomView = Backbone.View.extend({
+	handleAppLevelEvent:function(){
+		console.log("Handling method call from mediator");
+		console.log("Triggering event from " + this.cid);
+		this.trigger("viewLevelEvent");
 	}
 });
 
-// our controller
-var Controller = Rebar.Controller.extend({
-	handleUserInteraction:function(value){
-		this.model.set("foo","bar");
-	}
+// create our view
+var view = new CustomView({
+	name:"customView"
 });
 
-// kick it all off
-$(function(){
-	// our instances
-	var model = new Model({ foo:"foo" });
-	var controller = new Controller({ model:model });
-	var view = new View({ el:$("#foo-edit"), model:model, controller:controller });
-	var application = new Application();
+function buildApplication(){
+	app.startup();
 
-	application.view.addSubView(view);
-	console.log(application);
-});
+	// create
+	var mediator = new Backbone.Rebar.Mediator({
+		dispatcher:app,
+		events:{
+			"appLevelEvent":"appLevelEventHandler"
+		},
+		appLevelEventHandler:function(options){
+			console.log("Handling event from application");
+			console.log("Calling method on " + view.cid);
+			this.getViewByName("customView").handleAppLevelEvent();
+		},
+		handle:function(eventName,view,options){
+			console.log("Handling " + eventName + " triggered from " + view.cid);
+		}
+	});
+
+	mediator.addView(view,"viewLevelEvent");
+	app.trigger("appLevelEvent");
+}
+

@@ -9,6 +9,7 @@ var Rebar = this.Rebar = Backbone.Rebar = {};
 // === Pollyfills ========================================================
 // =======================================================================
 
+// @TODO work in ability to use two args
 if (!Object.create) {
 	Object.create = function(o) {
 		if (arguments.length > 1) {

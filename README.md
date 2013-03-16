@@ -3,6 +3,36 @@ Backbone.Rebar
 
 Backbone.Rebar is an extension of the [Backbone](http://www.backbonejs.org/) library. It adds certain functionality that I have found to be useful in developing robust, extendable and maintainable web applications. It adds no additional dependencies to Backbone's and is only 3.4kb minified and gzipped.
 
+# Installation
+
+All you'll actually need is the backbone.rebar.js (development version) or the backbone.rebar.min.js (production version) from within this project. Once you have this file you can take a look at some of the examples to get an idea of how to start using the library.
+
+# Building
+
+The library source files are broken up into seperate files before a build is performed. You can see these files in the src directory. Rebar has a build process that you can run, but before you can do so you'll need to make sure that you have a few dependencies installed:
+
+1. [Node](http://nodejs.org)
+2. [GruntJS](http://gruntjs.com)
+3. [PhantomJS](http://phantomjs.org/)
+
+Once you have these dependencies installed run the following commands to build the library:
+
+	$ mkdir rebar && cd rebar && git clone https://github.com/mcgaryes/backbone.rebar.git
+	$ cd backbone.rebar/build/
+	$ npm install
+	$ grunt
+
+# Examples
+
+There are a number of examples within this git repository that you can use to see the available features of the library. Any example directory with a server.js JavaScript file within it is one that can be run as a local node server. You'll need to have node and npm installed on your computer to run these servers. Once you have these two dependencies you can run the following commands to start the examples:
+
+	$ cd EXAMPLE_DIRECTORY
+	$ npm install
+	$ node server
+
+After the server has been started you'll be notified with a port number. You can then open a browser and navigate to http://localhost:PORT.
+
+
 # Features
 
 ### Application

@@ -20,9 +20,9 @@ describe("application", function() {
 	it("view options are applied", function() {
 		var viewApp = new Application({
 			_bypassSingleton: true,
-			viewOptions:{
-				"foo":"bar",
-				transitionIn:function(){
+			viewOptions: {
+				"foo": "bar",
+				transitionIn: function() {
 					return "transitionIn";
 				}
 			}
@@ -34,8 +34,8 @@ describe("application", function() {
 	it("model options are applied", function() {
 		var viewApp = new Application({
 			_bypassSingleton: true,
-			modelOptions:{
-				"foo":"bar"
+			modelOptions: {
+				"foo": "bar"
 			}
 		});
 		expect(viewApp.model.get("foo")).toEqual("bar");
@@ -44,9 +44,9 @@ describe("application", function() {
 	it("router options are applied", function() {
 		var viewApp = new Application({
 			_bypassSingleton: true,
-			routerOptions:{
-				staticRoutes:{
-					foo:function(){
+			routerOptions: {
+				staticRoutes: {
+					foo: function() {
 						return "bar";
 					}
 				}
@@ -112,6 +112,18 @@ describe("application", function() {
 			expect(tempState).toEqual(Application.States.Faulted);
 		});
 
+	});
+
+	it("can register and unregister views", function() {
+		// ...
+	});
+
+	it("can register and unregister mediators", function() {
+		// ...
+	});
+
+	it("can register and unregister controllers", function() {
+		// ...
 	});
 
 });

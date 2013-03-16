@@ -48,6 +48,7 @@ require(["rebar", "monkeybars", "modules/header", "modules/content", "modules/fo
 					}
 				}
 			});
+			console.log(application);
 			this.complete();
 		}
 	});

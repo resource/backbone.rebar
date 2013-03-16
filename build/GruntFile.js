@@ -9,7 +9,6 @@ module.exports = function(grunt) {
     var BANNER = '/**\n * ' + NAME + ' v' + VERSION + '\n * ' + DESCRIPTION + '\n * ' + URL + '\n */\n';
     var LOGO = "../rebar.png";
 
-
     // config
     grunt.initConfig({
         uglify: {
@@ -36,13 +35,7 @@ module.exports = function(grunt) {
                     src: ['../backbone.rebar.js'],
                     dest: '../temp/backbone.rebar.js'
                 }]
-            },
-            pages: {
-                files: [{
-                    src: ['../docs/**'],
-                    dest: '../../backbone-rebar-pages/docs/'
-                }]
-            },
+            }
         },
         yuidoc: {
             project: {
@@ -102,7 +95,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsbeautifier');
 
     // tasks
-    grunt.registerTask('docs', ['copy:docs', 'yuidoc', 'copy:pages']);
+    grunt.registerTask('docs', ['copy:docs', 'yuidoc']);
     grunt.registerTask('dev', ['jasmine', 'concat', 'jsbeautifier', 'jshint']);
     grunt.registerTask('default', ['dev', 'uglify', 'docs']);
     
