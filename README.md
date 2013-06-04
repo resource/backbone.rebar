@@ -76,4 +76,4 @@ Console wrapper that looks to the Logger.Loglevel to determain whether or not it
 
 # API Documentation
 
-For full api documentation reference the [api docs](http://mcgaryes.github.com/backbone.rebar/docs/index.html).
+For full api documentation clone or download the repository and see the docuemntation folder. Online versions of the documentation will be made availble soon.
