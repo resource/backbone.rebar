@@ -1,1 +1,0 @@
-define(["rebar"],function(e){return Backbone.Rebar.CompositeView.extend({render:function(e){this.$el.html(_.template($("#footer-template").html()))}})});
