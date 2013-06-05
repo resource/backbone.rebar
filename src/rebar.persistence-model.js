@@ -102,5 +102,17 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 			}
 			model.trigger('sync', model, error, options);
 		}
-	}
+	},
+
+	/**
+	 * Backone model save functionality
+	 */
+	save: function(key, val, options) {
+		try {
+			Backbone.Model.prototype.save.call(this, key, val, options);
+		} catch (e) {
+			console.log("@TODO: look into why this is throwing an error");
+			console.log(e);
+		}
+	} 
 });
