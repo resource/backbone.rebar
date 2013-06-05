@@ -25,9 +25,9 @@ app.configure('development', function() {
 
 // routes
 app.get('/', function(req, res) {
-	fs.readFile("/index.html", 'utf8', function(e, data) {
+	fs.readFile("index.html", 'utf8', function(e, data) {
 		if( e ) {
-			res.send('Error loading ./index.html');
+			res.send("Error loading index.html");
 		}
 		res.send(data);
 	});
