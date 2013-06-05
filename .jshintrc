@@ -12,11 +12,11 @@
     "debug"         : true,
     "es5"           : true,
 
-    "browser"       : true,     
+    "browser"       : true,
     "jquery"        : true,
     "yui"           : true,
     "node"          : true,
-    
+
     "predef"        : [
         "View",
         "Rebar",
@@ -27,6 +27,8 @@
         "_",
         "extend",
         "PersistenceModel",
-        "Logger"
+        "Logger",
+        "define",
+        "require"
     ]
 }
