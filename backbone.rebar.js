@@ -312,11 +312,26 @@
              */
             sync: function(method, model, options) {
                 if (method === 'read') {
-                    this.pullLocalStore(model, options);
+                    try {
+                        this.pullLocalStore(model, options);
+                    } catch (e) {
+                        console.error("Error reading from local store " + model.getStoargeId(), e);
+                    }
                 } else if (method === 'create') {
-                    localStorage.setItem(model.getStoargeId(), JSON.stringify(_.omit(model.attributes, ['url', 'urlRoot'])));
+                    var item;
+                    try {
+                        var filteredObj = _.omit(model.attributes, ['url', 'urlRoot']);
+                        item = JSON.stringify(filteredObj);
+                    } catch (e) {
+                        console.error("Error writing item to local store " + model.getStoargeId(), e);
+                    }
+                    localStorage.setItem(model.getStoargeId(), item);
                 } else if (method === 'update') {
-                    this.pullLocalStore(model, options);
+                    try {
+                        this.pullLocalStore(model, options);
+                    } catch (e) {
+                        console.error("Error updating model from local store " + model.getStoargeId(), e);
+                    }
                 } else if (method === 'patch') {
                     throw '\'patch\' not implemented yet';
                 } else if (method === 'delete') {
@@ -336,9 +351,10 @@
                     if (data !== null) {
                         var parsedData = JSON.parse(data);
                         model.set(parsedData);
-                        if (options.success) {
-                            options.success(model, parsedData, options);
-                        }
+                        // @TODO: Do i need the following 3 lines anymore ???
+                        //if (options.success) {
+                        //	options.success(model, parsedData, options);
+                        //}
                         model.trigger('sync', model, parsedData, options);
                     }
                 } else {
@@ -347,17 +363,6 @@
                         options.error(model, error, options);
                     }
                     model.trigger('sync', model, error, options);
-                }
-            },
-            /**
-             * Backone model save functionality
-             */
-            save: function(key, val, options) {
-                try {
-                    Backbone.Model.prototype.save.call(this, key, val, options);
-                } catch (e) {
-                    console.log("@TODO: look into why this is throwing an error");
-                    console.log(e);
                 }
             }
         });
@@ -387,6 +392,16 @@
         _.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut', 'controller']));
     };
     View.prototype = Object.create(Backbone.View.prototype, {
+            /**
+             * isDestroyed getter
+             * @property isDestroyed
+             * @type Boolean
+             */
+            isDestroyed: {
+                get: function() {
+                    return _.isUndefined(this._isDestroyed) ? false : this._isDestroyed;
+                }
+            },
             /**
              * Reference to the views controller
              * @property controller
@@ -577,7 +592,7 @@
              */
             destroySubView: {
                 value: function(view) {
-                    if (_.isFunction(view.destroy)) {
+                    if (_.isFunction(view.destroy) && !view.isDestroyed) {
                         view.destroy(true);
                     } else {
                         if (!_.isUndefined(view.cid)) {

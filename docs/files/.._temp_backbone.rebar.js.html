@@ -414,11 +414,26 @@
              */
             sync: function(method, model, options) {
                 if (method === &#x27;read&#x27;) {
-                    this.pullLocalStore(model, options);
+                    try {
+                        this.pullLocalStore(model, options);
+                    } catch (e) {
+                        console.error(&quot;Error reading from local store &quot; + model.getStoargeId(), e);
+                    }
                 } else if (method === &#x27;create&#x27;) {
-                    localStorage.setItem(model.getStoargeId(), JSON.stringify(_.omit(model.attributes, [&#x27;url&#x27;, &#x27;urlRoot&#x27;])));
+                    var item;
+                    try {
+                        var filteredObj = _.omit(model.attributes, [&#x27;url&#x27;, &#x27;urlRoot&#x27;]);
+                        item = JSON.stringify(filteredObj);
+                    } catch (e) {
+                        console.error(&quot;Error writing item to local store &quot; + model.getStoargeId(), e);
+                    }
+                    localStorage.setItem(model.getStoargeId(), item);
                 } else if (method === &#x27;update&#x27;) {
-                    this.pullLocalStore(model, options);
+                    try {
+                        this.pullLocalStore(model, options);
+                    } catch (e) {
+                        console.error(&quot;Error updating model from local store &quot; + model.getStoargeId(), e);
+                    }
                 } else if (method === &#x27;patch&#x27;) {
                     throw &#x27;\&#x27;patch\&#x27; not implemented yet&#x27;;
                 } else if (method === &#x27;delete&#x27;) {
@@ -438,9 +453,10 @@
                     if (data !== null) {
                         var parsedData = JSON.parse(data);
                         model.set(parsedData);
-                        if (options.success) {
-                            options.success(model, parsedData, options);
-                        }
+                        // @TODO: Do i need the following 3 lines anymore ???
+                        //if (options.success) {
+                        //	options.success(model, parsedData, options);
+                        //}
                         model.trigger(&#x27;sync&#x27;, model, parsedData, options);
                     }
                 } else {
@@ -449,17 +465,6 @@
                         options.error(model, error, options);
                     }
                     model.trigger(&#x27;sync&#x27;, model, error, options);
-                }
-            },
-            /**
-             * Backone model save functionality
-             */
-            save: function(key, val, options) {
-                try {
-                    Backbone.Model.prototype.save.call(this, key, val, options);
-                } catch (e) {
-                    console.log(&quot;@TODO: look into why this is throwing an error&quot;);
-                    console.log(e);
                 }
             }
         });
@@ -489,6 +494,16 @@
         _.extend(this, _.pick(this.options, [&#x27;render&#x27;, &#x27;destroy&#x27;, &#x27;transitionIn&#x27;, &#x27;transitionOut&#x27;, &#x27;controller&#x27;]));
     };
     View.prototype = Object.create(Backbone.View.prototype, {
+            /**
+             * isDestroyed getter
+             * @property isDestroyed
+             * @type Boolean
+             */
+            isDestroyed: {
+                get: function() {
+                    return _.isUndefined(this._isDestroyed) ? false : this._isDestroyed;
+                }
+            },
             /**
              * Reference to the views controller
              * @property controller
@@ -679,7 +694,7 @@
              */
             destroySubView: {
                 value: function(view) {
-                    if (_.isFunction(view.destroy)) {
+                    if (_.isFunction(view.destroy) &amp;&amp; !view.isDestroyed) {
                         view.destroy(true);
                     } else {
                         if (!_.isUndefined(view.cid)) {

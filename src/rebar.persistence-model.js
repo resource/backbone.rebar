@@ -1,4 +1,3 @@
-
 // =======================================================================
 // === Persistence Model =================================================
 // =======================================================================
@@ -31,7 +30,7 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 */
 	getStoargeId: function() {
 		var id = 'pm';
-		if(this.urlRoot) {
+		if (this.urlRoot) {
 			// for right now lets just keep this simple
 			// @TODO: support ids with urlRoots
 			id = id + '_' + this.url().split('/')[0];
@@ -47,9 +46,9 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @param {Object} options
 	 */
 	set: function(key, val, options) {
-		if(key === 'url') {
+		if (key === 'url') {
 			this.urlRoot = val;
-		} else if(_.isObject(key) && _.has(key, 'url') && !_.isUndefined(key.url)) {
+		} else if (_.isObject(key) && _.has(key, 'url') && !_.isUndefined(key.url)) {
 			this.urlRoot = key.url;
 		}
 		Backbone.Model.prototype.set.call(this, key, val, options);
@@ -64,15 +63,31 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @private
 	 */
 	sync: function(method, model, options) {
-		if(method === 'read') {
-			this.pullLocalStore(model, options);
-		} else if(method === 'create') {
-			localStorage.setItem(model.getStoargeId(), JSON.stringify( _.omit(model.attributes,['url','urlRoot']) ) );
-		} else if(method === 'update') {
-			this.pullLocalStore(model, options);
-		} else if(method === 'patch') {
+		if (method === 'read') {
+			try {
+				this.pullLocalStore(model, options);
+			} catch (e) {
+				console.error("Error reading from local store " + model.getStoargeId(), e);
+			}
+		} else if (method === 'create') {
+			var item;
+			try {
+				var filteredObj = _.omit(model.attributes, ['url', 'urlRoot']);
+				item = JSON.stringify(filteredObj);
+			} catch (e) {
+				console.error("Error writing item to local store " + model.getStoargeId(), e);
+			}
+			localStorage.setItem(model.getStoargeId(), item);
+		} else if (method === 'update') {
+			try {
+				this.pullLocalStore(model, options);
+			} catch (e) {
+				console.error("Error updating model from local store " + model.getStoargeId(), e);
+			}
+
+		} else if (method === 'patch') {
 			throw '\'patch\' not implemented yet';
-		} else if(method === 'delete') {
+		} else if (method === 'delete') {
 			throw '\'delete\' not implemented yet';
 		}
 	},
@@ -85,34 +100,23 @@ var PersistenceModel = Rebar.PersistenceModel = Backbone.Model.extend({
 	 * @private
 	 */
 	pullLocalStore: function(model, options) {
-		if(localStorage) {
+		if (localStorage) {
 			var data = localStorage.getItem(model.getStoargeId());
-			if(data !== null) {
+			if (data !== null) {
 				var parsedData = JSON.parse(data);
 				model.set(parsedData);
-				if(options.success) {
-					options.success(model, parsedData, options);
-				}
+				// @TODO: Do i need the following 3 lines anymore ???
+				//if (options.success) {
+				//	options.success(model, parsedData, options);
+				//}
 				model.trigger('sync', model, parsedData, options);
 			}
 		} else {
 			var error = 'Error: \'localStorage\' is not supported';
-			if(options.error) {
+			if (options.error) {
 				options.error(model, error, options);
 			}
 			model.trigger('sync', model, error, options);
 		}
-	},
-
-	/**
-	 * Backone model save functionality
-	 */
-	save: function(key, val, options) {
-		try {
-			Backbone.Model.prototype.save.call(this, key, val, options);
-		} catch (e) {
-			console.log("@TODO: look into why this is throwing an error");
-			console.log(e);
-		}
-	} 
+	}
 });
