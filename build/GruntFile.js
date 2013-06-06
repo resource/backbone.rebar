@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     var NAME = 'Backbone.Rebar';
     var DESCRIPTION = 'Adding a little bit more reinforcement to an already spectacular framework.';
     var URL = 'https://github.com/mcgaryes/rebar';
-    var VERSION = '0.4.0';
+    var VERSION = '0.4.1';
     var BANNER = '/**\n * ' + NAME + ' v' + VERSION + '\n * ' + DESCRIPTION + '\n * ' + URL + '\n */\n';
     var LOGO = "../rebar.png";
 
@@ -32,10 +32,21 @@ module.exports = function(grunt) {
         copy: {
             docs: {
                 files: [{
-                    src: ['../backbone.rebar.js'],
-                    dest: '../temp/backbone.rebar.js'
-                }]
-            }
+                        src: ['../backbone.rebar.js'],
+                        dest: '../temp/backbone.rebar.js'
+                    }
+                ]
+            },
+            version: {
+                options: {
+                    processContent: function() {
+                        return VERSION;
+                    }
+                },
+                files: {
+                    "../VERSION": "../VERSION"
+                }
+            },
         },
         yuidoc: {
             project: {
@@ -62,17 +73,18 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    '../src/rebar.intro.js',
-                    '../src/rebar.core.js',
-                    '../src/rebar.application.js',
-                    '../src/rebar.persistence-model.js',
-                    '../src/rebar.view.js',
-                    '../src/rebar.composite-view.js',
-                    '../src/rebar.mediator.js',
-                    '../src/rebar.controller.js',
-                    '../src/rebar.dependency-router.js',
-                    '../src/rebar.logger.js',
-                    '../src/rebar.outro.js'],
+                        '../src/rebar.intro.js',
+                        '../src/rebar.core.js',
+                        '../src/rebar.application.js',
+                        '../src/rebar.persistence-model.js',
+                        '../src/rebar.view.js',
+                        '../src/rebar.composite-view.js',
+                        '../src/rebar.mediator.js',
+                        '../src/rebar.controller.js',
+                        '../src/rebar.dependency-router.js',
+                        '../src/rebar.logger.js',
+                        '../src/rebar.outro.js'
+                ],
                 dest: '../backbone.rebar.js'
             }
         },
@@ -80,7 +92,7 @@ module.exports = function(grunt) {
             files: ['../backbone.rebar.js'],
             options: {
                 'indent_size': 4,
-                 "max_preserve_newlines": 1,
+                "max_preserve_newlines": 1,
             }
         }
     });
@@ -97,6 +109,6 @@ module.exports = function(grunt) {
     // tasks
     grunt.registerTask('docs', ['copy:docs', 'yuidoc']);
     grunt.registerTask('dev', ['jasmine', 'concat', 'jsbeautifier', 'jshint']);
-    grunt.registerTask('default', ['dev', 'uglify', 'docs']);
-    
+    grunt.registerTask('default', ['dev', 'uglify', 'docs', 'copy:version']);
+
 };
