@@ -2,3 +2,5 @@
 *.sublime-workspace
 .DS_Store
 temp
+# Sass cache files
+*.scssc
