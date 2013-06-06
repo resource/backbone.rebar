@@ -1,18 +1,20 @@
 describe("persistence-model", function() {
 
+	"use strict";
+
 	var P;
 	var p;
 	var p2;
 
 	beforeEach(function() {
 		P = Backbone.Rebar.PersistenceModel.extend({
-			urlRoot:"temp"
+			urlRoot: "temp"
 		});
 		p = new P({
-			url:"temp"
+			url: "temp"
 		});
 		p2 = new Backbone.Rebar.PersistenceModel({
-			urlRoot:"temp2",
+			urlRoot: "temp2",
 			//id:"ajlksdhg"
 		});
 	});
@@ -26,7 +28,7 @@ describe("persistence-model", function() {
 	});
 
 	it("extended saves", function() {
-		p.set("foo","bar");
+		p.set("foo", "bar");
 		p.save();
 		expect(localStorage[p.getStoargeId()]).toBeDefined();
 		var data = JSON.parse(localStorage[p.getStoargeId()]);
@@ -34,7 +36,7 @@ describe("persistence-model", function() {
 	});
 
 	it("extended fetches", function() {
-		p.set("foo","bar");
+		p.set("foo", "bar");
 		p.save();
 		p.clear();
 		p.fetch();
@@ -42,7 +44,7 @@ describe("persistence-model", function() {
 	});
 
 	it("direct implementation saves", function() {
-		p2.set("foo","bar");
+		p2.set("foo", "bar");
 		p2.save();
 		expect(localStorage[p2.getStoargeId()]).toBeDefined();
 		var data = JSON.parse(localStorage[p2.getStoargeId()]);
@@ -50,15 +52,25 @@ describe("persistence-model", function() {
 	});
 
 	it("!!! direct implementation fetches !!!", function() {
-		p2.set("foo","bar");
+		p2.set("foo", "bar");
 		p2.save();
 		p2.clear();
 		p2.fetch();
-		//expect(p2.get('foo')).toEqual("bar");
+		expect(p2.get('foo')).toEqual("bar");
 	});
 
 	it("expires content", function() {
 		expect(true).toBeTruthy();
 	});
+
+	it("range error on save", function() {
+		var persistence = new Backbone.Rebar.PersistenceModel({
+			url: "content-persistence"
+		});
+		persistence.fetch();
+		persistence.set("view2-timestamp",new Date().getTime());
+		persistence.save();
+	});
+
 
 });

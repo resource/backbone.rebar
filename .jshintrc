@@ -29,6 +29,12 @@
         "PersistenceModel",
         "Logger",
         "define",
-        "require"
+        "require",
+
+        "describe",
+        "beforeEach",
+        "afterEach",
+        "it",
+        "expect"
     ]
 }

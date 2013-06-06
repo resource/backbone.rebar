@@ -1,4 +1,3 @@
-
 // =======================================================================
 // === Composite View ====================================================
 // =======================================================================
@@ -130,7 +129,7 @@ CompositeView.prototype = Object.create(View.prototype, {
 	 */
 	destroySubView: {
 		value: function(view) {
-			if (_.isFunction(view.destroy)) {
+			if (_.isFunction(view.destroy) && !view.isDestroyed) {
 				view.destroy(true);
 			} else {
 				if (!_.isUndefined(view.cid)) {
