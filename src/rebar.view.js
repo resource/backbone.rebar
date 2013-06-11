@@ -1,4 +1,3 @@
-
 // =======================================================================
 // === View ==============================================================
 // =======================================================================
@@ -22,19 +21,30 @@
  *	},this);
  */
 var View = Rebar.View = function(options) {
-	Backbone.View.call(this,options);
-	_.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut','controller']));
+	Backbone.View.call(this, options);
+	_.extend(this, _.pick(this.options, ['render', 'destroy', 'transitionIn', 'transitionOut', 'controller']));
 };
 
 View.prototype = Object.create(Backbone.View.prototype, {
-	
+
+	/**
+	 * isDestroyed getter
+	 * @property isDestroyed
+	 * @type Boolean
+	 */
+	isDestroyed: {
+		get: function() {
+			return _.isUndefined(this._isDestroyed) ? false : this._isDestroyed;
+		}
+	},
+
 	/**
 	 * Reference to the views controller
 	 * @property controller
 	 * @type Controller
 	 */
-	controller:{
-		value:undefined,
+	controller: {
+		value: undefined,
 		writable: true
 	},
 
