@@ -1,0 +1,155 @@
+@import "variables";
+
+/**
+ * # Styling For `examples`
+ * Functionality for the demos do not require CSS
+ * This purely exists for aesthetics
+ */
+
+/* ==========================================================================
+   Master Base Template - Structure
+   ========================================================================== */
+
+		body {
+			color: #666;
+			font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+			font-size: 14px;
+			line-height: 20px;
+			margin: 0;
+		}
+
+		img {
+			border: 0;
+			display: inline-block;
+		}
+
+		@mixin box-sizing {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-ms-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		%box-sizing {
+			@extend box-sizing;
+		}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+		h1, h2, h3, h4 {
+			color: #222;
+			line-height: 1.333em;
+			margin: $default-space 0  $default-space-smaller;
+			> span {
+				color: #555;
+			}
+			a {
+				color: inherit;
+				&:hover {
+					color: $color-dark;
+					text-decoration: underline;
+				}
+			}
+		}
+
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+		a {
+			color: $color-dark;
+			text-decoration: none;
+		}
+
+		p, %hover-links {
+			> a {
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		button {
+			@extend %box-sizing;
+			background-color: $highlight;
+			border: 0;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 1em;
+			font-weight: bold;
+			padding: $default-space-smallest $default-space-smaller;
+			-webkit-appearance: none;
+			text-transform: uppercase;
+			&:hover {
+				background-color: $color-dark;
+				color: #FFF;
+			}
+		}
+
+
+/* ==========================================================================
+   Containers & Holders
+   ========================================================================== */
+
+		.container {
+			margin: $default-space-smaller auto;
+			width: $max-width;
+			@media screen and ( max-width: $max-width + $default-space * 2 ) {
+				margin-left: $default-space;
+				margin-right: $default-space;
+				width: auto;
+			}
+			@media screen and ( max-width:400px ) {
+				margin-left: $default-space-smaller;
+				margin-right: $default-space-smaller;
+			}
+		}
+
+		#footer {
+			@extend %border-box;
+			background-color: $color-light;
+			margin-top: $default-space-smaller * 3;
+			padding: $default-space-smallest $default-space;
+			text-align: right;
+			text-transform: uppercase;
+			img {
+				width: ( 164px / 2 );
+			}
+			li {
+				margin-left: $default-space-smaller;
+				&:first-child {
+					margin-left: 0;
+				}
+			}
+		}
+
+		ul {
+			li {
+				@include box-sizing;
+				a {
+					@include box-sizing;
+				}
+			}
+		}
+
+	   .remove-indent {
+	   		padding-left: 17px;
+		   	> li {
+		   		@extend %hover-links;
+		   		padding-bottom: $default-space-smallest;
+		   	}
+	   }
+
+	   .unlist {
+	   		padding-left: 0;
+	   		list-style: none;
+		   	> li {
+		   		display: inline-block;
+		   		> a {
+		   			display: inline-block;
+		   			padding: 2px $default-space-smallest;
+		   		}
+		   	}
+	   }
