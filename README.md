@@ -9,7 +9,7 @@ All you'll actually need is the backbone.rebar.js (development version) or the b
 
 # Building
 
-The library source files are broken up into seperate files before a build is performed. You can see these files in the src directory. Rebar has a build process that you can run, but before you can do so you'll need to make sure that you have a few dependencies installed:
+The library source files are broken up into separate files before a build is performed. You can see these files in the src directory. Rebar has a build process that you can run, but before you can do so you'll need to make sure that you have a few dependencies installed:
 
 1. [Node](http://nodejs.org)
 2. [GruntJS](http://gruntjs.com)
@@ -53,7 +53,7 @@ The mediator object brings the power and the structure of the Mediator pattern. 
 
 ### Persistence Model
 
-The persistence model object extends `Backbone.Model`. It overwrites the models `sync` method esentially rerouting the `fetch` and `save` methods to local storage. This is good for disposable data that you want to persist between user sessions or page refreshes.
+The persistence model object extends `Backbone.Model`. It overwrites the models `sync` method essentially rerouting the `fetch` and `save` methods to local storage. This is good for disposable data that you want to persist between user sessions or page refreshes.
 
 ### Dependency Router
 
@@ -70,8 +70,8 @@ Very simple boilerplate object that extends `Backbone.Events`. More to come here
 
 ### Logger
 
-Console wrapper that looks to the Logger.Loglevel to determain whether or not it should actual call log, warn or error.
+Console wrapper that looks to the Logger.Loglevel to determine whether or not it should actual call log, warn or error.
 
 # API Documentation
 
-For full api documentation clone or download the repository and see the documentation folder. Online versions of the documentation will be made availble soon.
+For full api documentation clone or download the repository and see the documentation folder. Online versions of the documentation will be made available soon.
