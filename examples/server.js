@@ -9,7 +9,7 @@ var app = express();
 
 // configuration
 app.configure(function() {
-	app.set( "port", process.env.PORT || 8889 );
+	app.set( "port", process.env.PORT || 8899 );
 	app.set( "view engine", "html");
 	app.use( express.favicon());
 	app.use( app.router);
