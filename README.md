@@ -41,7 +41,7 @@ The Application object adds boilerplate functionality for creating an applicatio
 
 ### View
 
-Very thin object that extends `Backbone.View` and adds `destory`, `transitionIn` and `transitionOut` functionality.
+Very thin object that extends `Backbone.View` and adds `destroy`, `transitionIn` and `transitionOut` functionality.
 
 ### Composite View
 
@@ -74,4 +74,4 @@ Console wrapper that looks to the Logger.Loglevel to determain whether or not it
 
 # API Documentation
 
-For full api documentation clone or download the repository and see the docuemntation folder. Online versions of the documentation will be made availble soon.
+For full api documentation clone or download the repository and see the documentation folder. Online versions of the documentation will be made availble soon.
