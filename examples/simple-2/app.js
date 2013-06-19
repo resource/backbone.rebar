@@ -64,7 +64,7 @@ function buildApp() {
 
 	// create the content view
 	var contentView = new ContentView({ model:colors });
-	
+
 	// create controls view and mediator
 	var controlsView = new ControlsView();
 	var mediator = new Rebar.Mediator({

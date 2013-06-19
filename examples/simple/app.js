@@ -1,3 +1,5 @@
+"use strict";
+
 $(function(){ buildApplication(); });
 
 var applicationConfig = {
@@ -21,7 +23,7 @@ function buildViews(){
 			"click":"destroy"
 		},
 		render:function(callback){
-			this.$el.append("<p>Click me to destroy</p>");
+			this.$el.append("<button>Click me to destroy</button>");
 			callback(this.el);
 		}
 	});

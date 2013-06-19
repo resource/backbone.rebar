@@ -1,15 +1,15 @@
 "use strict";
 
 // our application
-var Application = Rebar.Application.extend({
+var MyApplication = Rebar.Application.extend({
 	createRouter:null
 });
 
 // our model
-var Model = Backbone.Model.extend();
+var MyModel = Backbone.Model.extend();
 
 // our view
-var View = Rebar.View.extend({
+var MyView = Rebar.View.extend({
 	events:{
 		"click button":"buttonClick"
 	},
@@ -25,7 +25,7 @@ var View = Rebar.View.extend({
 });
 
 // our controller
-var Controller = Rebar.Controller.extend({
+var MyController = Rebar.Controller.extend({
 	handleUserInteraction:function(value){
 		this.model.set("foo","bar");
 	}
@@ -34,10 +34,10 @@ var Controller = Rebar.Controller.extend({
 // kick it all off
 $(function(){
 	// our instances
-	var model = new Model({ foo:"foo" });
-	var controller = new Controller({ model:model });
-	var view = new View({ el:$("#foo-edit"), model:model, controller:controller });
-	var application = new Application();
+	var model = new MyModel({ foo:"foo" });
+	var controller = new MyController({ model:model });
+	var view = new MyView({ el:$("#application"), model:model, controller:controller });
+	var application = new MyApplication();
 
 	application.view.addSubView(view);
 	console.log(application);

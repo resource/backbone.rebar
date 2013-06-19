@@ -7,8 +7,8 @@ var app = new Backbone.Rebar.Application(appConfig);
 
 var CustomView = Backbone.View.extend({
 	handleAppLevelEvent:function(){
-		console.log("Handling method call from mediator");
-		console.log("Triggering event from " + this.cid);
+		var div = document.getElementById('application');
+		div.innerHTML = div.innerHTML + "<em>Handling event from mediator</em>: Triggering event from " + this.cid+"<br>\n";
 		this.trigger("viewLevelEvent");
 	}
 });
@@ -28,12 +28,13 @@ function buildApplication(){
 			"appLevelEvent":"appLevelEventHandler"
 		},
 		appLevelEventHandler:function(options){
-			console.log("Handling event from application");
-			console.log("Calling method on " + view.cid);
+			var div = document.getElementById('application');
+			div.innerHTML = div.innerHTML + "<em>Handling event from application</em>: Calling method on " + view.cid+"<br>\n";
 			this.getViewByName("customView").handleAppLevelEvent();
 		},
 		handle:function(eventName,view,options){
-			console.log("Handling " + eventName + " triggered from " + view.cid);
+			var div = document.getElementById('application');
+			div.innerHTML = div.innerHTML + "Handling " + eventName + " triggered from " + view.cid +"<br>\n";
 		}
 	});
 

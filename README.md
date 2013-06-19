@@ -53,7 +53,7 @@ The mediator object brings the power and the structure of the Mediator pattern. 
 
 ### Persistence Model
 
-The persistence model object extends `Backbone.Model`. It overwrites the models `sync` method essentially rerouting the `fetch` and `save` methods to local storage. This is good for disposable data that you want to persist between user sessions or page refreshes.
+The persistence model object extends `Backbone.Model`. It overwrites the model's `sync` method essentially rerouting the `fetch` and `save` methods to local storage. This is good for disposable data that you want to persist between user sessions or page refreshes.
 
 ### Dependency Router
 
