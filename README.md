@@ -9,18 +9,20 @@ All you'll actually need is the backbone.rebar.js (development version) or the b
 
 # Building
 
-The library source files are broken up into seperate files before a build is performed. You can see these files in the src directory. Rebar has a build process that you can run, but before you can do so you'll need to make sure that you have a few dependencies installed:
+The library source files are broken up into separate files before a build is performed. You can see these files in the src directory. Rebar has a build process that you can run, but before you can do so you'll need to make sure that you have a few dependencies installed:
 
 1. [Node](http://nodejs.org)
 2. [GruntJS](http://gruntjs.com)
 3. [PhantomJS](http://phantomjs.org/)
 
-Once you have these dependencies installed run the following commands to build the library:
+Once you have these dependencies installed run the following commands to clone the repository and build the library:
 
 	$ mkdir rebar && cd rebar && git clone https://github.com/mcgaryes/backbone.rebar.git
 	$ cd backbone.rebar/build/
 	$ npm install
 	$ grunt
+
+The built files - backbone.rebar.js and backbone.rebar.min.js - are located at the root of the project directory.
 
 # Examples
 
@@ -32,8 +34,7 @@ There are a number of examples within this git repository that you can use to se
 
 After the server has been started you'll be notified with a port number. You can then open a browser and navigate to http://localhost:PORT.
 
-The most complete example is the starter-kit. You can use this as a starting point for most web-applications.
-
+For more information on the examples, go to the examples directory.
 
 # Features
 
@@ -76,4 +77,4 @@ Console wrapper that looks to the Logger.Loglevel to determain whether or not it
 
 # API Documentation
 
-For full api documentation clone or download the repository and see the docuemntation folder. Online versions of the documentation will be made availble soon.
+For full api documentation clone or download the repository and see the documentation folder. Alternatively, an online version of the documentation can be found [here](http://resource.github.io/backbone.rebar/docs/index.html)
