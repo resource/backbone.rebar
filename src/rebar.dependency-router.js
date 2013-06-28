@@ -126,7 +126,7 @@ DependencyRouter.prototype = Object.create(Backbone.Router.prototype, {
 	},
 
 	/**
-	 * Parses a passed route string and determains directory, file, view and data
+	 * Parses a passed route string and determines directory, file, view and data
 	 * @method parseRoute
 	 * @param {String} route The current Backbone.history fragment
 	 * @private
