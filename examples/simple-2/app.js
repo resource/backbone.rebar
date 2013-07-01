@@ -5,13 +5,13 @@ var app = new Rebar.Application();
 var ColorsModel = Backbone.Model.extend({
 	colors:[{
 		id:"blue",
-		hex:"#abcdef"
+		hex:"#045e77"
 	},{
 		id:"yellow",
-		hex:"#dddd33"
+		hex:"#dfdd64"
 	},{
 		id:"red",
-		hex:"#cc4444"
+		hex:"#95005e"
 	}],
 	color:"blue",
 	initialize:function(){
@@ -29,14 +29,16 @@ var ContentView = Rebar.View.extend({
 	},
 	render: function(callback) {
 		this.$el.html(_.template($("#content-template").html(), {
-			cid: this.cid
+			cid: this.cid,
+			selection: this.model.color
 		}));
 		callback(this.el);
 	},
 	handleColorChange:function(model,colorId){
 		var color = this.model.getHexForId(colorId);
+		this.model.set("color",colorId);
 		this.$el.css({
-			"background-color":color
+			"background-color" : color
 		});
 	}
 });
@@ -80,4 +82,8 @@ function buildApp() {
 }
 
 // dom ready
-$(function() { buildApp(); });
+$(function() {
+
+	buildApp();
+
+});

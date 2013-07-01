@@ -33,12 +33,15 @@
 		%box-sizing {
 			@extend box-sizing;
 		}
+		%inline-block {
+			display: inline-block;
+		}
 
 /* ==========================================================================
    Typography
    ========================================================================== */
 
-		h1, h2, h3, h4 {
+		h1, h2, h3, h4, .header-size {
 			color: #222;
 			line-height: 1.333em;
 			margin: $default-space 0  $default-space-smaller;
@@ -125,31 +128,80 @@
 			}
 		}
 
-		ul {
-			li {
-				@include box-sizing;
-				a {
+	   // ## Form elements
+			 %appearance-none {
+		 		appearance: none;
+		 		-moz-appearance: none;
+		 		-ms-appearance: none;
+		 		-o-appearance: none;
+		 		-webkit-appearance: none;
+			 }
+		 	input[type="radio"] {
+		 		@extend %appearance-none;
+		 		@extend %inline-block;
+		 		background-color: #222;
+		 		border: 3px solid #222;
+		 		border-radius: 10px;
+		 		height: 17px;
+		 		display: inline-block;
+		 		margin-top: 1px;
+		 		width: 17px;
+		 		&:checked {
+		 			background-color: #FFF;
+		 		}
+		 	}
+		 	label {
+		 		@extend %inline-block;
+		 		font-weight: bold;
+		 	}
+	   		fieldset {
+	   			border: 0;
+	   			display: block;
+		 		line-height: 20px;
+		 		overflow: hidden;
+		 		padding: $default-space 0;
+		 		label, input[type="radio"] {
+		 			float: left;
+		 		}
+		 		legend {
+		 			color: $color-dark;
+		 			display: block;
+		 			font-size: 1.333em;
+		 			font-weight: bold;
+		 			padding: $default-space 0 0;
+		 			margin: 0;
+		 		}
+		 		label {
+		 			margin-right: $default-space;
+		 		}
+	   		}
+
+	   // ## List Items
+			ul {
+				li {
 					@include box-sizing;
+					a {
+						@include box-sizing;
+					}
 				}
 			}
-		}
 
-	   .remove-indent {
-	   		padding-left: 17px;
-		   	> li {
-		   		@extend %hover-links;
-		   		padding-bottom: $default-space-smallest;
-		   	}
-	   }
+		   .remove-indent {
+		   		padding-left: 17px;
+			   	> li {
+			   		@extend %hover-links;
+			   		padding-bottom: $default-space-smallest;
+			   	}
+		   }
 
-	   .unlist {
-	   		padding-left: 0;
-	   		list-style: none;
-		   	> li {
-		   		display: inline-block;
-		   		> a {
-		   			display: inline-block;
-		   			padding: 2px $default-space-smallest;
-		   		}
-		   	}
-	   }
+		   .unlist {
+		   		padding-left: 0;
+		   		list-style: none;
+			   	> li {
+			   		display: inline-block;
+			   		> a {
+			   			display: inline-block;
+			   			padding: 2px $default-space-smallest;
+			   		}
+			   	}
+		   }
