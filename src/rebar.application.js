@@ -6,7 +6,7 @@
 /**
  * The application shell provides a simple default architecture consisting of a model,
  * view and controller. The application is a singleton class in that there can only be one.
- * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)
+ * It extends `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)
  * for more detailed information.
  * @class Application
  * @constructor
@@ -43,7 +43,7 @@ var Application = Rebar.Application = function(options) {
 };
 
 /**
- * Available states for the application used to describe the current state of the applicaiton.
+ * Available states for the application used to describe the current state of the Application.
  * @property States
  * @type Object
  * @for Application
@@ -104,7 +104,7 @@ Application.prototype = Object.create(Backbone.Events, {
 	},
 
 	/**
-	 * Initialization functionality for extended Applicaiton instances.
+	 * Initialization functionality for extended Application instances.
 	 * @method initialize
 	 * @for Application
 	 */
@@ -114,7 +114,7 @@ Application.prototype = Object.create(Backbone.Events, {
 	},
 
 	/**
-	 * Create a model instance for the Applicaiton instance.
+	 * Create a model instance for the Application instance.
 	 * @method createModel
 	 * @for Application
 	 */
@@ -128,7 +128,7 @@ Application.prototype = Object.create(Backbone.Events, {
 	},
 
 	/**
-	 * Create a view instance for the Applicaiton instance.
+	 * Create a view instance for the Application instance.
 	 * @method createView
 	 * @for Application
 	 */
@@ -146,7 +146,7 @@ Application.prototype = Object.create(Backbone.Events, {
 	},
 
 	/**
-	 * Create a controller instance for the Applicaiton instance.
+	 * Create a controller instance for the Application instance.
 	 * @method createController
 	 * @for Application
 	 */
@@ -162,7 +162,7 @@ Application.prototype = Object.create(Backbone.Events, {
 	},
 
 	/**
-	 * Create a dependency router instance for the Applicaiton instance.
+	 * Create a dependency router instance for the Application instance.
 	 * @method createRouter
 	 * @for Application
 	 */

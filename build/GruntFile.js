@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 
     var NAME = 'Backbone.Rebar';
     var DESCRIPTION = 'Adding a little bit more reinforcement to an already spectacular framework.';
-    var URL = 'https://github.com/mcgaryes/rebar';
+    var URL = 'https://github.com/resource/backbone.rebar';
     var VERSION = '0.4.1';
     var BANNER = '/**\n * ' + NAME + ' v' + VERSION + '\n * ' + DESCRIPTION + '\n * ' + URL + '\n */\n';
     var LOGO = "../rebar.png";

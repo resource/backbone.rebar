@@ -15,12 +15,14 @@ The library source files are broken up into separate files before a build is per
 2. [GruntJS](http://gruntjs.com)
 3. [PhantomJS](http://phantomjs.org/)
 
-Once you have these dependencies installed run the following commands to build the library:
+Once you have these dependencies installed run the following commands to clone the repository and build the library:
 
 	$ mkdir rebar && cd rebar && git clone https://github.com/mcgaryes/backbone.rebar.git
 	$ cd backbone.rebar/build/
 	$ npm install
 	$ grunt
+
+The built files - backbone.rebar.js and backbone.rebar.min.js - are located at the root of the project directory.
 
 # Examples
 
@@ -32,6 +34,7 @@ There are a number of examples within this git repository that you can use to se
 
 After the server has been started you'll be notified with a port number. You can then open a browser and navigate to http://localhost:PORT. By default, port number is set to 8889 in `examples\server.js` on Line 12.
 
+For more information on the examples, go to the examples directory.
 
 # Features
 
@@ -74,4 +77,4 @@ Console wrapper that looks to the Logger.Loglevel to determine whether or not it
 
 # API Documentation
 
-For full api documentation clone or download the repository and see the documentation folder. Online versions of the documentation will be made available soon.
+For full api documentation clone or download the repository and see the documentation folder. Alternatively, an online version of the documentation can be found [here](http://resource.github.io/backbone.rebar/docs/index.html)

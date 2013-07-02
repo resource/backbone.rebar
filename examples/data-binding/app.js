@@ -4,8 +4,10 @@ $(function() {
 	buildApplication();
 });
 
+// Initialize Application instance
 var app = new Backbone.Rebar.Application();
 
+// Initialize Model instance that fetches data from local JSON file
 var CustomModel = Backbone.Model.extend({
 	url:'./data.json',
 	initialize:function(){
@@ -13,6 +15,8 @@ var CustomModel = Backbone.Model.extend({
 	}
 });
 
+// Initialize Rebar View that listens to changes in the 'foo' property of
+// the model
 var CustomView = Rebar.View.extend({
 	initialize:function(){
 		// bindings
@@ -35,7 +39,9 @@ function buildApplication() {
 	app.view.addSubView(view);
 
 	model.fetch();
-
+	
+	// The model 'foo' property value is toggled at an interval and the UI is
+	// updated automatically as it listens to the change events on that property. 
 	setInterval(function(){
 		if(model.get("foo") === "bar") {
 			model.set("foo","foo");

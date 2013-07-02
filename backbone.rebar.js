@@ -42,7 +42,7 @@
     /**
      * The application shell provides a simple default architecture consisting of a model,
      * view and controller. The application is a singleton class in that there can only be one.
-     * It extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)
+     * It extends `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)
      * for more detailed information.
      * @class Application
      * @constructor
@@ -77,7 +77,7 @@
         }, this));
     };
     /**
-     * Available states for the application used to describe the current state of the applicaiton.
+     * Available states for the application used to describe the current state of the Application.
      * @property States
      * @type Object
      * @for Application
@@ -136,7 +136,7 @@
             }
         },
         /**
-         * Initialization functionality for extended Applicaiton instances.
+         * Initialization functionality for extended Application instances.
          * @method initialize
          * @for Application
          */
@@ -145,7 +145,7 @@
             writable: true
         },
         /**
-         * Create a model instance for the Applicaiton instance.
+         * Create a model instance for the Application instance.
          * @method createModel
          * @for Application
          */
@@ -158,7 +158,7 @@
             writable: true
         },
         /**
-         * Create a view instance for the Applicaiton instance.
+         * Create a view instance for the Application instance.
          * @method createView
          * @for Application
          */
@@ -175,7 +175,7 @@
             writable: true
         },
         /**
-         * Create a controller instance for the Applicaiton instance.
+         * Create a controller instance for the Application instance.
          * @method createController
          * @for Application
          */
@@ -190,7 +190,7 @@
             writable: true
         },
         /**
-         * Create a dependency router instance for the Applicaiton instance.
+         * Create a dependency router instance for the Application instance.
          * @method createRouter
          * @for Application
          */
@@ -312,26 +312,11 @@
          */
         sync: function(method, model, options) {
             if (method === 'read') {
-                try {
-                    this.pullLocalStore(model, options);
-                } catch (e) {
-                    console.error("Error reading from local store " + model.getStoargeId(), e);
-                }
+                this.pullLocalStore(model, options);
             } else if (method === 'create') {
-                var item;
-                try {
-                    var filteredObj = _.omit(model.attributes, ['url', 'urlRoot']);
-                    item = JSON.stringify(filteredObj);
-                } catch (e) {
-                    console.error("Error writing item to local store " + model.getStoargeId(), e);
-                }
-                localStorage.setItem(model.getStoargeId(), item);
+                localStorage.setItem(model.getStoargeId(), JSON.stringify(_.omit(model.attributes, ['url', 'urlRoot'])));
             } else if (method === 'update') {
-                try {
-                    this.pullLocalStore(model, options);
-                } catch (e) {
-                    console.error("Error updating model from local store " + model.getStoargeId(), e);
-                }
+                this.pullLocalStore(model, options);
             } else if (method === 'patch') {
                 throw '\'patch\' not implemented yet';
             } else if (method === 'delete') {
@@ -351,10 +336,9 @@
                 if (data !== null) {
                     var parsedData = JSON.parse(data);
                     model.set(parsedData);
-                    // @TODO: Do i need the following 3 lines anymore ???
-                    //if (options.success) {
-                    //	options.success(model, parsedData, options);
-                    //}
+                    if (options.success) {
+                        options.success(model, parsedData, options);
+                    }
                     model.trigger('sync', model, parsedData, options);
                 }
             } else {
@@ -363,6 +347,20 @@
                     options.error(model, error, options);
                 }
                 model.trigger('sync', model, error, options);
+            }
+        },
+        /**
+         * Backone model save functionality
+         * @param {Object} key
+         * @param {Object} val
+         * @param {Object} options
+         */
+        save: function(key, val, options) {
+            try {
+                Backbone.Model.prototype.save.call(this, key, val, options);
+            } catch (e) {
+                console.log("@TODO: look into why this is throwing an error");
+                console.log(e);
             }
         }
     });
@@ -608,7 +606,7 @@
     // === Mediator ==========================================================
     // =======================================================================
     /**
-     * Simple implementation of the mediator pattern for use with Backbone.Views
+     * Simple implementation of the [mediator pattern](http://en.wikipedia.org/wiki/Mediator_pattern) for use with Backbone.Views
      * @class Mediator
      * @constructor
      * @uses extend
@@ -875,7 +873,7 @@
      * @constructor
      * @extends Backbone.Events
      * @uses extend
-     * @TODO Determain what other functionality needs to be a part of the controller.
+     * @TODO Determine what other functionality needs to be a part of the controller.
      */
     var Controller = Rebar.Controller = function(options) {
         if (!_.isUndefined(options)) {
@@ -1009,7 +1007,7 @@
             writable: true
         },
         /**
-         * Parses a passed route string and determains directory, file, view and data
+         * Parses a passed route string and determines directory, file, view and data
          * @method parseRoute
          * @param {String} route The current Backbone.history fragment
          * @private

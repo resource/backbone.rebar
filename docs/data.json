@@ -42,7 +42,7 @@
             "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
             "line": 42,
-            "description": "The application shell provides a simple default architecture consisting of a model,\nview and controller. The application is a singleton class in that there can only be one.\nIt extend `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)\nfor more detailed information.",
+            "description": "The application shell provides a simple default architecture consisting of a model,\nview and controller. The application is a singleton class in that there can only be one.\nIt extends `Backbone.Events` and you can see the [documentation](http://backbonejs.org/#Events)\nfor more detailed information.",
             "is_constructor": 1,
             "extends": "Backbone.Events",
             "uses": [
@@ -116,8 +116,8 @@
             "extension_for": [],
             "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
-            "line": 610,
-            "description": "Simple implementation of the mediator pattern for use with Backbone.Views",
+            "line": 608,
+            "description": "Simple implementation of the [mediator pattern](http://en.wikipedia.org/wiki/Mediator_pattern) for use with Backbone.Views",
             "is_constructor": 1,
             "uses": [
                 "extend"
@@ -144,7 +144,7 @@
                 "extend"
             ],
             "todo": [
-                "Determain what other functionality needs to be a part of the controller."
+                "Determine what other functionality needs to be a part of the controller."
             ]
         },
         "Rebar.DependencyRouter": {
@@ -209,7 +209,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 79,
-            "description": "Available states for the application used to describe the current state of the applicaiton.",
+            "description": "Available states for the application used to describe the current state of the Application.",
             "itemtype": "property",
             "name": "States",
             "type": "Object",
@@ -242,7 +242,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 138,
-            "description": "Initialization functionality for extended Applicaiton instances.",
+            "description": "Initialization functionality for extended Application instances.",
             "itemtype": "method",
             "name": "initialize",
             "class": "Rebar.Application",
@@ -251,7 +251,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 147,
-            "description": "Create a model instance for the Applicaiton instance.",
+            "description": "Create a model instance for the Application instance.",
             "itemtype": "method",
             "name": "createModel",
             "class": "Rebar.Application",
@@ -260,7 +260,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 160,
-            "description": "Create a view instance for the Applicaiton instance.",
+            "description": "Create a view instance for the Application instance.",
             "itemtype": "method",
             "name": "createView",
             "class": "Rebar.Application",
@@ -269,7 +269,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 177,
-            "description": "Create a controller instance for the Applicaiton instance.",
+            "description": "Create a controller instance for the Application instance.",
             "itemtype": "method",
             "name": "createController",
             "class": "Rebar.Application",
@@ -278,7 +278,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 192,
-            "description": "Create a dependency router instance for the Applicaiton instance.",
+            "description": "Create a dependency router instance for the Application instance.",
             "itemtype": "method",
             "name": "createRouter",
             "class": "Rebar.Application",
@@ -832,8 +832,8 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1011,
-            "description": "Parses a passed route string and determains directory, file, view and data",
+            "line": 1009,
+            "description": "Parses a passed route string and determines directory, file, view and data",
             "itemtype": "method",
             "name": "parseRoute",
             "params": [

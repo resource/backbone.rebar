@@ -14,9 +14,17 @@ After the server has been started you'll be notified with a port number. You can
 
 # Example Outline
 
-1. *Data Binding*:
-2. *Mediator*:
-3. *MVC*:
-4. *Persistence*:
-5. *Simple*:
-6. *Simple 2*:
+## Data-binding
+
+Data binding is a general technique that binds two data/information sources together and maintains synchronization of data.
+This is a simple example that shows how you can listen to change events on model properties and handle those changes dynamically.
+
+## Mediator
+
+## MVC
+
+## Persistence
+
+## Simple
+
+## Simple-2

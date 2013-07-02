@@ -8,7 +8,7 @@
  * @constructor
  * @extends Backbone.Events
  * @uses extend
- * @TODO Determain what other functionality needs to be a part of the controller.
+ * @TODO Determine what other functionality needs to be a part of the controller.
  */
 var Controller = Rebar.Controller = function(options) {
 	if (!_.isUndefined(options)) {
