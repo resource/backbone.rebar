@@ -1,7 +1,7 @@
 Backbone.Rebar
 =====
 
-Backbone.Rebar is an extension of the [Backbone](http://www.backbonejs.org/) library. It adds certain functionality that I have found to be useful in developing robust, extendable and maintainable web applications such as view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a log wrapper. It adds no additional dependencies to Backbone's and is only 3.4kb minified and gzipped.
+Backbone.Rebar is an extension of the [Backbone](http://www.backbonejs.org/) library. It adds addiitonal functionality that we found useful when using developing robust, extendable and maintainable web applications with Rebar such as view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper. Backbone.Rebar is only 3.4kb minified and gzipped with no other dependencies being added to Backbone.
 
 # Installation
 
