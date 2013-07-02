@@ -2,7 +2,7 @@
     "project": {
         "name": "Backbone.Rebar",
         "description": "Adding a little bit more reinforcement to an already spectacular framework.",
-        "version": "0.4.1",
+        "version": "0.5",
         "url": "https://github.com/resource/backbone.rebar",
         "logo": "../rebar.png"
     },
