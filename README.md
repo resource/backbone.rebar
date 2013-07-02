@@ -1,41 +1,20 @@
 Backbone.Rebar
 =====
 
-Backbone.Rebar is an extension of the [Backbone](http://www.backbonejs.org/) library. It adds addiitonal functionality that we found useful when using developing robust, extendable and maintainable web applications with Rebar such as view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper. Backbone.Rebar is only 3.4kb minified and gzipped with no other dependencies being added to Backbone.
+Backbone.Rebar extends the [Backbone](http://www.backbonejs.org/) library with view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper. Backbone.Rebar is only 3.4kb minified and gzipped with no other dependencies being added to Backbone.
+
+---
 
 # Installation
 
-All you'll actually need is the backbone.rebar.js (development version) or the backbone.rebar.min.js (production version) from within this project. Once you have this file you can take a look at some of the examples to get an idea of how to start using the library.
+Include the following before `</body>`:
 
-# Building
-
-The library source files are broken up into separate files before a build is performed. You can see these files in the src directory. Rebar has a build process that you can run, but before you can do so you'll need to make sure that you have a few dependencies installed:
-
-1. [Node](http://nodejs.org)
-2. [GruntJS](http://gruntjs.com)
-3. [PhantomJS](http://phantomjs.org/)
-
-Once you have these dependencies installed run the following commands to clone the repository and build the library:
-
-	$ mkdir rebar && cd rebar && git clone https://github.com/mcgaryes/backbone.rebar.git
-	$ cd backbone.rebar/build/
-	$ npm install
-	$ grunt
-
-The built files - backbone.rebar.js and backbone.rebar.min.js - are located at the root of the project directory.
-
-# Examples
-
-There are a number of examples within this git repository that you can use to see the available features of the library. Any example directory with a server.js JavaScript file within it is one that can be run as a local node server. You'll need to have node and npm installed on your computer to run these servers. Once you have these two dependencies you can run the following commands to start the examples:
-
-	$ cd /examples
-	$ npm install
-	$ node server
-
-After the server has been started you'll be notified with a port number. You can then open a browser and navigate to http://localhost:PORT. By default, port number is set to 8889 in `examples\server.js` on Line 12.
-
-For more information on the examples, go to the examples directory.
-
+	<script type="text/javascript" src="underscore-min.js"></script>
+	<script type="text/javascript" src="backbone-min.js"></script>
+	<script type="text/javascript" src="backbone.rebar.min.js"></script>
+	
+---
+	
 # Features
 
 ### Application
@@ -75,6 +54,52 @@ Very simple boilerplate object that extends `Backbone.Events`. More to come here
 
 Console wrapper that looks to the Logger.Loglevel to determine whether or not it should actual call log, warn or error.
 
+---
+
 # API Documentation
 
-For full api documentation clone or download the repository and see the documentation folder. Alternatively, an online version of the documentation can be found [here](http://resource.github.io/backbone.rebar/docs/index.html)
+For full api documentation clone or download the repository and see the documentation folder. Alternatively, an online version of the documentation can be found [here](http://resource.github.io/backbone.rebar/docs/index.html).
+
+---
+
+# Contribute
+If you would like to contribute to Rebar, please read the following on the structure and build process.
+
+### Structure
+backbone.rebar.js is broken up into separate files, these files are located in the src directory.
+
+* rebar.application.js
+* rebar.composite-view.js
+* rebar.controller.js
+* rebar.dependency-router.js
+* rebar.mediator.js
+* rebar.persistence-model.js
+* rebar.view.js
+* rebar.core.js
+* rebar.intro.js
+* rebar.outro.js
+* rebar.logger.js
+
+### Build
+The build process requires the following:
+
+1. [Node](http://nodejs.org)
+2. [GruntJS](http://gruntjs.com)
+3. [PhantomJS](http://phantomjs.org/)
+
+````
+	$ cd backbone.rebar/build/
+	$ npm install
+	$ grunt
+````
+
+---
+
+# License
+
+2013 © [Resource LLC](http://www.resource.com)
+
+Licensed under the [MIT License](#LICENSE)
+
+
+
