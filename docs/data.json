@@ -3,7 +3,7 @@
         "name": "Backbone.Rebar",
         "description": "Adding a little bit more reinforcement to an already spectacular framework.",
         "version": "0.4.1",
-        "url": "https://github.com/mcgaryes/rebar",
+        "url": "https://github.com/resource/backbone.rebar",
         "logo": "../rebar.png"
     },
     "files": {
@@ -116,7 +116,7 @@
             "extension_for": [],
             "namespace": "Rebar",
             "file": "../temp/backbone.rebar.js",
-            "line": 608,
+            "line": 610,
             "description": "Simple implementation of the [mediator pattern](http://en.wikipedia.org/wiki/Mediator_pattern) for use with Backbone.Views",
             "is_constructor": 1,
             "uses": [
@@ -832,7 +832,7 @@
         },
         {
             "file": "../temp/backbone.rebar.js",
-            "line": 1009,
+            "line": 1011,
             "description": "Parses a passed route string and determines directory, file, view and data",
             "itemtype": "method",
             "name": "parseRoute",
