@@ -39,7 +39,7 @@ var ContentView = Rebar.View.extend({
 		this.model.set("color",colorId);
 		this.$el.css({
 			"background-color" : color
-		}).html("You have selected "+colorId);
+		}).html("You have selected: <span>" + colorId + "</span>");
 	}
 });
 

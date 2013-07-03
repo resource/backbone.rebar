@@ -118,6 +118,23 @@
 			padding-bottom: $default-space;
 		}
 
+		#content {
+			padding: $default-space;
+			&[style*="background-color"] {
+				color: #FFF;
+				text-shadow: 1px 1px 0 rgba(0,0,0,.2);
+				span {
+					background-color: rgba(255,255,255,.8);
+					box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+					color: #333;
+					display: inline-block;
+					font-family: monospace;
+					padding: 1px 3px;
+					text-transform: uppercase;
+				}
+			}
+		}
+
 		#footer {
 			@extend %border-box;
 			background-color: $color-light;
