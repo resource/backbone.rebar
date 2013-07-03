@@ -9,6 +9,10 @@ module.exports = function(grunt) {
     var BANNER = '/**\n * ' + NAME + ' v' + VERSION + '\n * ' + DESCRIPTION + '\n * ' + URL + '\n */\n';
     var LOGO = "../rebar.png";
 
+
+    // load all grunt tasks
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+
     // config
     grunt.initConfig({
         uglify: {
@@ -103,15 +107,6 @@ module.exports = function(grunt) {
             }
         }
     });
-
-    // load npm tasks
-    grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-jsbeautifier');
 
     // tasks
     grunt.registerTask('docs', ['copy:docs', 'yuidoc']);
