@@ -110,6 +110,14 @@
 			}
 		}
 
+		hr {
+			margin-bottom: $default-space;
+		}
+
+		#application {
+			padding-bottom: $default-space;
+		}
+
 		#footer {
 			@extend %border-box;
 			background-color: $color-light;
