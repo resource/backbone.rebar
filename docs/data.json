@@ -1,8 +1,8 @@
 {
     "project": {
         "name": "Backbone.Rebar",
-        "description": "Adding a little bit more reinforcement to an already spectacular framework.",
-        "version": "0.5",
+        "description": "Extends the Backbone library with view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper.",
+        "version": "0.4.1",
         "url": "https://github.com/resource/backbone.rebar",
         "logo": "../rebar.png"
     },

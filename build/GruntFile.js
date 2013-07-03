@@ -3,9 +3,9 @@ module.exports = function(grunt) {
     'use strict';
 
     var NAME = 'Backbone.Rebar';
-    var DESCRIPTION = 'Adding a little bit more reinforcement to an already spectacular framework.';
+    var DESCRIPTION = 'Extends the Backbone library with view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper.';
     var URL = 'https://github.com/resource/backbone.rebar';
-    var VERSION = '0.5';
+    var VERSION = '0.4.1';
     var BANNER = '/**\n * ' + NAME + ' v' + VERSION + '\n * ' + DESCRIPTION + '\n * ' + URL + '\n */\n';
     var LOGO = "../rebar.png";
 
@@ -47,6 +47,13 @@ module.exports = function(grunt) {
                     "../VERSION": "../VERSION"
                 }
             },
+            examples: {
+                files: [{
+                        src: ['../backbone.rebar.min.js'],
+                        dest: '../examples/assets/js/libs/backbone.rebar.min.js'
+                    }
+                ]
+            }
         },
         yuidoc: {
             project: {
@@ -109,6 +116,6 @@ module.exports = function(grunt) {
     // tasks
     grunt.registerTask('docs', ['copy:docs', 'yuidoc']);
     grunt.registerTask('dev', ['jasmine', 'concat', 'jsbeautifier', 'jshint']);
-    grunt.registerTask('default', ['dev', 'uglify', 'docs', 'copy:version']);
+    grunt.registerTask('default', ['dev', 'uglify', 'docs', 'copy:version', 'copy:examples']);
 
 };
