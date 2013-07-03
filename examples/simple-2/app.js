@@ -29,9 +29,9 @@ var ContentView = Rebar.View.extend({
 	},
 	render: function(callback) {
 		this.$el.html(_.template($("#content-template").html(), {
-			cid: this.cid,
-			selection: this.model.color
+			cid: this.cid
 		}));
+		this.handleColorChange(this.model,this.model.color);
 		callback(this.el);
 	},
 	handleColorChange:function(model,colorId){
@@ -39,7 +39,7 @@ var ContentView = Rebar.View.extend({
 		this.model.set("color",colorId);
 		this.$el.css({
 			"background-color" : color
-		});
+		}).html("You have selected "+colorId);
 	}
 });
 
