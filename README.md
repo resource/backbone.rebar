@@ -1,7 +1,7 @@
 Backbone.Rebar
 =====
 
-Backbone.Rebar extends the [Backbone](http://www.backbonejs.org/) library with view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper. Backbone.Rebar is only 3.4kb minified and gzipped with no other dependencies being added to Backbone.
+Backbone.Rebar extends the [Backbone](http://www.backbonejs.org/) library with view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper. Backbone.Rebar is only 3.13kB minified and gzipped with no other dependencies being added to Backbone.
 
 ---
 
@@ -12,9 +12,9 @@ Include the following before `</body>`:
 	<script type="text/javascript" src="underscore-min.js"></script>
 	<script type="text/javascript" src="backbone-min.js"></script>
 	<script type="text/javascript" src="backbone.rebar.min.js"></script>
-	
+
 ---
-	
+
 # Features
 
 ### Application
