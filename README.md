@@ -5,7 +5,7 @@ Backbone.Rebar extends the [Backbone.js](http://www.backbonejs.org/) library wit
 
 ---
 
-# Installation
+# Implementation
 
 Include the following before `</body>`:
 
