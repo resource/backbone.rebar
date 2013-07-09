@@ -1,0 +1,10 @@
+{
+	"name": "simple-server",
+	"description": "simple-server",
+	"version": "1.0.0",
+	"private": true,
+	"devDependencies": {
+		"express": "3.x",
+		"ejs": "*"
+	}
+}
