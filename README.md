@@ -9,9 +9,10 @@ Backbone.Rebar extends the [Backbone.js](http://www.backbonejs.org/) library wit
 
 Include the following before `</body>`:
 
-	<script type="text/javascript" src="underscore-min.js"></script>
-	<script type="text/javascript" src="backbone-min.js"></script>
-	<script type="text/javascript" src="backbone.rebar.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="underscore-min.js"></script>
+	<script src="backbone-min.js"></script>
+	<script src="backbone.rebar.min.js"></script>
 
 ---
 
