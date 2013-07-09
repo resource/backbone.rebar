@@ -209,8 +209,8 @@
             writable: true
         },
         /**
-         * This method kicks off Backbone's history managment as well as loads the bootstrap data
-         * if a reference was passed through the contructors options argument.
+         * This method kicks off Backbone's history management as well as loads the bootstrap data
+         * if a reference was passed through the constructors options argument.
          * @method startup
          * @for Application
          */
@@ -798,7 +798,7 @@
         },
         /**
          * Handler method that is called when one of the module the mediator is listening
-         * for is fired. Should be overriden in `Mediator` instances.
+         * for is fired. Should be overwritten in `Mediator` instances.
          * @method handle
          * @for Mediator
          * @param {Object} eventName
@@ -937,7 +937,7 @@
     DependencyRouter.prototype = Object.create(Backbone.Router.prototype, {
         /**
          * Default landing for no hash. Where the browser will be routed to when landing
-         * on the root url of the applicaiton.
+         * on the root url of the application.
          * @property landing
          * @type {String}
          * @default ""
@@ -985,7 +985,7 @@
             writable: true
         },
         /**
-         * Handles every route that doesnt match any of the previous matches
+         * Handles every route that doesn't match any of the previous matches
          * @method handleAll
          * @private
          */
@@ -1078,7 +1078,7 @@
             writable: true
         },
         /**
-         * Takes a passed route object and determains a file location
+         * Takes a passed route object and determines a file location
          * @method getFileLocation
          * @param {Object} route Object formed in parseRoute method
          * @private

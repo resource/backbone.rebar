@@ -287,7 +287,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 211,
-            "description": "This method kicks off Backbone's history managment as well as loads the bootstrap data\nif a reference was passed through the contructors options argument.",
+            "description": "This method kicks off Backbone's history management as well as loads the bootstrap data\nif a reference was passed through the constructors options argument.",
             "itemtype": "method",
             "name": "startup",
             "class": "Rebar.Application",
@@ -680,7 +680,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 799,
-            "description": "Handler method that is called when one of the module the mediator is listening\nfor is fired. Should be overriden in `Mediator` instances.",
+            "description": "Handler method that is called when one of the module the mediator is listening\nfor is fired. Should be overwritten in `Mediator` instances.",
             "itemtype": "method",
             "name": "handle",
             "params": [
@@ -775,7 +775,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 938,
-            "description": "Default landing for no hash. Where the browser will be routed to when landing\non the root url of the applicaiton.",
+            "description": "Default landing for no hash. Where the browser will be routed to when landing\non the root url of the application.",
             "itemtype": "property",
             "name": "landing",
             "type": "{String}",
@@ -822,7 +822,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 987,
-            "description": "Handles every route that doesnt match any of the previous matches",
+            "description": "Handles every route that doesn't match any of the previous matches",
             "itemtype": "method",
             "name": "handleAll",
             "access": "private",
@@ -869,7 +869,7 @@
         {
             "file": "../temp/backbone.rebar.js",
             "line": 1080,
-            "description": "Takes a passed route object and determains a file location",
+            "description": "Takes a passed route object and determines a file location",
             "itemtype": "method",
             "name": "getFileLocation",
             "params": [
