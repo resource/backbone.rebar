@@ -205,7 +205,7 @@ Mediator.prototype = Object.create(Backbone.Events, {
 
 	/**
 	 * Handler method that is called when one of the module the mediator is listening
-	 * for is fired. Should be overriden in `Mediator` instances.
+	 * for is fired. Should be overwritten in `Mediator` instances.
 	 * @method handle
 	 * @for Mediator
 	 * @param {Object} eventName

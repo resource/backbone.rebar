@@ -44,7 +44,7 @@ DependencyRouter.prototype = Object.create(Backbone.Router.prototype, {
 
 	/**
 	 * Default landing for no hash. Where the browser will be routed to when landing
-	 * on the root url of the applicaiton.
+	 * on the root url of the application.
 	 * @property landing
 	 * @type {String}
 	 * @default ""
@@ -96,7 +96,7 @@ DependencyRouter.prototype = Object.create(Backbone.Router.prototype, {
 	},
 
 	/**
-	 * Handles every route that doesnt match any of the previous matches
+	 * Handles every route that doesn't match any of the previous matches
 	 * @method handleAll
 	 * @private
 	 */
@@ -205,7 +205,7 @@ DependencyRouter.prototype = Object.create(Backbone.Router.prototype, {
 	},
 
 	/**
-	 * Takes a passed route object and determains a file location
+	 * Takes a passed route object and determines a file location
 	 * @method getFileLocation
 	 * @param {Object} route Object formed in parseRoute method
 	 * @private

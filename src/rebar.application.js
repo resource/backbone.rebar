@@ -2,7 +2,7 @@
 // =======================================================================
 // === Application =======================================================
 // =======================================================================
-	
+
 /**
  * The application shell provides a simple default architecture consisting of a model,
  * view and controller. The application is a singleton class in that there can only be one.
@@ -182,8 +182,8 @@ Application.prototype = Object.create(Backbone.Events, {
 	},
 
 	/**
-	 * This method kicks off Backbone's history managment as well as loads the bootstrap data
-	 * if a reference was passed through the contructors options argument.
+	 * This method kicks off Backbone's history management as well as loads the bootstrap data
+	 * if a reference was passed through the constructors options argument.
 	 * @method startup
 	 * @for Application
 	 */
