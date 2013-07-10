@@ -4,3 +4,4 @@
 temp
 # Sass cache files
 *.scssc
+/examples/npm-debug.log
