@@ -57,9 +57,15 @@ Console wrapper that looks to the Logger.Loglevel to determine whether or not it
 
 ---
 
+# Examples
+
+For example code that demonstrates the capabilities of Rebar, clone or download the repository and see the examples folder. Alternatively, an online version of the examples can be found [here](http://resource.github.io/backbone.rebar/examples/).
+
+---
+
 # API Documentation
 
-For full api documentation clone or download the repository and see the documentation folder. Alternatively, an online version of the documentation can be found [here](http://resource.github.io/backbone.rebar/docs/index.html).
+For full api documentation clone or download the repository and see the documentation folder. Alternatively, an online version of the documentation can be found [here](http://resource.github.io/backbone.rebar/docs/).
 
 ---
 
