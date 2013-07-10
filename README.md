@@ -59,7 +59,7 @@ Console wrapper that looks to the Logger.Loglevel to determine whether or not it
 
 # Examples
 
-The examples can be run as a local node server which requires node and npm.
+The examples can be run as a local node server which requires node and npm or can be found online [here](http://resource.github.io/backbone.rebar/examples/).
 
 ### Run
 
@@ -72,10 +72,6 @@ The examples can be run as a local node server which requires node and npm.
 You can then open a browser and navigate to http://localhost:8889.
 
 By default, port number is set to 8889 in `examples\server.js` on Line 12.
-
-### Online Demo
-
-An online version of the examples can be found [here](http://resource.github.io/backbone.rebar/examples/).
 
 ---
 
