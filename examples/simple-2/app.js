@@ -24,13 +24,12 @@ var ColorsModel = Backbone.Model.extend({
 
 var ContentView = Rebar.View.extend({
 	id:"content",
+	template: _.template($("#content-template").html()),
 	initialize:function(){
 		this.model.on("change:color",this.handleColorChange,this);
 	},
 	render: function(callback) {
-		this.$el.html(_.template($("#content-template").html(), {
-			cid: this.cid
-		}));
+		this.$el.html(this.template( {cid: this.cid} ) );
 		this.handleColorChange(this.model,this.model.color);
 		callback(this.el);
 	},
@@ -45,13 +44,12 @@ var ContentView = Rebar.View.extend({
 
 var ControlsView = Rebar.View.extend({
 	id:"controls",
+	template: _.template($("#controls-template").html()),
 	events:{
 		"change input":  "handleColorSelected"
 	},
 	render: function(callback) {
-		this.$el.html(_.template($("#controls-template").html(), {
-			cid: this.cid
-		}));
+		this.$el.html(this.template({cid:this.cid}));
 		callback(this.el);
 	},
 	handleColorSelected:function(e){
