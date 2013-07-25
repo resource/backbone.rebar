@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<title>backbone.rebar Starter Kit</title>
+	<meta name="description" content="Backbone.Rebar extends the Backbone.js library with view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper. Backbone.Rebar is only 3.13kB minified and gzipped with no other dependencies being added to Backbone." />
+	<meta name="keywords" content="Backbone, Backbonejs, rebar, backbonerebar, backbone.rebar, Resource, router, persistence, javascript, mvc, data binding, backbone libary, starter kit" />
+
+
+	<link rel="stylesheet" href="../assets/css/styles.css" />
+
+</head>
+<body>
+	<div class="container" id="header">
+	</div>
+
+	<div class="container" id="main">
+	</div>
+
+	<div class="container" id="footer">
+	</div>
+
+	<!-- JavaScript Dependencies -->
+	<script data-main="app/config" src="../assets/js/libs/require.js"></script>
+
+	<!-- header-template -->
+	<script type="text/template" id="header-template">
+		<h1>
+			<a href="/"><%= title %></a>: <span><%= subtitle %></span>
+		</h1>
+		<ul class="unlist menu">
+			<li>
+				<a href="#View1" class="light view view1">View 1</a>
+			</li>
+			<li>
+				<a href="#View2" class="light view view2">View 2</a>
+			</li>
+			<li>
+				<a href="#View3" class="light view view3">View 3</a>
+			</li>
+		</ul>
+		<div class="clear"></div>
+	</script>
+
+	<!-- view1-template -->
+	<script type="text/template" id="view1-template">
+		<h3>
+			Persistent Data
+		</h3>
+		<p>
+			This view is a demonstration of the persistence model. Enter your name in the field below and the data will persist even if the view is destroyed.
+		</p>
+		<form id="persistenceExample" action="">
+			<label for="name">
+				<% if (name != "") { %>
+					Update Name:
+				<% } else { %>
+					Your Name:
+				<% } %>
+			</label>
+			<input type="text" id="name" />
+			<input class="button" type="submit" id="save" value="SAVE" />
+		</form>
+		<% if (name != "") { %>
+			<p>
+				Welcome, <strong><%= name %></strong>!
+			</p>
+		<% } %>
+	</script>
+
+	<!-- view2-template -->
+	<script type="text/template" id="view2-template">
+		<h3>
+			Remote Data
+		</h3>
+		<p>
+			This view demonstrates loading remote JSON data from <a href="http://date.jsontest.com/">http://date.jsontest.com/</a>.
+		</p>
+		<ul>
+		<% _.each(remoteData.attributes, function(value, key){ %>
+			<li>
+				<strong><%= key %>:</strong> <%= value %>
+			</li>
+		<% }); %>
+		</ul>
+	</script>
+
+	<!-- view3-template -->
+	<script type="text/template" id="view3-template">
+		<h3>
+			No Footer
+		</h3>
+		<p>
+			This view demonstrates hiding the footer using the mediator object.
+		</p>
+	</script>
+
+	<!-- footer-template -->
+	<script type="text/template" id="footer-template">
+		<ul class="unlist">
+			<li>
+				<a href="https://github.com/resource/backbone-starterkit/blob/master/LICENSE">
+					License
+				</a>
+			</li>
+			<li>
+				<a href="https://github.com/resource" target="_blank">
+					<img src="../assets/images/resource-logo.png" />
+				</a>
+			</li>
+		</ul>
+	</script>
+
+</body>
+</html>
