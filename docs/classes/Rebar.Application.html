@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -133,6 +133,7 @@
 view and controller. The application is a singleton class in that there can only be one.
 It extends <code>Backbone.Events</code> and you can see the <a href="http://backbonejs.org/#Events">documentation</a>
 for more detailed information.</p>
+
 </div>
 
 
@@ -197,11 +198,11 @@ for more detailed information.</p>
     ...
 };
 var app = new Backbone.Rebar.Application(appConfig);
-app.on("applicationStateChange",function(state){
+app.on(&quot;applicationStateChange&quot;,function(state){
     ...
 });
-app.startup();
-</code></pre>
+app.startup();</code></pre>
+
             </div>
         </div>
     
@@ -372,6 +373,7 @@ app.startup();
 
     <div class="description">
         <p>Create a controller instance for the Application instance.</p>
+
     </div>
 
     
@@ -426,6 +428,7 @@ app.startup();
 
     <div class="description">
         <p>Create a model instance for the Application instance.</p>
+
     </div>
 
     
@@ -480,6 +483,7 @@ app.startup();
 
     <div class="description">
         <p>Create a dependency router instance for the Application instance.</p>
+
     </div>
 
     
@@ -534,6 +538,7 @@ app.startup();
 
     <div class="description">
         <p>Create a view instance for the Application instance.</p>
+
     </div>
 
     
@@ -602,6 +607,7 @@ app.startup();
 
     <div class="description">
         <p>Extention functionality for the prototyped object that implements it.</p>
+
     </div>
 
     
@@ -638,7 +644,8 @@ app.startup();
                     
                         <span class="type">Object</span>:
                     
-                    child
+                    <p>child</p>
+
                 
             </div>
         </div>
@@ -692,6 +699,7 @@ app.startup();
 
     <div class="description">
         <p>Initialization functionality for extended Application instances.</p>
+
     </div>
 
     
@@ -745,8 +753,9 @@ app.startup();
     </div>
 
     <div class="description">
-        <p>This method kicks off Backbone's history management as well as loads the bootstrap data
+        <p>This method kicks off Backbone&#39;s history management as well as loads the bootstrap data
 if a reference was passed through the constructors options argument.</p>
+
     </div>
 
     
@@ -801,6 +810,7 @@ if a reference was passed through the constructors options argument.</p>
 
     <div class="description">
         <p>The current state value.</p>
+
     </div>
 
     
@@ -845,6 +855,7 @@ if a reference was passed through the constructors options argument.</p>
 
     <div class="description">
         <p>Getters and setters for the current state value.</p>
+
     </div>
 
     
@@ -891,6 +902,7 @@ if a reference was passed through the constructors options argument.</p>
 
     <div class="description">
         <p>Available states for the application used to describe the current state of the Application.</p>
+
     </div>
 
     

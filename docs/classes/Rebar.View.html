@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -123,6 +123,7 @@
     <p>Base class that extends <a href="http://backbonejs.org/#View">Backbone.View</a> and
 provides boilerplate plate functionality for transitioning in and out, destroying
 and rendering views.</p>
+
 </div>
 
 
@@ -191,8 +192,8 @@ view.transitionIn({
 });
 view.transitionOut({
     this.destroy();
-},this);
-</code></pre>
+},this);</code></pre>
+
             </div>
         </div>
     
@@ -337,6 +338,7 @@ view.transitionOut({
         <p>This method is a great helper method to call when the subclass view is about to be removed.
 It recursively will call destroy on any subviews reference in the sub views array. It also handles
 removing any event listeners that may have been added to the subViews array.</p>
+
     </div>
 
     
@@ -402,6 +404,7 @@ removing any event listeners that may have been added to the subViews array.</p>
     <div class="description">
         <p>For instances that are used in dependency routing the render method is called
 and used directly after loading. For all other uses you must call render manually.</p>
+
     </div>
 
     
@@ -489,6 +492,7 @@ and used directly after loading. For all other uses you must call render manuall
 
     <div class="description">
         <p>Transitions in the view. By default this method actually does nothing.</p>
+
     </div>
 
     
@@ -576,6 +580,7 @@ and used directly after loading. For all other uses you must call render manuall
 
     <div class="description">
         <p>Transitions out the view. By default this method actually does nothing.</p>
+
     </div>
 
     
@@ -651,6 +656,7 @@ and used directly after loading. For all other uses you must call render manuall
 
     <div class="description">
         <p>Reference to the views controller</p>
+
     </div>
 
     
@@ -695,6 +701,7 @@ and used directly after loading. For all other uses you must call render manuall
 
     <div class="description">
         <p>isDestroyed getter</p>
+
     </div>
 
     

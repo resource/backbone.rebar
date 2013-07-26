@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -121,10 +121,11 @@
 
 <div class="box intro">
     <p>Handles all pre and post routing functionality. This is the default router when you initialize
-an <code>Application</code> instance. Once initialized any time the browser's anchor location changes this
+an <code>Application</code> instance. Once initialized any time the browser&#39;s anchor location changes this
 class notifies the rest of the application of the new directory, file, view and anchor to use.
-To use simply listen to the application's <code>routeDidChange</code> or the router's <code>routeDidChange</code> event firing
+To use simply listen to the application&#39;s <code>routeDidChange</code> or the router&#39;s <code>routeDidChange</code> event firing
 and then implement the AMD loader that makes the most sense (for your project) to use.</p>
+
 </div>
 
 
@@ -186,7 +187,7 @@ and then implement the AMD loader that makes the most sense (for your project) t
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>// requirejs example
-router.on("routeDidChange", function(route){
+router.on(&quot;routeDidChange&quot;, function(route){
     var mReq = require([resource], function(a) {
         var Constructor = a[view];
         var v = new Constructor({
@@ -194,10 +195,10 @@ router.on("routeDidChange", function(route){
         });
         delegate.addSubView(v);
     }, function(e) {
-        console.log("Error: " + e);
+        console.log(&quot;Error: &quot; + e);
     });
-});
-</code></pre>
+});</code></pre>
+
             </div>
         </div>
     
@@ -380,6 +381,7 @@ router.on("routeDidChange", function(route){
 
     <div class="description">
         <p>Takes a passed route object and determines a file location</p>
+
     </div>
 
     
@@ -398,6 +400,7 @@ router.on("routeDidChange", function(route){
 
                     <div class="param-description">
                         <p>Object formed in parseRoute method</p>
+
                     </div>
 
                     
@@ -458,7 +461,8 @@ router.on("routeDidChange", function(route){
     </div>
 
     <div class="description">
-        <p>Handles every route that doesn't match any of the previous matches</p>
+        <p>Handles every route that doesn&#39;t match any of the previous matches</p>
+
     </div>
 
     
@@ -515,6 +519,7 @@ router.on("routeDidChange", function(route){
 
     <div class="description">
         <p>Reroute the page to the page referenced as landing</p>
+
     </div>
 
     
@@ -581,6 +586,7 @@ router.on("routeDidChange", function(route){
 
     <div class="description">
         <p>Parses a passed route string and determines directory, file, view and data</p>
+
     </div>
 
     
@@ -599,6 +605,7 @@ router.on("routeDidChange", function(route){
 
                     <div class="param-description">
                         <p>The current Backbone.history fragment</p>
+
                     </div>
 
                     
@@ -670,6 +677,7 @@ router.on("routeDidChange", function(route){
 
     <div class="description">
         <p>Parse the query string provides and returns key value pair object</p>
+
     </div>
 
     
@@ -763,6 +771,7 @@ router.on("routeDidChange", function(route){
 
     <div class="description">
         <p>Adds the name and method to the staticRoutes object as a key/value pair</p>
+
     </div>
 
     
@@ -866,6 +875,7 @@ router.on("routeDidChange", function(route){
     <div class="description">
         <p>Takes key value pairs from an object and sets them to the staticRoutes
 object on the router</p>
+
     </div>
 
     
@@ -942,6 +952,7 @@ object on the router</p>
     <div class="description">
         <p>Default landing for no hash. Where the browser will be routed to when landing
 on the root url of the application.</p>
+
     </div>
 
     
@@ -989,8 +1000,9 @@ on the root url of the application.</p>
     </div>
 
     <div class="description">
-        <p>Define only the route hash here because we'll be using dependency routing
+        <p>Define only the route hash here because we&#39;ll be using dependency routing
 for the rest of the functionality.</p>
+
     </div>
 
     
@@ -1041,6 +1053,7 @@ for the rest of the functionality.</p>
         <p>This object is empty by default, but routes added here, either manually,
 or through the two methods, setStaticRoute and setStaticRoutes, will bypass
 the handleAll and handleNoHash methods referenced in the routes object.</p>
+
     </div>
 
     

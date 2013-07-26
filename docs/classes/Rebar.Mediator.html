@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -126,6 +126,7 @@
 
 <div class="box intro">
     <p>Simple implementation of the <a href="http://en.wikipedia.org/wiki/Mediator_pattern">mediator pattern</a> for use with Backbone.Views</p>
+
 </div>
 
 
@@ -188,9 +189,9 @@
             <div class="example-content">
                 <pre class="code prettyprint"><code>var mediator = new Mediator({
     events:{
-        "appwide1":{
+        &quot;appwide1&quot;:{
             dispatcher:app
-            callback:"method"
+            callback:&quot;method&quot;
         }
     },
     initialize:function(options){
@@ -203,10 +204,10 @@
         ...
     }
 });
-mediator.addView(view,"event1 event2");
-view.trigger("something",view);
-mediator.removeView(view);
-</code></pre>
+mediator.addView(view,&quot;event1 event2&quot;);
+view.trigger(&quot;something&quot;,view);
+mediator.removeView(view);</code></pre>
+
             </div>
         </div>
     
@@ -414,6 +415,7 @@ mediator.removeView(view);
 
     <div class="description">
         <p>Adds module as one that the mediator should be listening for events.</p>
+
     </div>
 
     
@@ -530,6 +532,7 @@ mediator.removeView(view);
 
     <div class="description">
         <p>Assigns a callback to the passed dispatcher for the event to be fired.</p>
+
     </div>
 
     
@@ -637,6 +640,7 @@ mediator.removeView(view);
 
     <div class="description">
         <p>destroys a mediator and removes all listeners.</p>
+
     </div>
 
     
@@ -701,6 +705,7 @@ mediator.removeView(view);
 
     <div class="description">
         <p>Returns a view that has the same value/key pairs provided</p>
+
     </div>
 
     
@@ -719,6 +724,7 @@ mediator.removeView(view);
 
                     <div class="param-description">
                         <p>Key/Value pair to use with an UnderscoreJS _.with look up</p>
+
                     </div>
 
                     
@@ -736,8 +742,8 @@ mediator.removeView(view);
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>...
-mediator.getView({name:"foo"});
-</code></pre>
+mediator.getView({name:&quot;foo&quot;});</code></pre>
+
             </div>
         </div>
     
@@ -798,6 +804,7 @@ mediator.getView({name:"foo"});
 
     <div class="description">
         <p>Returns a view that has the same <strong>user defined</strong> name provided</p>
+
     </div>
 
     
@@ -816,6 +823,7 @@ mediator.getView({name:"foo"});
 
                     <div class="param-description">
                         <p>User defined view name</p>
+
                     </div>
 
                     
@@ -833,8 +841,8 @@ mediator.getView({name:"foo"});
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>...
-mediator.getView({name:"foo"});
-</code></pre>
+mediator.getView({name:&quot;foo&quot;});</code></pre>
+
             </div>
         </div>
     
@@ -902,6 +910,7 @@ mediator.getView({name:"foo"});
     <div class="description">
         <p>Handler method that is called when one of the module the mediator is listening
 for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
+
     </div>
 
     
@@ -1004,6 +1013,7 @@ for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
 
     <div class="description">
         <p>Returns boolean for whether the mediator contains a view or not.</p>
+
     </div>
 
     
@@ -1081,6 +1091,7 @@ for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
 
     <div class="description">
         <p>Called for any modules that extend the <code>Mediator</code> prototype.</p>
+
     </div>
 
     
@@ -1147,6 +1158,7 @@ for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
 
     <div class="description">
         <p>Runs through all of the events that the mediator should be listening for.</p>
+
     </div>
 
     
@@ -1236,6 +1248,7 @@ for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
 
     <div class="description">
         <p>Processes all of the viewEvents passes in through the mediator config options</p>
+
     </div>
 
     
@@ -1323,6 +1336,7 @@ for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
 
     <div class="description">
         <p>Removes module from one that the mediator should be listening for.</p>
+
     </div>
 
     
@@ -1400,6 +1414,7 @@ for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
 
     <div class="description">
         <p>Stores reference to all views added to the mediator.</p>
+
     </div>
 
     
@@ -1443,7 +1458,8 @@ for is fired. Should be overwritten in <code>Mediator</code> instances.</p>
     </div>
 
     <div class="description">
-        <p>Reference to a single view who we'll be mediating for.</p>
+        <p>Reference to a single view who we&#39;ll be mediating for.</p>
+
     </div>
 
     

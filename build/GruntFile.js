@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     var NAME = 'Backbone.Rebar';
     var DESCRIPTION = 'Extends the Backbone library with view transitions, subviews, view mediators, local storage for sync, dynamic route definitions, controllers, and a simple log wrapper.';
     var URL = 'https://github.com/resource/backbone.rebar';
-    var VERSION = '1.0.0';
+    var VERSION = '1.1.0';
     var BANNER = '/**\n * ' + NAME + ' v' + VERSION + '\n * ' + DESCRIPTION + '\n * ' + URL + '\n */\n';
     var LOGO = "../rebar.png";
 

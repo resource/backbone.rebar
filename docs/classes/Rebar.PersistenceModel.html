@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -126,6 +126,7 @@ across multiple pages within the same domain. The url property is used to grab d
 from a specific object of the localStorage object. Use the <code>fetch</code> method to pull
 whatever data already exists in localStorage and use the <code>save</code> method to store for
 later use.</p>
+
 </div>
 
 
@@ -187,12 +188,12 @@ later use.</p>
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>var model = new Backbone.Rebar.PersistenceModel({
-    url:"custom"
+    url:&quot;custom&quot;
 });
 model.fetch();
-model.set("foo","bar");
-model.save();
-</code></pre>
+model.set(&quot;foo&quot;,&quot;bar&quot;);
+model.save();</code></pre>
+
             </div>
         </div>
     
@@ -317,6 +318,7 @@ model.save();
 
     <div class="description">
         <p>Determains and returns a storage id based on the passed id in initialization</p>
+
     </div>
 
     
@@ -330,7 +332,8 @@ model.save();
                     
                         <span class="type">String</span>:
                     
-                    storage id for this persistence model
+                    <p>storage id for this persistence model</p>
+
                 
             </div>
         </div>
@@ -402,6 +405,7 @@ model.save();
 
     <div class="description">
         <p>Helper method pulls data based on urlRoot from local storage</p>
+
     </div>
 
     
@@ -516,6 +520,7 @@ model.save();
 
     <div class="description">
         <p>Overriden to make sure that we have a urlRoot on our persistence model</p>
+
     </div>
 
     
@@ -647,6 +652,7 @@ model.save();
 
     <div class="description">
         <p>Overridden to reroute the to a localStorage endpoint.</p>
+
     </div>
 
     

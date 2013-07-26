@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 1.0.0</em>
+            <em>API Docs for: 1.1.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -125,6 +125,7 @@ into situations where you need to add the view then render and when you go to de
 view, you want to make sure you properly dispose of its children.
 The composite view makes managing child parent relationships a bit easier by adding recursive destroy
 functionality as well as making it possible to quickly add and remove child views.</p>
+
 </div>
 
 
@@ -191,8 +192,8 @@ functionality as well as making it possible to quickly add and remove child view
 var view = new Backbone.Rebar.View({
     ...
 });
-composite.addSubView(view);
-</code></pre>
+composite.addSubView(view);</code></pre>
+
             </div>
         </div>
     
@@ -335,6 +336,7 @@ composite.addSubView(view);
 
     <div class="description">
         <p>Adds a sub view to a container BaseView</p>
+
     </div>
 
     
@@ -422,6 +424,7 @@ composite.addSubView(view);
 
     <div class="description">
         <p>Adds an array of sub views to a container BaseView</p>
+
     </div>
 
     
@@ -440,6 +443,7 @@ composite.addSubView(view);
 
                     <div class="param-description">
                         <p>Array of subviews</p>
+
                     </div>
 
                     
@@ -501,6 +505,7 @@ composite.addSubView(view);
         <p>This method is a great helper method to call when the subclass view is about to be removed.
 It recursively will call destroy on any subviews reference in the sub views array. It also handles
 removing any event listeners that may have been added to the subViews array.</p>
+
     </div>
 
     
@@ -568,6 +573,7 @@ removing any event listeners that may have been added to the subViews array.</p>
     <div class="description">
         <p>Checks to see if the passed view has destroy functionality and then if it does not
 calls the prototype destroy functionality and passes the reference</p>
+
     </div>
 
     
@@ -645,6 +651,7 @@ calls the prototype destroy functionality and passes the reference</p>
 
     <div class="description">
         <p>Removes all sub views from view</p>
+
     </div>
 
     
@@ -709,6 +716,7 @@ calls the prototype destroy functionality and passes the reference</p>
 
     <div class="description">
         <p>Removes a sub view from the container view</p>
+
     </div>
 
     
@@ -727,6 +735,7 @@ calls the prototype destroy functionality and passes the reference</p>
 
                     <div class="param-description">
                         <p>A base view or a cid of the sub view</p>
+
                     </div>
 
                     
