@@ -31,7 +31,7 @@
 		}
 
 		%box-sizing {
-			@extend box-sizing;
+			@include box-sizing;
 		}
 		%inline-block {
 			display: inline-block;
@@ -64,6 +64,9 @@
 		a {
 			color: $color-dark;
 			text-decoration: none;
+			&.active {
+				text-decoration: underline;
+			}
 		}
 
 		p, %hover-links {
@@ -74,7 +77,7 @@
 			}
 		}
 
-		button {
+		button, .button {
 			@extend %box-sizing;
 			background-color: $highlight;
 			border: 0;
@@ -135,8 +138,12 @@
 			}
 		}
 
+		#main {
+			min-height: 150px;
+		}
+
 		#footer {
-			@extend %border-box;
+			@extend %box-sizing;
 			background-color: $color-light;
 			margin-top: $default-space-smaller * 3;
 			padding: $default-space-smallest $default-space;
